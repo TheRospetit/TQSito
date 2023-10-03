@@ -1,0 +1,79 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+
+
+class Player {
+- name : String
+- id : int
+- hand : list <Card>
+- blocked : Boolean
+- winner : Boolean
+
++ getName() : String
++ getInt() : int
++ isWinner() : boolean
++ showCards()
+
+}
+
+Abstract Card{
+- number : int
+- colour : String
+- action : String
++ Card()
++ getNumber() : int
++ getColour() : String
++ getAction() : String
+# setAction(a : String)
+}
+
+class Action extends Card{
+# setAction(a : String)
+}
+
+class Statistic{
+- cardsDrawnByPlayers : Map<int, int> /'Map donde almacenamos las cartas que ha robado cada jugador con el id del jugador y el número de cartas'/
+
++ updateDataBase(CDBP : Map <int, int>) /'Actualiza la base de datos pasando el player y el número de cartas que ha robado'/
++ getGlobalGames() : int
++ getMoreCardsDrawn() : Map<int, int>
+}
+
+class DataBase{
+- playerNamesAndId : Map<String, int> /'lista de jugadores con sus respectivos id'/
+- cardsDrawnByPlayers : Map<int, int>
+- globalGames :int
+
++ setGlobalGames(int)
++ getPlayersAndId() : Map<String, int> /'te devuelve la lista de jugadores con sus respectivos id'/
+}
+
+class Deck{
+-notMoreCards : boolean
+-numCards : int
+-playableCards : list<Card>
++ Deck()
++ getNumCard()
+}
+
+class Game{
+- numPlayers : int
+- Players : list<Players>
+- currentPlayer : int
+
++ getCurrentPlayer() : int
++ Game(nPlayer : int , namePlayers : list <String>)
++ getNumPlayers()
++ updateStatistics()
+}
+
+class Statistic
+note left: Una clase statistic por cada jugador
+
+Deck *-down-> "1..*" Card : cards
+Player *-> "1..*" Card : cards
+Game *-down-> "1..*" Statistic : stats
+Statistic *-down-> "1..*" DataBase : DB
+@enduml
