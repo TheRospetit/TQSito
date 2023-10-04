@@ -8,7 +8,7 @@ class Player {
 'Nombre que solo tendrá una persona, nadie más puede tener el mismo nombre
 - name : String
 '- id : int
-- hand : list <Card>
+- hand : list <CardClass>
 - blocked : Boolean
 - winner : Boolean
 
@@ -16,30 +16,48 @@ class Player {
 '+ getInt() : int
 + isWinner() : boolean
 + showCards()
-
++ cardPlayed(position : int) : CardClass
++ addCards(numCards : int)
 }
 
-Abstract Card{
+class CardClass{
 - number : int
 - colour : String
 - action : String
-+ Card()
++ CardClass()
 + getNumber() : int
 + getColour() : String
 + getAction() : String
+# {abstract} setAction(a : String)
+}
+
+class Reverse extends CardClass{
 # setAction(a : String)
 }
 
-class Action extends Card{
+class Block extends CardClass{
 # setAction(a : String)
 }
+
+class PlusTwo extends CardClass{
+# setAction(a : String)
+}
+
+class PlusFour extends CardClass{
+# setAction(a : String)
+}
+
+class ColourSwap extends CardClass{
+# setAction(a : String)
+}
+
 
 class Statistic{
 - cardsDrawnByPlayers : Map<String, int> /'Map donde almacenamos las cartas que ha robado cada jugador con su nombre y el número de cartas'/
 
 + updateDataBase(CDBP : Map <String, int>) /'Actualiza la base de datos pasando el player y el número de cartas que ha robado'/
 + getGlobalGames() : int
-+ setGlobalGames(i : int)
++ setGlobalGames(globalPlusOne : int)
 + getMoreCardsDrawn() : Map<String, int>
 * updateMoreCardsDrawn(playerCards: Map<String, int>)
 }
@@ -55,17 +73,21 @@ class DataBase{
 }
 
 class Deck{
--notMoreCards : boolean
--numCards : int
--playableCards : list<Card>
+- notMoreCards : boolean
+- numCards : int
+- playableCards : list<CardClass>
+- playedCards : list<CardClass>
+
 + Deck()
 + getNumCard()
++ getMoreCards() /'Shuffle the cards of the played list and add them to the playableCards'/
 }
 
 class Game{
 - numPlayers : int
 - Players : list<Players>
 - currentPlayer : int
+- lastCardPlayed : CardClass
 
 + getCurrentPlayer() : int
 + Game(nPlayer : int , namePlayers : list <String>)
@@ -76,8 +98,8 @@ class Game{
 class Statistic
 note left: Una clase statistic por cada jugador
 
-Deck *-down-> "1..*" Card : cards
-Player *-> "1..*" Card : cards
+Deck *-down-> "1..*" CardClass : cards
+Player *-> "1..*" CardClass : cards
 Game *-down-> "1..*" Statistic : stats
 Statistic *-down-> "1..*" DataBase : DB
 @enduml
