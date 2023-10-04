@@ -5,14 +5,15 @@ skinparam classAttributeIconSize 0
 
 
 class Player {
+'Nombre que solo tendrá una persona, nadie más puede tener el mismo nombre
 - name : String
-- id : int
+'- id : int
 - hand : list <Card>
 - blocked : Boolean
 - winner : Boolean
 
 + getName() : String
-+ getInt() : int
+'+ getInt() : int
 + isWinner() : boolean
 + showCards()
 
@@ -34,16 +35,19 @@ class Action extends Card{
 }
 
 class Statistic{
-- cardsDrawnByPlayers : Map<int, int> /'Map donde almacenamos las cartas que ha robado cada jugador con el id del jugador y el número de cartas'/
+- cardsDrawnByPlayers : Map<String, int> /'Map donde almacenamos las cartas que ha robado cada jugador con su nombre y el número de cartas'/
 
-+ updateDataBase(CDBP : Map <int, int>) /'Actualiza la base de datos pasando el player y el número de cartas que ha robado'/
++ updateDataBase(CDBP : Map <String, int>) /'Actualiza la base de datos pasando el player y el número de cartas que ha robado'/
 + getGlobalGames() : int
-+ getMoreCardsDrawn() : Map<int, int>
++ setGlobalGames(i : int)
++ getMoreCardsDrawn() : Map<String, int>
+* updateMoreCardsDrawn(playerCards: Map<String, int>)
 }
 
+'Los nombres no se pueden repetir entre ellos, así tenemos un solo ID asignado a un nombre'
 class DataBase{
 - playerNamesAndId : Map<String, int> /'lista de jugadores con sus respectivos id'/
-- cardsDrawnByPlayers : Map<int, int>
+- cardsDrawnByPlayers : Map<String, int>
 - globalGames :int
 
 + setGlobalGames(int)
