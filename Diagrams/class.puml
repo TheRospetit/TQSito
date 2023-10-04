@@ -2,7 +2,7 @@
 
 skinparam classAttributeIconSize 0
 
-
+class Main {}
 
 class Player {
 'Nombre que solo tendrá una persona, nadie más puede tener el mismo nombre
