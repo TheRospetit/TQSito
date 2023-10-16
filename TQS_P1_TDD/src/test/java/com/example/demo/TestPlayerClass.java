@@ -9,4 +9,11 @@ public class TestPlayerClass {
     public void TestConstructor(){
         player = new Player();
     }
+
+    @Test
+    public void TestAtributes(){
+        String playerName = player.name;
+        boolean blocked = player.blocked;
+        boolean winner = player.winner;
+    }
 }
