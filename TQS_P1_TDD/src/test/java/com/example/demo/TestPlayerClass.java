@@ -57,10 +57,37 @@ public class TestPlayerClass {
 
     @Test
     public void TestPlayerConstructorParams()throws NoSuchMethodException, SecurityException {
+        player = new Player("Paco", false, false);
+
+        // TESTING IF PLAYER HAS BEEN GENERATED
+        assert player != null : "Player has not been initialized correctly";
+        // TESTING IF INITIALIZATION IS CORRECTLY DONE
+        assert player.getName() != null : "Player name has not been initialized correctly";
+        assert !player.getBlocked() : "Player blocked has not been initialized correctly";
+        assert !player.getWinner() : "Player winner has not been initialized correctly";
+    }
+
+    @Test
+    public void TestSettersAndGetters(){
+        player = new Player();
+        //TESTING SETTERS OF PLAYER
+        player.setName("Juan");
+        player.setBlocked(false);
+        player.setWinner(false);
+
+        // TESTING GETTERS OF PLAYER
+        assert player.getName() != null: "Player has not been set correctly";
+        assert !player.getBlocked() : "Player getBlocked did not work correctly";
+        assert !player.getWinner() : "Player getBlocked did not work correctly";
+    }
+    @Test
+    public void TestConstructorDefault() throws NoSuchMethodException, SecurityException{
+        player = new Player();
         ArrayList<Parameter> parameters = new ArrayList<>(List.of(Player.class.getConstructor(String.class, boolean.class, boolean.class).getParameters()));
 
-        assertEquals(String.class, parameters.get(0).getType());
-        assertEquals(boolean.class, parameters.get(1).getType());
-        assertEquals(boolean.class, parameters.get(2).getType());
+        // TESTING IF PARAMETERS HAVE THE CORRECT TYPE
+        assert String.class == parameters.get(0).getType() : "First parameter is not String class";
+        assert boolean.class == parameters.get(1).getType() : "Second parameter is not Boolean class";
+        assert boolean.class == parameters.get(2).getType() : "Third parameter is not Boolean class";
     }
 }

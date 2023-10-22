@@ -31,6 +31,8 @@ public class Player {
         return blocked;
     }
 
+    public void addCards(int numCards){}
+
     public void setName(String name) {
         this.name = name;
     }
