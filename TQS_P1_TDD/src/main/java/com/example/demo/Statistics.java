@@ -29,8 +29,11 @@ public class Statistics {
     public Statistics(String pl_name, int nCards, int nGames, int nWins){
         this.player_name = pl_name;
         this.numCards = nCards;
-        this.numGames = nGames;
         this.numWins = nWins;
+        // Check if the number of wins is lower than the number of games (as it should be)
+        // If there was some mistake and the number of wins is higher than the number of games, we set the number of games = number of wins.
+        this.numGames = (this.numWins <= nGames) ? nGames:this.numWins;
+
     }
 
     // ===============================================
