@@ -1,12 +1,13 @@
 package com.example.demo;
+import static org.junit.Assert.*;
 
 import org.junit.jupiter.api.Test;
-
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 public class TestGame {
     private static final int NUM_PLAYERS = 4;
@@ -14,13 +15,16 @@ public class TestGame {
 
     Game game;
     @Test
-    public void TestConstructor() { game = new Game();}
+    public void TestConstructor() {
+        game = new Game();
+        assert game != null : "This deck has not been instantiated properly";
+    }
 
     @Test
     public void TestAtributes() {
         //CHECKS IF THERE IS 4 ATTRIBUTE
         List<Field> allFields = Arrays.asList(Game.class.getDeclaredFields());
-        assertEquals(4, allFields.size());
+        assertEquals(5, allFields.size());
 
         //TEST TO VERIFY IF ATTRIBUTE numPlayers DOES EXISTS
         Field numPlayers = allFields.stream().filter(field -> field.getName().equals("numPlayers")).findFirst().orElseThrow(()
@@ -45,6 +49,22 @@ public class TestGame {
 
 
 
+    }
+
+    @Test
+    public void TestGetters(){
+        ArrayList<Player> myPlayerList = new ArrayList<>();
+        Player jan = new Player("Jan", false , false);
+        Player pol = new Player("Pol", false, false);
+        Player josias = new Player("Josias", false, false);
+        myPlayerList.add(jan); myPlayerList.add(pol); myPlayerList.add(josias);
+
+        Game gameTested = new Game(2, 1, new CardClass(), myPlayerList );
+
+        assert gameTested.getListPlayers().getClass() == ArrayList.class : "Get List Player does not return an ArrayList";
+        assert gameTested.getCurrentPlayer().getClass() == Integer.class : "Get Current Player does not return an Integer";
+        assert gameTested.getNumPlayers().getClass() == Integer.class : "Get Num Player does not return an Integer";
+        assert gameTested.getLastCardPlayed().getClass() == CardClass.class : "Get Last Card Played does not return an Integer";
     }
 
     @Test
@@ -73,16 +93,11 @@ public class TestGame {
         assert myNewParamGame.getListPlayers().get(1) == pol : "Pol had not been introduce in the list properly ";
         assert myNewParamGame.getListPlayers().get(2) == josias : "Josias had not been introduce in the list properly ";
 
-        //REMAINS CHECK CARD IF ITS EQUAL, FALTA QUE LO PROGRAMEN xddd//
+        //REMAINS CHECK CARD IF ITS EQUAL, FALTA QUE LO PROGRAMA JAN//
 
 
 
     }
-
-
-
-
-
 
 }
 

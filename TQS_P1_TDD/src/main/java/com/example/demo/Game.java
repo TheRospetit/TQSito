@@ -1,6 +1,4 @@
 package com.example.demo;
-
-
 import java.util.ArrayList;
 
 public class Game {
@@ -9,6 +7,9 @@ public class Game {
     private CardClass lastCardPlayed;
     private ArrayList<Player> listPlayers = new ArrayList<>();
 
+    //Remains to test when Pol's part finished.
+    private ArrayList<Statistics> stats = new ArrayList<>();
+    //
 
     public Game(){}
     public Game(int nPlayers, int turnPlayer, CardClass LCP, ArrayList<Player> list){
@@ -18,8 +19,8 @@ public class Game {
         listPlayers = list;
     }
 
-    public int getNumPlayers(){return numPlayers;}
-    public int getCurrentPlayer() { return currentPlayer;}
+    public Integer getNumPlayers(){return numPlayers;}
+    public Integer getCurrentPlayer() { return currentPlayer;}
     public CardClass getLastCardPlayed() {return lastCardPlayed;}
     public ArrayList<Player> getListPlayers() { return listPlayers;}
 }
