@@ -1,6 +1,8 @@
 package com.example.demo;
 
 
+import java.util.ArrayList;
+
 public class Statistics {
     /** The player name shown on the Statistics DB file. */
     String player_name;
@@ -26,7 +28,7 @@ public class Statistics {
      * @param nGames  <code>int</code> with the number of games played by the current player.
      * @param nWins   <code>int</code> with the number of wins by the current player.
      */
-    public Statistics(String pl_name, int nCards, int nGames, int nWins){
+    public Statistics(String pl_name, int nCards, int nGames, int nWins) {
         this.player_name = pl_name;
         this.numCards = nCards;
         this.numWins = nWins;
