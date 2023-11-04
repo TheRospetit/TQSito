@@ -1,10 +1,14 @@
 package com.example.demo;
 
+import java.util.ArrayList;
+
 public class Player {
 
     private String name;
     private boolean winner;
     private boolean blocked;
+
+    private ArrayList<CardClass> hand;
 
     // Constructor
     public Player(){
@@ -30,17 +34,13 @@ public class Player {
     public boolean getBlocked() {
         return blocked;
     }
-
-    public void addCards(int numCards){}
-
+    public static void addCards(Integer numCards){} // Robar cartas del mazo
     public void setName(String name) {
         this.name = name;
     }
-
     public void setWinner(boolean winner) {
         this.winner = winner;
     }
-
     public void setBlocked(boolean blocked) {
         this.blocked = blocked;
     }

@@ -1,11 +1,12 @@
 package com.example.demo;
-import static org.junit.Assert.*;
 
 import org.junit.jupiter.api.Test;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
@@ -80,23 +81,40 @@ public class TestGame {
         //FIRST WE CREATE THE GAME WITH GLOBAL VARIABLES AND OUR PLAYER LIST CREATED BEFORE
         Game myNewParamGame = new Game(NUM_PLAYERS, CURRENT_PLAYER, new CardClass(), myPlayerList );
         //CHECK IF HAS BEEN CREATED SUCESSFULLY
-        assert myNewParamGame != null : "Game had not been initiliaze by constructor with params";
+        assert myNewParamGame != null : "Game had not been initiliazed by constructor with params";
         //THEN WE CHECK IF NUMPLAYERS AND CURRENTPLAYERS HAVE BEEN INITIALIZE WITH THE CORRECT VALUES
-        assert NUM_PLAYERS == myNewParamGame.getNumPlayers() : "Number players had not been initialize properly";
-        assert CURRENT_PLAYER == myNewParamGame.getCurrentPlayer() : "Current player had not been initiliaze properly";
+        assert NUM_PLAYERS == myNewParamGame.getNumPlayers() : "Number players had not been initialized properly";
+        assert CURRENT_PLAYER == myNewParamGame.getCurrentPlayer() : "Current player had not been initiliazed properly";
         //CHECK IF LIST AND CARD ARE NOT NULL
-        assert myNewParamGame.getLastCardPlayed() != null : "Last Card had not been initiliaze properly";
-        assert myNewParamGame.getListPlayers() != null : "List players had not been initiliaze properly";
+        assert myNewParamGame.getLastCardPlayed() != null : "Last Card had not been initiliazed properly";
+        assert myNewParamGame.getListPlayers() != null : "List players had not been initiliazed properly";
 
         //NOW WE CHECK IF ALL VALUES ARE CORRECT AS THE ORIGINL LIST DOES.
-        assert myNewParamGame.getListPlayers().get(0) == jan : "Jan had not been introduce in the list properly ";
-        assert myNewParamGame.getListPlayers().get(1) == pol : "Pol had not been introduce in the list properly ";
-        assert myNewParamGame.getListPlayers().get(2) == josias : "Josias had not been introduce in the list properly ";
+        assert myNewParamGame.getListPlayers().get(0) == jan : "Jan had not been introduced in the list properly ";
+        assert myNewParamGame.getListPlayers().get(1) == pol : "Pol had not been introduced in the list properly ";
+        assert myNewParamGame.getListPlayers().get(2) == josias : "Josias had not been introduced in the list properly ";
 
         //REMAINS CHECK CARD IF ITS EQUAL, FALTA QUE LO PROGRAMA JAN//
 
+    }
 
+    @Test
+    public void ChangeIteratorValue(){
+        ArrayList<Player> myPlayerList = new ArrayList<>();
+        Player jan = new Player("Jan", false , false);
+        Player pol = new Player("Pol", false, false);
+        Player josias = new Player("Josias", false, false);
+        myPlayerList.add(jan); myPlayerList.add(pol); myPlayerList.add(josias);
 
+        Game myGame = new Game(NUM_PLAYERS, CURRENT_PLAYER, new CardClass(), myPlayerList);
+
+        Integer inicial = myGame.getIterator();
+
+        Game.reverseIterator();
+
+        Integer end = myGame.getIterator();
+
+        assert inicial != end : "Iterator remains the same " + end.toString();
     }
 
 }
