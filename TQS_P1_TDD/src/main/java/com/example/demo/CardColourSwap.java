@@ -7,7 +7,7 @@ public class CardColourSwap extends CardClassState{
     }
 
     @Override
-    protected void doAction() {
+    protected void doAction(Deck deck, Player player) {
         System.out.println("A qué color quieres cambiar [azul, rojo, verde, amarillo]: ");
         // Falta hacer el in
     }

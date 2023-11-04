@@ -5,13 +5,13 @@ import java.util.ArrayList;
 
 public class Statistics {
     /** The player name shown on the Statistics DB file. */
-    String player_name;
+    private String player_name;
     /** The total number of cards drawn because of a +4 or +2 of the player. */
-    int numCards;
+    private int numCards;
     /** Total number of games played of the current player.  */
-    int numGames;
+    private int numGames;
     /** Total number of wins of the current player. Using numGames, we can calculate the winRate. */
-    int numWins;
+    private int numWins;
 
     /** Base constructor of Statistics. */
     public Statistics(){

@@ -8,7 +8,7 @@ public class CardBlock extends CardClassState{
     }
 
     @Override
-    protected void doAction() {
+    protected void doAction(Deck deck, Player player) {
         // Next player can't play
     }
 }

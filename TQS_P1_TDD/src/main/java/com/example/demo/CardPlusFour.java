@@ -7,8 +7,10 @@ public class CardPlusFour extends CardClassState{
     }
 
     @Override
-    protected void doAction() {
+    protected void doAction(Deck deck, Player player) {
         Integer number = 4;
-        Player.addCards(number);
+        for (int i = 0; i < number; i++) {
+            deck.giveCardsToPlayer(player);
+        }
     }
 }

@@ -5,6 +5,9 @@ import org.junit.jupiter.api.Assertions;
 
 public class TestCardClass {
     CardClass cartita;
+    Player player;
+
+    Deck deck;
     @Test
     public void TestConstructorDefault(){
         cartita = new CardClass();
@@ -55,7 +58,9 @@ public class TestCardClass {
     @Test
     public void TestDoAction(){
         cartita = new CardClass(Actions.BLOCK, Colours.RED);
-        cartita.doAction(); // SE LE TENDRÍA QUE AÑADIR UN MOCK
+        player = new Player("Jan", false, false);
+        deck = new Deck();
+        cartita.doAction(deck, player); // SE LE TENDRIA QUE AÑADIR UN MOCK
         CardClassState state = cartita.getState();
         String status = cartita.getState().getState();
         assert  state != null : "Wrong state set doAction function";

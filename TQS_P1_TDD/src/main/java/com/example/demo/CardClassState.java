@@ -14,5 +14,5 @@ public abstract class CardClassState {
     public String getState(){return state;}
 
     // Funciones abstractas que se usarán dependiendo del tipo de carta que tenemos
-    protected abstract void doAction();
+    protected abstract void doAction(Deck deck, Player player);
 }

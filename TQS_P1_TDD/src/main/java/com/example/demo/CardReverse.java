@@ -7,7 +7,7 @@ public class CardReverse extends CardClassState{
     }
 
     @Override
-    protected void doAction() {
+    protected void doAction(Deck deck, Player player) {
         Game.reverseIterator();
     }
 }

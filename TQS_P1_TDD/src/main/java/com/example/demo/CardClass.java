@@ -41,7 +41,7 @@ public class CardClass {
                 break;
 
             default:
-                assert false : "Unknown action " + action;
+                assert true : "Unknown action " + action;
                 //System.exit(-1);
                 break;
         }
@@ -50,9 +50,9 @@ public class CardClass {
     public String getColour(){return colour;}
     public String getAction(){return action;}
     public CardClassState getState(){return state;}
-    public void doAction(){
+    public void doAction(Deck deck, Player player){
         if (this.action != null){
-            state.doAction();
+            state.doAction(deck, player);
         }
     }
 
