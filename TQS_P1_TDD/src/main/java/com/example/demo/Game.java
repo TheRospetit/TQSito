@@ -6,8 +6,8 @@ public class Game {
     private int currentPlayer;
     private static Integer iterator;
     private ArrayList<Player> listPlayers = new ArrayList<>();
-    public Deck deck;
 
+    public Deck deck;
     //Remains to test when Pol's part finished.
     private ArrayList<Statistics> stats = new ArrayList<>();
     //
@@ -22,7 +22,7 @@ public class Game {
 
     public Integer getNumPlayers(){return numPlayers;}
     public Integer getCurrentPlayer() { return currentPlayer;}
-    public CardClass getLastCardPlayed() {return deck.getPlayedCards().getLast();}
+    public CardClass getLastCardPlayed() {return deck.getPlayedCards().get(-1);}
     public ArrayList<Player> getListPlayers() { return listPlayers;}
     public void giveHand() {
         this.deck = new Deck();

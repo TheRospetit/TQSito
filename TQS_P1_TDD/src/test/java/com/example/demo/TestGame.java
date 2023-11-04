@@ -43,9 +43,9 @@ public class TestGame {
         assertEquals(Integer.class, iterator.getType());
 
         //TEST TO VERIFY IF ATTRIBUTE lastCardPlayed DOES EXIST
-        Field lastCardPlayed = allFields.stream().filter(field -> field.getName().equals("lastCardPlayed")).findFirst().orElseThrow(()
+        Field lastCardPlayed = allFields.stream().filter(field -> field.getName().equals("deck")).findFirst().orElseThrow(()
                 -> new RuntimeException("Field not found"));
-        assertEquals(CardClass.class, lastCardPlayed.getType());
+        assertEquals(Deck.class, lastCardPlayed.getType());
 
         //TEST TO VERIFY IF ATTRIBUTE listPlayers DOES EXIST
         Field listPlayer = allFields.stream().filter(field -> field.getName().equals("listPlayers")).findFirst().orElseThrow(()
@@ -117,5 +117,9 @@ public class TestGame {
         assert inicial != end : "Iterator remains the same " + end.toString();
     }
 
+    @Test
+    public void TestMain(){
+        Main main = new Main();
+    }
 }
 

@@ -73,7 +73,7 @@ public class Deck {
   }
 
   public void giveCardsToPlayer(Player player){
-    player.giveCard(playableCards.getFirst());
+    player.giveCard(playableCards.get(0));
     playableCards.remove(0);
   }
 
