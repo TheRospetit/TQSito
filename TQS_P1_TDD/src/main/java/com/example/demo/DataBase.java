@@ -12,7 +12,9 @@ public class DataBase {
 
     private String fileName;
 
-
+    /**
+     * The DataBase class
+     */
     public DataBase(){
         this.fileName = "stats.txt";
     }
@@ -20,7 +22,9 @@ public class DataBase {
         this.fileName = fileName;
     }
 
-    // Método para crear un archivo de texto si no existe
+    /**
+     * Method to create a file if it already doesn't exist.
+     */
     public void createFile() {
         try {
             File file = new File(fileName);
@@ -34,20 +38,29 @@ public class DataBase {
         }
     }
 
-    // Método para escribir en el archivo
+
+    /**
+     * Method to write a text to the file.
+     * @param text -> Text to be written to the file.
+     */
     public void writeToFile(String text) {
         try {
-            FileWriter fileWriter = new FileWriter(fileName, true); // true para añadir al archivo existente
+            FileWriter fileWriter = new FileWriter(fileName, true); // True to add to the existing file
+                                                            // (and NOT replace the entire file with this text).
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             bufferedWriter.write(text);
-            bufferedWriter.newLine(); // Nueva línea después de cada texto
+            bufferedWriter.newLine(); // Add a new line special character after adding a text.
             bufferedWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    // Método para buscar un carácter en el archivo
+
+    /**
+     * Mehtod to search a character on the file.
+     * @param character -> Character that will be searched on the file.
+     */
     public void searchCharacter(char character) {
         try {
             FileReader fileReader = new FileReader(fileName);
@@ -75,7 +88,11 @@ public class DataBase {
         }
     }
 
-    // Método para reemplazar una línea en el archivo
+    /**
+     * Method to replace a line of the file.
+     * @param lineToReplace -> String: Line to replace from the file.
+     * @param replacementLine -> String: Line that will be added on the file in change of `lineToReplace`.
+     */
     public void replaceLineInFile(String lineToReplace, String replacementLine) {
         List<String> lines = new ArrayList<>();
 
@@ -87,7 +104,7 @@ public class DataBase {
 
             while ((line = bufferedReader.readLine()) != null) {
                 if (line.equals(lineToReplace)) {
-                    lines.add(replacementLine); // Reemplazar la línea
+                    lines.add(replacementLine); // Replace the line.
                 } else {
                     lines.add(line);
                 }
@@ -104,7 +121,8 @@ public class DataBase {
 
             for (String newLine : lines) {
                 bufferedWriter.write(newLine);
-                bufferedWriter.newLine(); // Nueva línea después de cada línea
+                bufferedWriter.newLine(); // Set a new line after each textLine, so the
+                                          // next text will be added on the next line.
             }
 
             bufferedWriter.close();
@@ -144,12 +162,17 @@ public class DataBase {
             System.out.println(line);
         }
 
-        // Printing title:
-
-        System.out.printf("\t-----------------------------------------------------%n");
+        /* Printing title:
+         * For format purposes, we use these special characters:
+             * %-16s: Will use 16 string type characters with left-align.
+             * %-8s: Will use 8 string type characters with left-align.
+             * %n: New line.
+         */
+        String separator = "\t-----------------------------------------------------%n";
+        System.out.printf(separator);
         System.out.printf("\t| %-16s | %-8s | %-8s | %-8s |%n", "PLAYER", "# Games", "# WINS", "#CARDS+2");
         System.out.printf("\t| %-16s | %-8s | %-8s | %-8s |%n", "NAME", "Played", "", " DRAWN+4");
-        System.out.printf("\t-----------------------------------------------------%n");
+        System.out.printf(separator);
 
         try {
             FileReader fileReader = new FileReader(fileName);
@@ -168,7 +191,7 @@ public class DataBase {
             e.printStackTrace();
         }
 
-        System.out.printf("\t-----------------------------------------------------%n");
+        System.out.printf(separator);
     }
 
 
