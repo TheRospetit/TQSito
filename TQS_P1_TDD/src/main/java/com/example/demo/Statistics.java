@@ -28,7 +28,7 @@ public class Statistics {
      * @param nGames  <code>int</code> with the number of games played by the current player.
      * @param nWins   <code>int</code> with the number of wins by the current player.
      */
-    public Statistics(String pl_name, int nCards, int nGames, int nWins) {
+    public Statistics(String pl_name, int nGames, int nWins, int nCards) {
         this.player_name = pl_name;
         this.numCards = nCards;
         this.numWins = nWins;
@@ -104,5 +104,12 @@ public class Statistics {
         return player_name;
     }
 
+
+
+    public void updateStatistics(Statistics stats) {
+        numGames += stats.getNumGames();
+        numWins += stats.getNumWins();
+        numCards += stats.getNumCards();
+    }
 
 }

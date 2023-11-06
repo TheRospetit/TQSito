@@ -1,5 +1,7 @@
-BadPlayer,66,2,127
-Player2,4,3,2
-Player3,40,30,20
-Player4,8,6,4
-Player5,400,300,200
+BadPlayer,5,2,127
+Player2,4,3,20
+Player3,40,30,200
+Player4,8,6,40
+Player5,400,300,2000
+Player500,504,504,720
+Rage quit,1,0,0
