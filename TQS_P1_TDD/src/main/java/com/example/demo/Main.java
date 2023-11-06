@@ -24,6 +24,7 @@ public class Main {
                 game.setLastCardPlayed(cardPlayed);
                 game.deck.setCardPlayed(cardPlayed);
             }
+            System.out.println("");
         }
     }
 }

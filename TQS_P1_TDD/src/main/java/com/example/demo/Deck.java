@@ -42,14 +42,16 @@ public class Deck {
      */
     ArrayList<String> colours = new ArrayList<>(Arrays.asList(Colours.BLUE, Colours.RED, Colours.GREEN, Colours.YELLOW));
     ArrayList<String> actions_twice = new ArrayList<>(Arrays.asList(Actions.BLOCK, Actions.PLUS_TWO, Actions.REVERSE));
-    ArrayList<String> actions_once = new ArrayList<>(Arrays.asList(Actions.COLOUR_SWAP, Actions.PLUS_FOUR));
     // We only have a Zero card for each color
-    // Initialize card with 0
+    // Initialize card with 0, and specail card +4 and colour swap
     for (int i = 0; i < colours.size(); i++) { // Iterate through colours.
       playableCards.add(new CardClass(0, colours.get(i))); // Initialize a card and add it to the deck.
+      playableCards.add(new CardClass(Actions.PLUS_FOUR,null)); //Initialize a plus four card but without a colour
+      playableCards.add(new CardClass(Actions.COLOUR_SWAP,null)); //Initialize a plus four card but without a colour
+
     }
 
-    for (int j = 1; j < 9; j++){ // Iterate through the rest of colours
+    for (int j = 1; j <= 9; j++){ // Iterate through the rest of colours
       for (int i = 0; i < colours.size(); i++) { // Iterate through colours.
         playableCards.add(new CardClass(j, colours.get(i))); // Initialize a card and add it to the deck.
         playableCards.add(new CardClass(j, colours.get(i))); // Initialize a card and add it to the deck.
@@ -63,18 +65,14 @@ public class Deck {
       }
     }
 
-    // Initialize Special Cards of each colour (Block, Reverse, +2).
-    for (int j = 0; j < actions_once.size(); j++) { // Iterate through actions_once.
-      for (int i = 0; i < colours.size(); i++) { // Iterate through colours.
-        playableCards.add(new CardClass(actions_once.get(j), colours.get(i))); // Initialize a card and add it to the deck.
-        playableCards.add(new CardClass(actions_once.get(j), colours.get(i))); // Initialize a card and add it to the deck.
-      }
-    }
+
+
   }
 
   public void giveCardsToPlayer(Player player){
     player.giveCard(playableCards.get(0));
     playableCards.remove(0);
+    numCards--;
   }
 
   public void giveStarterCardsToPlayers(ArrayList<Player> players) {

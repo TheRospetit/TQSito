@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Scanner;
+
 
 public class Player {
 
@@ -13,7 +15,7 @@ public class Player {
 
     private CardClass cardToPlay;
 
-    private ArrayList<CardClass> hand;
+    private ArrayList<CardClass> hand = new ArrayList<>();
 
     // Constructor
     public Player(){
@@ -81,12 +83,25 @@ public class Player {
     }
 
     public CardClass playCard(CardClass lastCardPlayed){
-        System.out.println(hand.toString());
+        //Printing lastCardPlayed
+        System.out.println("Last Card Played: " + lastCardPlayed.getColour() + " " + lastCardPlayed.getAction() + " " + lastCardPlayed.getNumber());
+
+
+        //Printing hand cards
+        int i = 1;
+        for(CardClass carta : hand){
+            System.out.println("Carta " + i + ": " + carta.getAction() +" " + carta.getColour() + " " + carta.getNumber());
+            i++;
+        }
+
         if (canPlayCard(lastCardPlayed)) { // Checks if the player can play any card
+            Scanner scanner = new Scanner(System.in);
             while (true) {
-                InputStream in = System.in;
-                String input = in.toString();
-                int numPlayedCard = Integer.parseInt(input);
+                //waiting to input variables
+                System.out.println("Select one card: ");
+                String input = scanner.nextLine();
+                int numPlayedCard = Integer.parseInt(input); //convert input into a integer, we should be care if its not correct value
+
 
                 cardToPlay =  hand.get( numPlayedCard - 1);
                 // if testCard(cardToPlay, lastCardPlayed) == true --> hand.remove();
@@ -97,6 +112,8 @@ public class Player {
                   System.out.println("Please select a correct card to play.");
                 }
             }
+            //scanner.close();
+
             return cardToPlay;
         }
         return null;  // Player can't play card.

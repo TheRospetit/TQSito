@@ -22,7 +22,7 @@ public class Game {
 
     public Integer getNumPlayers(){return numPlayers;}
     public Integer getCurrentPlayer() { return currentPlayer;}
-    public CardClass getLastCardPlayed() {return deck.getPlayedCards().get(-1);}
+    public CardClass getLastCardPlayed() {return deck.getPlayedCards().get(deck.getPlayedCards().size()-1);}
     public ArrayList<Player> getListPlayers() { return listPlayers;}
     public void giveHand() {
         this.deck = new Deck();
