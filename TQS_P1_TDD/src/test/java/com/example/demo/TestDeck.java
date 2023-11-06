@@ -38,7 +38,6 @@ public class TestDeck {
     assert testedDeck.getPlayableCards().get(0) == card1 : "Playable Cards has not been set properly";
     assert testedDeck.getPlayedCards().get(0) == card3 : "Played cards has not been set properly";
 
-
   }
 
   @Test

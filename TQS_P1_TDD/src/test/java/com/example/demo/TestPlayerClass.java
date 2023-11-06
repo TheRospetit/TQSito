@@ -37,12 +37,12 @@ public class TestPlayerClass {
             System.out.println("Field = " + blocked);
             System.out.println("Field = " + winner);
 
-        }catch(NoSuchFieldException ex){
+        } catch(NoSuchFieldException ex){
             System.out.println(ex);
-            assertTrue(ex.getMessage().toString().contains("Error"));
+            assertTrue(ex.getMessage().contains("Error"));
         }
 
-        System.out.println("Testing if atribute types are correct");
+        System.out.println("Testing if attribute types are correct");
         assert name != null; // This has also been done before
         assertEquals(String.class, name.getType());
 
