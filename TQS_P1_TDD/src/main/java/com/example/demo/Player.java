@@ -82,7 +82,7 @@ public class Player {
         return false;
     }
 
-    public CardClass playCard(CardClass lastCardPlayed){
+    public CardClass playCard(CardClass lastCardPlayed, Deck deck, Game game){
         //Printing lastCardPlayed
         System.out.println("Last Card Played: " + lastCardPlayed.getColour() + " " + lastCardPlayed.getAction() + " " + lastCardPlayed.getNumber());
 
@@ -102,10 +102,12 @@ public class Player {
                 String input = scanner.nextLine();
                 int numPlayedCard = Integer.parseInt(input); //convert input into a integer, we should be care if its not correct value
 
-
+                //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                //cuidado con la carta que se devuelve, hay que modificarlo para los casos de cartas con acciones/////////////////
                 cardToPlay =  hand.get( numPlayedCard - 1);
                 // if testCard(cardToPlay, lastCardPlayed) == true --> hand.remove();
                 if (testCardToPlay(cardToPlay, lastCardPlayed)) { // Checks if the player selected a playable card
+                    cardToPlay.doAction(deck, game.getListPlayers().get(game.getCurrentPlayer()) );
                     hand.remove(numPlayedCard - 1);
                     break;
                 } else {

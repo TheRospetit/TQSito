@@ -17,7 +17,7 @@ public class Main {
         game.giveHand(); // Initializes the deck and gives the hands of each player
         game.setLastCardPlayed(game.deck.getPlayableCards().get(0)); // We set the first card
         for (int i = 0; i < myPlayerList.size(); i++) {
-            CardClass cardPlayed = myPlayerList.get(i).playCard(game.getLastCardPlayed());
+            CardClass cardPlayed = myPlayerList.get(i).playCard(game.getLastCardPlayed(), game.deck, game );
             if (cardPlayed == null) {
                 game.deck.giveCardsToPlayer(myPlayerList.get(i));
             } else {
