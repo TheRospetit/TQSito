@@ -92,7 +92,7 @@ public class Player {
             System.out.println("Carta " + i + ": " + carta.getAction() +" " + carta.getColour() + " " + carta.getNumber());
             i++;
         }
-
+        CardClass returnedCard = new CardClass();
         if (canPlayCard(lastCardPlayed)) { // Checks if the player can play any card
             Scanner scanner = new Scanner(System.in);
             while (true) {
@@ -104,7 +104,7 @@ public class Player {
                 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 //cuidado con la carta que se devuelve, hay que modificarlo para los casos de cartas con acciones/////////////////
                 cardToPlay =  hand.get( numPlayedCard - 1);
-                CardClass returnedCard = new CardClass();
+
 
                 // if testCard(cardToPlay, lastCardPlayed) == true --> hand.remove();
                 if (testCardToPlay(cardToPlay, lastCardPlayed)) { // Checks if the player selected a playable card
@@ -116,8 +116,12 @@ public class Player {
                 }
             }
             //scanner.close();
-
-            return cardToPlay;
+            if(returnedCard == null){
+                return cardToPlay;
+            }
+            else{
+                return returnedCard;
+            }
         }
         return null;  // Player can't play card.
     }

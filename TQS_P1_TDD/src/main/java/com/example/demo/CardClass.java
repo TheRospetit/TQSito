@@ -51,11 +51,13 @@ public class CardClass {
     public String getAction(){return action;}
     public CardClassState getState(){return state;}
     public CardClass doAction(Deck deck, Game game){
-        CardClass myCard = new CardClass();
+
         if (this.action != null){
+            CardClass myCard = new CardClass();
             myCard = state.doAction(deck, game);
+            return myCard;
         }
-        return myCard;
+        return null;
     }
 
 }
