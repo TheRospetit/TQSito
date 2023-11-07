@@ -17,6 +17,8 @@ public class Main {
         game.giveHand(); // Initializes the deck and gives the hands of each player
         game.setLastCardPlayed(game.deck.getPlayableCards().get(0)); // We set the first card
         for (int i = 0; i < myPlayerList.size(); i++) {
+            System.out.println("TU TURNO " + myPlayerList.get(i).getName());
+
             CardClass cardPlayed = myPlayerList.get(i).playCard(game.getLastCardPlayed(), game.deck, game );
             if (cardPlayed == null) {
                 game.deck.giveCardsToPlayer(myPlayerList.get(i));
@@ -24,6 +26,7 @@ public class Main {
                 game.setLastCardPlayed(cardPlayed);
                 game.deck.setCardPlayed(cardPlayed);
             }
+            game.setCurrentPlayer((game.getCurrentPlayer()+1) % game.getNumPlayers());
             System.out.println("");
         }
     }

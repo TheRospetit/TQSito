@@ -32,4 +32,7 @@ public class Game {
     public void setLastCardPlayed(CardClass card) { deck.getPlayedCards().add(card); }
     public Integer getIterator(){return iterator;}
     public static void reverseIterator(){ iterator *= -1; }
+
+    public void setCurrentPlayer(int i) { currentPlayer = i;
+    }
 }

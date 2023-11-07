@@ -7,10 +7,16 @@ public class CardPlusTwo extends CardClassState{
     }
 
     @Override
-    protected void doAction(Deck deck, Player player) {
+    protected CardClass doAction(Deck deck, Game game) {
+        //CUIDADO QUE SE LO ESTMAMOS DANDO AL MISMO JUGADOR, NO AL SIGUIENTE
         Integer number = 2;
+        Integer nextPlayer = game.getCurrentPlayer() + 1;
+        nextPlayer = nextPlayer % game.getNumPlayers();
+        Player reciverPlayer = game.getListPlayers().get(nextPlayer);
         for (int i = 0; i < number; i++) {
-            deck.giveCardsToPlayer(player);
+            deck.giveCardsToPlayer(reciverPlayer);
         }
+        return null;
+
     }
 }
