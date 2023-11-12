@@ -110,6 +110,9 @@ public class Player {
                 if (testCardToPlay(cardToPlay, lastCardPlayed)) { // Checks if the player selected a playable card
                     returnedCard = cardToPlay.doAction(deck, game);
                     hand.remove(numPlayedCard - 1);
+                    if (hand.isEmpty()){
+                        this.winner = true;
+                    }
                     break;
                 } else {
                   System.out.println("Please select a correct card to play.");
