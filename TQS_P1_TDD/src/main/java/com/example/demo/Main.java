@@ -8,9 +8,9 @@ public class Main {
     public Main() { main(null);}
     public static void main(String[] args){
         ArrayList<Player> myPlayerList = new ArrayList<>();
-        Player jan = new Player("Jan", false , false);
-        Player pol = new Player("Pol", false, false);
-        Player josias = new Player("Josias", false, false);
+        Player jan = new Player("Jan", false);
+        Player pol = new Player("Pol", false);
+        Player josias = new Player("Josias", false);
         myPlayerList.add(jan); myPlayerList.add(pol); myPlayerList.add(josias);
 
         Game game = new Game(3,0, myPlayerList);

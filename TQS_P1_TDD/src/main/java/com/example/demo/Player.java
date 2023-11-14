@@ -11,24 +11,20 @@ public class Player {
 
     private String name;
     private boolean winner;
-    private boolean blocked;
-
+    //private boolean blocked; NOT MORE REQUIRED FOR THE MOMENT
     private CardClass cardToPlay;
-
     private ArrayList<CardClass> hand = new ArrayList<>();
 
     // Constructor
     public Player(){
         name = "";
         winner = false;
-        blocked = false;
     }
 
     // Params constructor
-    public Player(String nm, boolean wn, boolean blckd){
-        name = nm;
-        winner = wn;
-        blocked = blckd;
+    public Player(String name, boolean winner){
+        this.name = name;
+        this.winner = winner;
     }
 
     // Getters and Setters
@@ -38,10 +34,6 @@ public class Player {
     public boolean getWinner() {
         return winner;
     }
-    public boolean getBlocked() {
-        return blocked;
-    }
-    public ArrayList<CardClass> getHand() {return hand; }
     public void giveCard(CardClass card) { this.hand.add(card); }
     public void setName(String name) {
         this.name = name;
@@ -49,9 +41,7 @@ public class Player {
     public void setWinner(boolean winner) {
         this.winner = winner;
     }
-    public void setBlocked(boolean blocked) {
-        this.blocked = blocked;
-    }
+    public int numberHandCards(){return hand.size();}
 
 
     /** Returns true if the current cardToPlay from the player can be played. */
@@ -71,9 +61,6 @@ public class Player {
     /** Checks if a Player can Play any card from its hand. */
     public Boolean canPlayCard(CardClass lastCardPlayed) {
 
-        if (Objects.equals(lastCardPlayed.getAction(), Actions.BLOCK)) {
-            return false;
-        }
         for (CardClass currentCard : hand) {
             if (testCardToPlay(currentCard, lastCardPlayed)) {
                 return true;

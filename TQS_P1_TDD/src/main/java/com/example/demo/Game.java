@@ -9,7 +9,7 @@ public class Game {
     private ArrayList<Player> listPlayers = new ArrayList<>();
 
     public Deck deck;
-    private Integer nextPlayerIndex = 0;
+    private static Integer nextPlayerIndex = 0;
     public boolean winner = false;
     //Remains to test when Pol's part finished.
     private ArrayList<Statistics> stats = new ArrayList<>();
@@ -34,9 +34,15 @@ public class Game {
 
     public void setLastCardPlayed(CardClass card) { deck.getPlayedCards().add(card); }
     public Integer getIterator(){return iterator;}
-    public static void reverseIterator(){
-        iterator *= -1; }
+    public static void reverseIterator(){ iterator *= -1; }
     public void setCurrentPlayer(int i) { currentPlayer = i;}
+
+    public void nextPlayer() {
+        nextPlayerIndex = (nextPlayerIndex + iterator) ;
+
+        if (nextPlayerIndex == -1) nextPlayerIndex = this.numPlayers-1; // We are going counterclockwise (reverse)
+        else nextPlayerIndex = nextPlayerIndex % this.numPlayers; // Clockwise
+    }
     public void playerRound(){
         Player actualPlayer = listPlayers.get(nextPlayerIndex);
 
@@ -53,12 +59,7 @@ public class Game {
         System.out.println("");
 
         // Control te iterator and the next player that will play
-        //System.out.println(iterator.toString());
-        nextPlayerIndex = (nextPlayerIndex + iterator) ;
-
-        if (nextPlayerIndex == -1) nextPlayerIndex = this.numPlayers-1; // We are going counterclockwise (reverse)
-        else nextPlayerIndex = nextPlayerIndex % this.numPlayers; // Clockwise
-
+        nextPlayer();
 
     }
 
