@@ -1,6 +1,8 @@
 package com.example.demo;
 
 import org.junit.jupiter.api.Test;
+import static org.mockito.Mockito.*;
+
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -8,6 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
 
 
 public class TestGame {
@@ -128,8 +131,9 @@ public class TestGame {
         assert inicial != end : "Iterator remains the same " + end.toString();
     }
 
-    /*@Test mockTestEndGame(){
-        Game mockedGame = Mockito.when(Game.class);
-    }*/
+    @Test
+    public void mockTestEndGame(){
+        Game mockedGame = mock(Game.class);
+    }
 }
 
