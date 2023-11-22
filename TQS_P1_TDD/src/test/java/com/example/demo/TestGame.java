@@ -1,6 +1,8 @@
 package com.example.demo;
 
 import org.junit.jupiter.api.Test;
+import static org.mockito.Mockito.*;
+
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -8,6 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
 
 
 public class TestGame {
@@ -25,7 +28,7 @@ public class TestGame {
     public void TestAtributes() {
         //CHECKS IF THERE ARE 6 ATTRIBUTES
         List<Field> allFields = Arrays.asList(Game.class.getDeclaredFields());
-        assertEquals(6, allFields.size());
+        assertEquals(8, allFields.size());
 
         //TEST TO VERIFY IF ATTRIBUTE numPlayers DOES EXIST
         Field numPlayers = allFields.stream().filter(field -> field.getName().equals("numPlayers")).findFirst().orElseThrow(()
@@ -42,27 +45,38 @@ public class TestGame {
                 -> new RuntimeException("Field not found"));
         assertEquals(Integer.class, iterator.getType());
 
-        //TEST TO VERIFY IF ATTRIBUTE lastCardPlayed DOES EXIST
-        Field lastCardPlayed = allFields.stream().filter(field -> field.getName().equals("deck")).findFirst().orElseThrow(()
-                -> new RuntimeException("Field not found"));
-        assertEquals(Deck.class, lastCardPlayed.getType());
-
         //TEST TO VERIFY IF ATTRIBUTE listPlayers DOES EXIST
         Field listPlayer = allFields.stream().filter(field -> field.getName().equals("listPlayers")).findFirst().orElseThrow(()
                 -> new RuntimeException("Field not found"));
         assertEquals(ArrayList.class, listPlayer.getType());
+
+        Field deck = allFields.stream().filter(field -> field.getName().equals("deck")).findFirst().orElseThrow(()
+                -> new RuntimeException("Field not found"));
+        assertEquals(Deck.class, deck.getType());
+
+        Field nextPlayerIndex = allFields.stream().filter(field -> field.getName().equals("nextPlayerIndex")).findFirst().orElseThrow(()
+                -> new RuntimeException("Field not found"));
+        assertEquals(Integer.class, nextPlayerIndex.getType());
+
+        Field winner = allFields.stream().filter(field -> field.getName().equals("winner")).findFirst().orElseThrow(()
+                -> new RuntimeException("Field not found"));
+        assertEquals(boolean.class, winner.getType());
+
+        Field stats = allFields.stream().filter(field -> field.getName().equals("stats")).findFirst().orElseThrow(()
+                -> new RuntimeException("Field not found"));
+        assertEquals(ArrayList.class, stats.getType());
 
     }
 
     @Test
     public void TestGetters(){
         ArrayList<Player> myPlayerList = new ArrayList<>();
-        Player jan = new Player("Jan", false , false);
-        Player pol = new Player("Pol", false, false);
-        Player josias = new Player("Josias", false, false);
+        Player jan = new Player("Jan", false);
+        Player pol = new Player("Pol", false);
+        Player josias = new Player("Josias", false);
         myPlayerList.add(jan); myPlayerList.add(pol); myPlayerList.add(josias);
 
-        Game gameTested = new Game(2, 1, myPlayerList );
+        Game gameTested = new Game(2, 0, myPlayerList );
 
         assert gameTested.getListPlayers().getClass() == ArrayList.class : "Get List Player does not return an ArrayList";
         assert gameTested.getCurrentPlayer().getClass() == Integer.class : "Get Current Player does not return an Integer";
@@ -74,9 +88,9 @@ public class TestGame {
 
         //CREATION OF A LIST WITH USERS THAT WILL USE IN THE CONSTRUCTOR
         ArrayList<Player> myPlayerList = new ArrayList<>();
-        Player jan = new Player("Jan", false , false);
-        Player pol = new Player("Pol", false, false);
-        Player josias = new Player("Josias", false, false);
+        Player jan = new Player("Jan", false);
+        Player pol = new Player("Pol", false);
+        Player josias = new Player("Josias", false);
         myPlayerList.add(jan); myPlayerList.add(pol); myPlayerList.add(josias);
 
         //FIRST WE CREATE THE GAME WITH GLOBAL VARIABLES AND OUR PLAYER LIST CREATED BEFORE
@@ -101,9 +115,9 @@ public class TestGame {
     @Test
     public void ChangeIteratorValue(){
         ArrayList<Player> myPlayerList = new ArrayList<>();
-        Player jan = new Player("Jan", false , false);
-        Player pol = new Player("Pol", false, false);
-        Player josias = new Player("Josias", false, false);
+        Player jan = new Player("Jan", false);
+        Player pol = new Player("Pol", false);
+        Player josias = new Player("Josias", false);
         myPlayerList.add(jan); myPlayerList.add(pol); myPlayerList.add(josias);
 
         Game myGame = new Game(NUM_PLAYERS, CURRENT_PLAYER, myPlayerList);
@@ -118,8 +132,8 @@ public class TestGame {
     }
 
     @Test
-    public void TestMain(){
-        Main main = new Main();
+    public void mockTestEndGame(){
+        Game mockedGame = mock(Game.class);
     }
 }
 

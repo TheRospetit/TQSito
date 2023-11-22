@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import java.util.Scanner;
+
 public class CardColourSwap extends CardClassState{
 
     public CardColourSwap(CardClass card) {
@@ -7,8 +9,23 @@ public class CardColourSwap extends CardClassState{
     }
 
     @Override
-    protected void doAction(Deck deck, Player player) {
-        System.out.println("A qué color quieres cambiar [azul, rojo, verde, amarillo]: ");
-        // Falta hacer el in
+    protected CardClass doAction(Deck deck, Game game) {
+        boolean color_correcto = false;
+        while(!color_correcto)
+        {
+            System.out.println("A qué color quieres cambiar [azul, rojo, verde, amarillo]: ");
+            // Falta hacer el in
+            Scanner scanner = new Scanner(System.in);
+            String input = scanner.nextLine();
+
+            switch (input){
+                case("azul"): deck.setCardPlayed(new CardClass((Integer) null, input)); color_correcto = true;  return new CardClass((Integer) null, Colours.BLUE) ;
+                case("rojo"):  deck.setCardPlayed(new CardClass((Integer) null, input));color_correcto = true; return new CardClass((Integer) null, Colours.RED);
+                case("verde"):  deck.setCardPlayed(new CardClass((Integer) null, input)); color_correcto = true ;return new CardClass((Integer) null, Colours.GREEN);
+                case("amarillo"):  deck.setCardPlayed(new CardClass((Integer) null, input)); color_correcto = true ;return new CardClass((Integer) null, Colours.YELLOW);
+                default: System.out.println("Color no correcto! Introduce otro de nuevo");
+            }
+        }
+        return null;
     }
 }

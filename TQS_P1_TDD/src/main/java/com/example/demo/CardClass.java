@@ -50,10 +50,14 @@ public class CardClass {
     public String getColour(){return colour;}
     public String getAction(){return action;}
     public CardClassState getState(){return state;}
-    public void doAction(Deck deck, Player player){
+    public CardClass doAction(Deck deck, Game game){
+
         if (this.action != null){
-            state.doAction(deck, player);
+            CardClass myCard = new CardClass();
+            myCard = state.doAction(deck, game);
+            return myCard;
         }
+        return null;
     }
 
 }

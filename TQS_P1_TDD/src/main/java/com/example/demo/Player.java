@@ -4,29 +4,27 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Scanner;
+
 
 public class Player {
 
     private String name;
     private boolean winner;
-    private boolean blocked;
-
+    //private boolean blocked; NOT MORE REQUIRED FOR THE MOMENT
     private CardClass cardToPlay;
-
-    private ArrayList<CardClass> hand;
+    private ArrayList<CardClass> hand = new ArrayList<>();
 
     // Constructor
     public Player(){
         name = "";
         winner = false;
-        blocked = false;
     }
 
     // Params constructor
-    public Player(String nm, boolean wn, boolean blckd){
-        name = nm;
-        winner = wn;
-        blocked = blckd;
+    public Player(String name, boolean winner){
+        this.name = name;
+        this.winner = winner;
     }
 
     // Getters and Setters
@@ -36,10 +34,6 @@ public class Player {
     public boolean getWinner() {
         return winner;
     }
-    public boolean getBlocked() {
-        return blocked;
-    }
-    public ArrayList<CardClass> getHand() {return hand; }
     public void giveCard(CardClass card) { this.hand.add(card); }
     public void setName(String name) {
         this.name = name;
@@ -47,9 +41,7 @@ public class Player {
     public void setWinner(boolean winner) {
         this.winner = winner;
     }
-    public void setBlocked(boolean blocked) {
-        this.blocked = blocked;
-    }
+    public int numberHandCards(){return hand.size();}
 
 
     /** Returns true if the current cardToPlay from the player can be played. */
@@ -69,9 +61,6 @@ public class Player {
     /** Checks if a Player can Play any card from its hand. */
     public Boolean canPlayCard(CardClass lastCardPlayed) {
 
-        if (Objects.equals(lastCardPlayed.getAction(), Actions.BLOCK)) {
-            return false;
-        }
         for (CardClass currentCard : hand) {
             if (testCardToPlay(currentCard, lastCardPlayed)) {
                 return true;
@@ -80,24 +69,49 @@ public class Player {
         return false;
     }
 
-    public CardClass playCard(CardClass lastCardPlayed){
-        System.out.println(hand.toString());
-        if (canPlayCard(lastCardPlayed)) { // Checks if the player can play any card
-            while (true) {
-                InputStream in = System.in;
-                String input = in.toString();
-                int numPlayedCard = Integer.parseInt(input);
+    public CardClass playCard(CardClass lastCardPlayed, Deck deck, Game game){
 
+        //Printing lastCardPlayed
+        System.out.println("Last Card Played: " + lastCardPlayed.getAction() + " " + lastCardPlayed.getColour() + " " + lastCardPlayed.getNumber());
+        //Printing hand cards
+        int i = 1;
+        for(CardClass carta : hand){
+            System.out.println("Carta " + i + ": " + carta.getAction() +" " + carta.getColour() + " " + carta.getNumber());
+            i++;
+        }
+        CardClass returnedCard = new CardClass();
+        if (canPlayCard(lastCardPlayed)) { // Checks if the player can play any card
+            Scanner scanner = new Scanner(System.in);
+            while (true) {
+                //waiting to input variables
+                System.out.println("Select one card: ");
+                String input = scanner.nextLine();
+                int numPlayedCard = Integer.parseInt(input); //convert input into an integer, we should be care if its not correct value
+
+                //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                //cuidado con la carta que se devuelve, hay que modificarlo para los casos de cartas con acciones/////////////////
                 cardToPlay =  hand.get( numPlayedCard - 1);
+
+
                 // if testCard(cardToPlay, lastCardPlayed) == true --> hand.remove();
                 if (testCardToPlay(cardToPlay, lastCardPlayed)) { // Checks if the player selected a playable card
+                    returnedCard = cardToPlay.doAction(deck, game);
                     hand.remove(numPlayedCard - 1);
+                    if (hand.isEmpty()){
+                        this.winner = true;
+                    }
                     break;
                 } else {
                   System.out.println("Please select a correct card to play.");
                 }
             }
-            return cardToPlay;
+            //scanner.close();
+            if(returnedCard == null){
+                return cardToPlay;
+            }
+            else{
+                return returnedCard;
+            }
         }
         return null;  // Player can't play card.
     }
