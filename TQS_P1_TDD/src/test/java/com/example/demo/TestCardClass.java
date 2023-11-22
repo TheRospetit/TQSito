@@ -94,8 +94,8 @@ public class TestCardClass {
         testedCardsNumbers.add(testedCard3);
         testedCardsNumbers.add(testedCard4);
 
-        //As they are number cards, none of them has the possibility to execute//
-        //funciton doAction, then they should retun a null value//
+        // As they are number cards, none of them has the possibility to execute //
+        // method doAction, then they should return a null value //
         for(CardClass testCard : testedCardsNumbers)
         {
             CardClass returnedValue = new CardClass();
@@ -103,11 +103,11 @@ public class TestCardClass {
             assert(returnedValue == returnedValue) :"All number cards should return null once execute doAction " ;
         }
 
-        //Testing plus2 card//
-        testedCard1 = new CardClass("PLUS_TWO", "green");
-        testedCard2 = new CardClass("PLUS_TWO", "blue");
-        testedCard3 = new CardClass("PLUS_TWO", "yellow");
-        testedCard4 = new CardClass("PLUS_TWO", "red");
+        // Testing plus2 card //
+        testedCard1 = new CardClass("plus_two", "green");
+        testedCard2 = new CardClass("plus_two", "blue");
+        testedCard3 = new CardClass("plus_two", "yellow");
+        testedCard4 = new CardClass("plus_two", "red");
 
         testedCardsNumbers.clear();
         testedCardsNumbers.add(testedCard1);testedCardsNumbers.add(testedCard2);
@@ -120,8 +120,30 @@ public class TestCardClass {
             assert(returnedValue == null) : "All +2 cards should return himself, not a empty card";
         }
 
-        assert(11 == testedGame.getListPlayers().get(0).numberHandCards()) : "Plus two cards has not been added properly";
-        assert(11 == testedGame.getListPlayers().get(1).numberHandCards()) : "Plus two cards has not been added properly";
+        assert(0 == testedGame.getListPlayers().get(0).numberHandCards()) : "Plus two cards has not added cards properly";
+        assert(8 == testedGame.getListPlayers().get(1).numberHandCards()) : "Plus two cards has not added cards properly";
+
+        // Testing plus4 card //
+        testedCard1 = new CardClass("plus_four", "green");
+        testedCard2 = new CardClass("plus_four", "blue");
+        testedCard3 = new CardClass("plus_four", "yellow");
+        testedCard4 = new CardClass("plus_four", "red");
+
+        testedCardsNumbers.clear();
+        testedCardsNumbers.add(testedCard1);testedCardsNumbers.add(testedCard2);
+        testedCardsNumbers.add(testedCard3);testedCardsNumbers.add(testedCard4);
+
+        for(CardClass testCard : testedCardsNumbers)
+        {
+            CardClass returnedValue = new CardClass();
+            returnedValue = testCard.doAction(testedDeck, testedGame);
+            assert(returnedValue == null) : "All +2 cards should return himself, not a empty card";
+        }
+
+        assert(0 == testedGame.getListPlayers().get(0).numberHandCards()) : "Plus two cards has not added cards properly";
+        assert(8 == testedGame.getListPlayers().get(1).numberHandCards()) : "Plus two cards has not added cards properly";
+
+
 
 
 
