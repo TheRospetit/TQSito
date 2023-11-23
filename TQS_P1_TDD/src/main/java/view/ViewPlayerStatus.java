@@ -85,18 +85,20 @@ public class ViewPlayerStatus {
 
   public static void displayPlayerStatus(String playerName, List<String> playerHand, String lastPlayedCard) {
     int terminalWidth = getIntelliJTerminalWidth();
-
+    String playerNameString = "Turn: " + playerName;
     // Display current player's name
-    int centerPlayerName = (terminalWidth - (playerName.length() + 2)) / 2;
+    int centerPlayerName = (terminalWidth - (playerNameString.length() + 2)) / 2;
     System.out.println("╔" + fillWithCharacter('=', terminalWidth - 2) + "╗");
-    System.out.println("║" + fillWithCharacter(' ', centerPlayerName) + playerName + fillWithCharacter(' ', centerPlayerName) + "║");
+    System.out.println("║" + fillWithCharacter(' ', centerPlayerName) + playerNameString + fillWithCharacter(' ', centerPlayerName) + "║");
     System.out.println("╚" + fillWithCharacter('=', terminalWidth - 2) + "╝");
 
     // Display last played card
-    int centerLastCard = (terminalWidth - (lastPlayedCard.length() + 2)) / 2;
+    String lastCardPlayedString = "Last card played: " + lastPlayedCard;
+    int centerLastCard = (terminalWidth - (lastCardPlayedString.length() + 2)) / 2;
+
     System.out.println(" ");
     System.out.println("┌" + fillWithCharacter('─', terminalWidth - 2) + "┐");
-    System.out.println("│" + fillWithCharacter(' ', centerLastCard) + lastPlayedCard + fillWithCharacter(' ', centerLastCard) + "│");
+    System.out.println("│" + fillWithCharacter(' ', centerLastCard) + lastCardPlayedString + fillWithCharacter(' ', centerLastCard) + "│");
     System.out.println("└" + fillWithCharacter('─', terminalWidth - 2) + "┘");
 
     // Display player's hand in a table-like format
@@ -115,8 +117,8 @@ public class ViewPlayerStatus {
     System.out.println(); // Move to the next line
 
     for (String card : playerHand) {
-      int padding = cardWidth - card.length() - 4; // Calculate padding for centering
-      System.out.print("│ " + fillWithCharacter(' ', padding / 2) + " " + card + fillWithCharacter(' ', padding - padding / 2) + "│ ");
+      int padding = cardWidth - card.length() - 5; // Calculate padding for centering
+      System.out.print("│ " + fillWithCharacter(' ', padding / 2) + " " + card + fillWithCharacter(' ', padding - padding / 2) + " │ ");
     }
     System.out.println(); // Move to the next line
 
