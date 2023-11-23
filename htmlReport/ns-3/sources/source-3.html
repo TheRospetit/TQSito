@@ -1,0 +1,152 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > ViewGameOver</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">view</a>
+</div>
+
+<h1>Coverage Summary for Class: ViewGameOver (view)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ViewGameOver</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/16)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package view;
+&nbsp;
+<b class="nc">&nbsp;public final class ViewGameOver {</b>
+&nbsp;    public static final String ANSI_RESET = &quot;\u001B[0m&quot;;
+&nbsp;    public static final String ANSI_WHITE = &quot;\u001B[37m&quot;;
+&nbsp;    public static final String ANSI_RED = &quot;\u001B[31m&quot;;
+&nbsp;    public static final String ANSI_CYAN_BACKGROUND = &quot;\u001B[46m&quot;;
+&nbsp;
+&nbsp;    public static void main(String[] args) {
+<b class="nc">&nbsp;        String winner = &quot;Player1&quot;;</b>
+<b class="nc">&nbsp;        displayEndGame(winner);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void displayEndGame(String winner) {
+<b class="nc">&nbsp;        int terminalWidth = getIntelliJTerminalWidth();</b>
+&nbsp;
+&nbsp;        // End of game message
+<b class="nc">&nbsp;        String[] endGameMessage = {</b>
+&nbsp;                &quot;Game Over!&quot;,
+&nbsp;                &quot;The winning player is: &quot; + winner,
+&nbsp;                &quot;Congratulations!&quot;
+&nbsp;        };
+&nbsp;
+&nbsp;
+&nbsp;        // Display the end game message
+<b class="nc">&nbsp;        System.out.println(&quot;?&quot; + fillWithCharacter(&#39;=&#39;, terminalWidth - 2) + &quot;?&quot;);</b>
+<b class="nc">&nbsp;        for (String line : endGameMessage) {</b>
+<b class="nc">&nbsp;            int leftPadding = (terminalWidth - line.length()) / 2;</b>
+<b class="nc">&nbsp;            int rightPadding = terminalWidth - line.length() - leftPadding - 2;</b>
+<b class="nc">&nbsp;            System.out.println(&quot;?&quot; + fillWithCharacter(&#39; &#39;, leftPadding) +ANSI_RED+  line +ANSI_RESET+  fillWithCharacter(&#39; &#39;, rightPadding) + &quot;?&quot;);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        System.out.println(&quot;?&quot; + fillWithCharacter(&#39;=&#39;, terminalWidth - 2) + &quot;?&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // Method to get the width of the terminal in IntelliJ IDEA
+&nbsp;    private static int getIntelliJTerminalWidth() {
+<b class="nc">&nbsp;        return 80; // Adjust this value as needed</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // Method to fill a string with a given character
+&nbsp;    private static String fillWithCharacter(char character, int length) {
+<b class="nc">&nbsp;        StringBuilder result = new StringBuilder();</b>
+<b class="nc">&nbsp;        for (int i = 0; i &lt; length; i++) {</b>
+<b class="nc">&nbsp;            result.append(character);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return result.toString();</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-11-24 00:00</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,242 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > Main</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">controller</a>
+</div>
+
+<h1>Coverage Summary for Class: Main (controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Main</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/59)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package controller;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Scanner;
+&nbsp;
+&nbsp;import models.*;
+&nbsp;
+&nbsp;import view.ViewAskPlayers;
+&nbsp;import view.ViewMenu;
+&nbsp;import view.ViewStatistics;
+&nbsp;
+&nbsp;public class Main {
+&nbsp;
+<b class="nc">&nbsp;    public Main() { main(null);}</b>
+&nbsp;
+&nbsp;    public static void main(String[] args){
+&nbsp;
+<b class="nc">&nbsp;        DataBase myDatabase = new DataBase(&quot;stats.txt&quot;);</b>
+<b class="nc">&nbsp;        myDatabase.createFile();</b>
+&nbsp;
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        Scanner scanner = new Scanner(System.in);</b>
+<b class="nc">&nbsp;        ScannerClass myScanner = new ScannerClass(scanner);</b>
+&nbsp;
+&nbsp;
+&nbsp;        int choice; // Switch case menu option(choice) by the user.
+&nbsp;        do {
+&nbsp;
+<b class="nc">&nbsp;            ViewMenu.displayMenu();</b>
+&nbsp;
+&nbsp;            // Get user choice
+<b class="nc">&nbsp;            System.out.print(&quot;Enter your choice (1-3): &quot;);</b>
+<b class="nc">&nbsp;            while (!myScanner.hasNextInt()) {</b>
+<b class="nc">&nbsp;                System.out.println(&quot;Invalid input. Please enter a number.&quot;);</b>
+<b class="nc">&nbsp;                myScanner.next(); // Consume the invalid input</b>
+&nbsp;            }
+<b class="nc">&nbsp;            choice = myScanner.nextInt();</b>
+&nbsp;
+&nbsp;                // Ask User the menu Option
+&nbsp;            //choice = menu.askMenuOption();
+<b class="nc">&nbsp;            switch (choice) {</b>
+&nbsp;                case 1:
+&nbsp;                    // Code for option 1 (Play)
+<b class="nc">&nbsp;                    int numPlayers = getNumberOfPlayers();</b>
+&nbsp;
+<b class="nc">&nbsp;                    ArrayList&lt;Player&gt; myPlayerList = getPlayerNames(numPlayers);</b>
+&nbsp;
+&nbsp;                    // Display the player names
+<b class="nc">&nbsp;                    ViewAskPlayers.displayPlayerNames(myPlayerList);</b>
+<b class="nc">&nbsp;                    ViewStatistics.displayStatsIfInDDBB(myDatabase, myPlayerList);</b>
+&nbsp;
+<b class="nc">&nbsp;                    System.out.println(&quot;Starting the game...&quot;);</b>
+<b class="nc">&nbsp;                    break;</b>
+&nbsp;                case 2:
+&nbsp;                    // Add code for option 2 (View Statistics)
+<b class="nc">&nbsp;                    System.out.println(&quot;Viewing statistics...&quot;);</b>
+<b class="nc">&nbsp;                    ViewStatistics.viewAllStatistics(myDatabase);</b>
+<b class="nc">&nbsp;                    break;</b>
+&nbsp;                case 3:
+&nbsp;                    // Option 3 (Exit)
+<b class="nc">&nbsp;                    System.out.println(&quot;Exiting the game. Goodbye!&quot;);</b>
+<b class="nc">&nbsp;                    break;</b>
+&nbsp;                default:
+<b class="nc">&nbsp;                    System.out.println(&quot;Invalid choice. Please enter a number between 1 and 3.&quot;);</b>
+&nbsp;            }
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        }while (choice != 3);</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        System.out.println(&quot;THE END ENTRE COMILLAS&quot;);</b>
+&nbsp;
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    private static int getNumberOfPlayers() {
+<b class="nc">&nbsp;        Scanner scanner = new Scanner(System.in);</b>
+<b class="nc">&nbsp;        int numPlayers = 0;</b>
+&nbsp;
+&nbsp;        // Input validation
+<b class="nc">&nbsp;        while (numPlayers &lt;= 0) {</b>
+&nbsp;            try {
+<b class="nc">&nbsp;                System.out.print(&quot;Enter the number of players (2-6): &quot;);</b>
+<b class="nc">&nbsp;                numPlayers = scanner.nextInt();</b>
+&nbsp;
+<b class="nc">&nbsp;                if (numPlayers &lt;= 1) {</b>
+<b class="nc">&nbsp;                    System.out.println(&quot;Please enter a valid number greater than one.&quot;);</b>
+<b class="nc">&nbsp;                } else if (numPlayers &gt; 6) {</b>
+<b class="nc">&nbsp;                    System.out.println(&quot;Please enter a valid number lower than seven.&quot;);</b>
+&nbsp;                }
+<b class="nc">&nbsp;            } catch (Exception e) {</b>
+<b class="nc">&nbsp;                System.out.println(&quot;Input error. Please enter a valid number.&quot;);</b>
+<b class="nc">&nbsp;                scanner.next();  // Clear the scanner buffer</b>
+<b class="nc">&nbsp;            }</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return numPlayers;</b>
+&nbsp;    }
+&nbsp;    private static ArrayList&lt;Player&gt; getPlayerNames(int numPlayers) {
+<b class="nc">&nbsp;        Scanner scanner = new Scanner(System.in);</b>
+<b class="nc">&nbsp;        ArrayList&lt;Player&gt; playerNames = new ArrayList&lt;&gt;();</b>
+&nbsp;
+&nbsp;        // Ask for the names of the players
+<b class="nc">&nbsp;        for (int i = 1; i &lt;= numPlayers; i++) {</b>
+<b class="nc">&nbsp;            ViewAskPlayers.displayEnterPlayerN(i);</b>
+<b class="nc">&nbsp;            String playerName = scanner.nextLine();</b>
+<b class="nc">&nbsp;            playerNames.add(new Player(playerName, false));</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return playerNames;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void playGame() {
+&nbsp;        //Setting the game
+<b class="nc">&nbsp;        ArrayList&lt;Player&gt; myPlayerList = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;        Player jan = new Player(&quot;Jan&quot;, false);</b>
+<b class="nc">&nbsp;        Player pol = new Player(&quot;Pol&quot;, false);</b>
+<b class="nc">&nbsp;        Player josias = new Player(&quot;Josias&quot;, false);</b>
+<b class="nc">&nbsp;        myPlayerList.add(jan); myPlayerList.add(pol); myPlayerList.add(josias);</b>
+&nbsp;
+<b class="nc">&nbsp;        Scanner Scanner = new Scanner(System.in);</b>
+<b class="nc">&nbsp;        ScannerClass myScanner = new ScannerClass(Scanner);</b>
+<b class="nc">&nbsp;        Game game = new Game(3,0, myPlayerList, myScanner );</b>
+&nbsp;
+<b class="nc">&nbsp;        game.giveHand(); // Initializes the deck and gives the hands of each player</b>
+<b class="nc">&nbsp;        game.setLastCardPlayed(game.deck.getPlayableCards().get(0)); // We set the first card</b>
+&nbsp;
+<b class="nc">&nbsp;        while (!game.gameEndedWinner()) {</b>
+<b class="nc">&nbsp;            game.playerRound();</b>
+&nbsp;        }
+&nbsp;
+&nbsp;    }
+&nbsp;}
+&nbsp;
+&nbsp;
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-11-24 00:00</div>
+</div>
+</body>
+</html>

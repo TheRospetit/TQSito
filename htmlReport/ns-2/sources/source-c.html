@@ -1,0 +1,182 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > Game</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">models</a>
+</div>
+
+<h1>Coverage Summary for Class: Game (models)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Game</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    52,9%
+  </span>
+  <span class="absValue">
+    (9/17)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    43,6%
+  </span>
+  <span class="absValue">
+    (17/39)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package models;
+&nbsp;import java.util.ArrayList;
+&nbsp;
+&nbsp;public class Game {
+&nbsp;
+&nbsp;    private ScannerClass myScanner;
+&nbsp;    private int numPlayers;
+&nbsp;    private int currentPlayer;
+&nbsp;    private static Integer iterator;
+<b class="fc">&nbsp;    private ArrayList&lt;Player&gt; listPlayers = new ArrayList&lt;&gt;();</b>
+&nbsp;
+&nbsp;    public Deck deck;
+<b class="fc">&nbsp;    private static Integer nextPlayerIndex = 0;</b>
+<b class="fc">&nbsp;    public boolean winner = false;</b>
+<b class="fc">&nbsp;    private ArrayList&lt;Statistics&gt; stats = new ArrayList&lt;&gt;();     // TODO. Remains to test when Pol&#39;s part finished.</b>
+&nbsp;
+&nbsp;    // CONSTRUCTORS
+<b class="fc">&nbsp;    public Game(){}</b>
+<b class="fc">&nbsp;    public Game(int numPlayers, int currentPlayer, ArrayList&lt;Player&gt; listPlayers, ScannerClass inputScanner){</b>
+<b class="fc">&nbsp;        myScanner = inputScanner;</b>
+<b class="fc">&nbsp;        this.numPlayers = numPlayers;</b>
+<b class="fc">&nbsp;        this.currentPlayer = currentPlayer;</b>
+<b class="fc">&nbsp;        this.listPlayers = listPlayers;</b>
+<b class="fc">&nbsp;        iterator = 1;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // GET &amp; SET METHODS
+<b class="fc">&nbsp;    public ScannerClass getMyScanner() {return myScanner;}</b>
+<b class="fc">&nbsp;    public Integer getNumPlayers(){return numPlayers;}</b>
+<b class="fc">&nbsp;    public Integer getCurrentPlayer() { return currentPlayer;}</b>
+<b class="nc">&nbsp;    public CardClass getLastCardPlayed() {return deck.getPlayedCards().get(deck.getPlayedCards().size()-1);}</b>
+<b class="fc">&nbsp;    public ArrayList&lt;Player&gt; getListPlayers() { return listPlayers;}</b>
+<b class="fc">&nbsp;    public Integer getIterator(){return iterator;}</b>
+<b class="nc">&nbsp;    public void setLastCardPlayed(CardClass card) { deck.getPlayedCards().add(card); }</b>
+<b class="nc">&nbsp;    public void setCurrentPlayer(int i) { currentPlayer = i;}</b>
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    // OTHER METHODS
+&nbsp;    public void giveHand() {
+<b class="nc">&nbsp;        this.deck = new Deck();</b>
+<b class="nc">&nbsp;        deck.giveStarterCardsToPlayers(listPlayers);</b>
+&nbsp;    }
+<b class="fc">&nbsp;    public static void reverseIterator(){ iterator *= -1; }</b>
+&nbsp;    public void nextPlayer() {
+<b class="nc">&nbsp;        nextPlayerIndex = (nextPlayerIndex + iterator) ;</b>
+&nbsp;
+<b class="nc">&nbsp;        if (nextPlayerIndex == -1) nextPlayerIndex = this.numPlayers-1; // We are going counterclockwise (reverse)</b>
+<b class="nc">&nbsp;        else nextPlayerIndex = nextPlayerIndex % this.numPlayers; // Clockwise</b>
+&nbsp;    }
+&nbsp;    public void playerRound(){
+<b class="nc">&nbsp;        Player actualPlayer = listPlayers.get(nextPlayerIndex);</b>
+&nbsp;
+<b class="nc">&nbsp;        System.out.println(&quot;TU TURNO &quot; + actualPlayer.getName());</b>
+<b class="nc">&nbsp;        CardClass cardPlayed = actualPlayer.playCard(this.getLastCardPlayed(), this.deck, this );</b>
+<b class="nc">&nbsp;        if (cardPlayed == null) {</b>
+<b class="nc">&nbsp;            this.deck.giveCardsToPlayer(actualPlayer);</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            this.setLastCardPlayed(cardPlayed); // Whatever the card is it will also do its action (+2, +4, reverse...)</b>
+<b class="nc">&nbsp;            this.deck.setCardPlayed(cardPlayed);</b>
+<b class="nc">&nbsp;            this.endGame(actualPlayer);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        this.setCurrentPlayer((this.getCurrentPlayer()+1) % this.getNumPlayers());</b>
+<b class="nc">&nbsp;        System.out.println(&quot;&quot;);</b>
+&nbsp;
+&nbsp;        // Control te iterator and the next player that will play
+<b class="nc">&nbsp;        nextPlayer();</b>
+&nbsp;
+&nbsp;    }
+&nbsp;    public void endGame(Player player){
+<b class="nc">&nbsp;        if (player.getWinner()) {</b>
+<b class="nc">&nbsp;            this.winner = true;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;    public boolean gameEndedWinner(){
+<b class="nc">&nbsp;        return this.winner;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-11-24 00:00</div>
+</div>
+</body>
+</html>

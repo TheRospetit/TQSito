@@ -3,5 +3,5 @@ Player2,4,3,20
 Player3,40,30,200
 Player4,8,6,40
 Player5,400,300,2000
-Player500,504,504,720
+Player500,505,505,775
 Rage quit,1,0,0

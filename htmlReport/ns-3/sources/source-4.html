@@ -1,0 +1,176 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > ViewMenu</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">view</a>
+</div>
+
+<h1>Coverage Summary for Class: ViewMenu (view)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ViewMenu</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/24)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package view;
+&nbsp;
+&nbsp;import java.util.Scanner;
+&nbsp;
+<b class="nc">&nbsp;public final class ViewMenu {</b>
+&nbsp;
+&nbsp;
+&nbsp;  public static void displayMenu() {
+<b class="nc">&nbsp;    int terminalWidth = getIntelliJTerminalWidth();</b>
+&nbsp;
+&nbsp;    // Display the game title
+<b class="nc">&nbsp;    String[] gameTitle1 = {</b>
+&nbsp;            &quot; _   _ _   _  ___   &quot;,
+&nbsp;            &quot;| | | | \\ | |/ _ \\ &quot;,
+&nbsp;            &quot;| | | |  \\| | | | | &quot;,
+&nbsp;            &quot;| |_| | |\\  | |_| |  &quot;,
+&nbsp;            &quot; \\___/|_| \\_|\\___/ &quot;,
+&nbsp;    };
+<b class="nc">&nbsp;    String[] gameTitle2 = {</b>
+&nbsp;            &quot;   __     __ _____ _   _ _   _   &quot;,
+&nbsp;            &quot;  |   \\ /   | ____| \\ | | | | |&quot;,
+&nbsp;            &quot;  | |\\ V /| |  _| |  \\| | | | |&quot;,
+&nbsp;            &quot;  | | \\_/ | | |___| |\\  | |_| |&quot;,
+&nbsp;            &quot;  |_|     |_|_____|_| \\_|\\___/ &quot;
+&nbsp;    };
+&nbsp;
+&nbsp;    // Determine the maximum width between the two game titles
+<b class="nc">&nbsp;    int maxTitleWidth = Math.max(gameTitle1[0].length(), gameTitle2[0].length());</b>
+&nbsp;
+&nbsp;    // Calculate left padding for the first game title
+<b class="nc">&nbsp;    int leftPadding1 = (terminalWidth - gameTitle1[0].length()) / 2;</b>
+&nbsp;
+&nbsp;    // Display the first game title
+<b class="nc">&nbsp;    System.out.println(&quot;?&quot; + fillWithCharacter(&#39;=&#39;, terminalWidth - 2) + &quot;?&quot;);</b>
+<b class="nc">&nbsp;    for (String line : gameTitle1) {</b>
+<b class="nc">&nbsp;      int rightPadding = terminalWidth - line.length() - leftPadding1 - 2;</b>
+<b class="nc">&nbsp;      System.out.println(&quot;?&quot; + fillWithCharacter(&#39; &#39;, leftPadding1) + line + fillWithCharacter(&#39; &#39;, rightPadding) + &quot;?&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // Calculate left padding for the second game title
+<b class="nc">&nbsp;    int leftPadding2 = (terminalWidth - maxTitleWidth) / 2;</b>
+&nbsp;
+&nbsp;    // Display the second game title
+<b class="nc">&nbsp;    for (String line : gameTitle2) {</b>
+<b class="nc">&nbsp;      int rightPadding = terminalWidth - line.length() - leftPadding2 - 2;</b>
+<b class="nc">&nbsp;      System.out.println(&quot;?&quot; + fillWithCharacter(&#39; &#39;, leftPadding2) + line + fillWithCharacter(&#39; &#39;, rightPadding) + &quot;?&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // Display the closing line of the box
+<b class="nc">&nbsp;    System.out.println(&quot;?&quot; + fillWithCharacter(&#39;=&#39;, terminalWidth - 2) + &quot;?&quot;);</b>
+&nbsp;
+&nbsp;    // Display menu options
+<b class="nc">&nbsp;    System.out.println(&quot;\nSelect an option:&quot;);</b>
+<b class="nc">&nbsp;    System.out.println(&quot;1. Play&quot;);</b>
+<b class="nc">&nbsp;    System.out.println(&quot;2. View Statistics&quot;);</b>
+<b class="nc">&nbsp;    System.out.println(&quot;3. Exit&quot;);</b>
+&nbsp;  }
+&nbsp;
+&nbsp;
+&nbsp;  private static String fillWithCharacter(char character, int length) {
+<b class="nc">&nbsp;    StringBuilder result = new StringBuilder();</b>
+<b class="nc">&nbsp;    for (int i = 0; i &lt; length; i++) {</b>
+<b class="nc">&nbsp;      result.append(character);</b>
+&nbsp;    }
+<b class="nc">&nbsp;    return result.toString();</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  private static int getIntelliJTerminalWidth() {
+&nbsp;    // You can adjust this according to your needs
+<b class="nc">&nbsp;    return 80;</b>
+&nbsp;  }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-11-24 00:00</div>
+</div>
+</body>
+</html>
