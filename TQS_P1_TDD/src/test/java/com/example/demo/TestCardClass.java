@@ -2,8 +2,10 @@ package com.example.demo;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
-
 import java.util.ArrayList;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.util.Scanner;
 
 public class TestCardClass {
     CardClass cartita;
@@ -56,19 +58,6 @@ public class TestCardClass {
 
 
     }
-    /*
-    @Test
-    public void TestDoAction(){
-        cartita = new CardClass(Actions.BLOCK, Colours.RED);
-        player = new Player("Jan", false);
-        deck = new Deck();
-        cartita.doAction(deck, player); // SE LE TENDRIA QUE AÑADIR UN MOCK
-        CardClassState state = cartita.getState();
-        String status = cartita.getState().getState();
-        assert  state != null : "Wrong state set doAction function";
-        assert status.equals(Actions.BLOCK) : "Wrong state set CardClassState";
-    }
-     */
 
     @Test
     public void TestdoAction(){
@@ -129,6 +118,17 @@ public class TestCardClass {
         testedCard3 = new CardClass("plus_four", "yellow");
         testedCard4 = new CardClass("plus_four", "red");
 
+        String input = "blue";
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+        Scanner scanner = new Scanner(System.in);
+
+        testedCard1.setState(new Mock_CardPlusFour(testedCard1));
+        testedCard2.setState(new Mock_CardPlusFour(testedCard2));
+        testedCard3.setState(new Mock_CardPlusFour(testedCard3));
+        testedCard4.setState(new Mock_CardPlusFour(testedCard4));
+
+
         testedCardsNumbers.clear();
         testedCardsNumbers.add(testedCard1);testedCardsNumbers.add(testedCard2);
         testedCardsNumbers.add(testedCard3);testedCardsNumbers.add(testedCard4);
@@ -137,15 +137,14 @@ public class TestCardClass {
         {
             CardClass returnedValue = new CardClass();
             returnedValue = testCard.doAction(testedDeck, testedGame);
-            assert(returnedValue == null) : "All +2 cards should return himself, not a empty card";
+            assert(returnedValue != null) : "doAction mock test is returning null";
+            assert(returnedValue.getColour() == Colours.BLUE ) : "doAction mock test is not returning colour blue card selected";
         }
 
-        assert(0 == testedGame.getListPlayers().get(0).numberHandCards()) : "Plus two cards has not added cards properly";
-        assert(8 == testedGame.getListPlayers().get(1).numberHandCards()) : "Plus two cards has not added cards properly";
+        assert(0 == testedGame.getListPlayers().get(0).numberHandCards()) : "Plus four cards has not added cards properly";
+        assert(24 == testedGame.getListPlayers().get(1).numberHandCards()) : "Plus four cards has not added cards properly";
 
-
-
-
+        //Testing
 
     }
 }
