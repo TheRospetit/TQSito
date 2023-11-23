@@ -23,6 +23,10 @@ public class DataBase {
         this.fileName = fileName;
     }
 
+    public String getFileName() {
+        return fileName;
+    }
+
     /**
      * Method to create a file if it already doesn't exist.
      */

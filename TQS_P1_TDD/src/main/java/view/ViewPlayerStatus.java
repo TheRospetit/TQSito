@@ -71,7 +71,7 @@ package view;
 import java.util.Arrays;
 import java.util.List;
 
-public class ViewPlayerStatus {
+public final class ViewPlayerStatus {
 
   public static void main(String[] args) {
     // Sample data for testing

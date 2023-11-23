@@ -13,6 +13,7 @@ import view.ViewStatistics;
 public class Main {
 
     public Main() { main(null);}
+
     public static void main(String[] args){
 
         DataBase myDatabase = new DataBase("stats.txt");

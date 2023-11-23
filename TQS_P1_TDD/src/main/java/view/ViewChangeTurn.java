@@ -2,7 +2,7 @@ package view;
 
 import java.util.Scanner;
 
-public class ViewChangeTurn {
+public final class ViewChangeTurn {
 
   public static void main(String[] args) throws InterruptedException {
     for (int i = 0; i < 5; i++) {
@@ -31,6 +31,7 @@ public class ViewChangeTurn {
 
   public static void waitForKeypress() {
     try {
+      System.out.println("Press 'ENTER' to continue.");
       // Use Scanner to wait for the user to press a key
       Scanner scanner = new Scanner(System.in);
       scanner.nextLine();
