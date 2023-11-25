@@ -53,16 +53,13 @@ public final class ViewMenu {
     System.out.println("\nSelect an option:");
     System.out.println("1. Play");
     System.out.println("2. View Statistics");
-    System.out.println("3. Exit");
+    System.out.println("3. How To Play");
+    System.out.println("4. Exit");
   }
 
 
   private static String fillWithCharacter(char character, int length) {
-    StringBuilder result = new StringBuilder();
-    for (int i = 0; i < length; i++) {
-      result.append(character);
-    }
-    return result.toString();
+    return String.valueOf(character).repeat(Math.max(0, length));
   }
 
   private static int getIntelliJTerminalWidth() {
