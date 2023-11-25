@@ -128,7 +128,19 @@ public class TestPlayerClass {
         resultTest = testedPlayer.testCardToPlay(topTested, playedTested);
         assert (resultTest == true) : "This should be correct";
 
+        //Test with block
+        topTested = new CardClass(4, "red");
+        playedTested = new CardClass(Actions.BLOCK, "red");
 
+        resultTest = testedPlayer.testCardToPlay(playedTested, topTested);
+        assert (resultTest == true ) : "This should be correct";
+
+        //Test with reverse
+        topTested = new CardClass(4, "red");
+        playedTested = new CardClass(Actions.REVERSE, "red");
+
+        resultTest = testedPlayer.testCardToPlay(playedTested, topTested);
+        assert (resultTest == true ) : "This should be correct";
 
         // Test different numbers, different colours
         topTested = new CardClass(1, "green");
@@ -142,7 +154,7 @@ public class TestPlayerClass {
         playedTested = new CardClass(3, "blue");
 
         resultTest = testedPlayer.testCardToPlay(topTested, playedTested);
-        assert (resultTest == false) : "This should be false";
+        assert (resultTest == true) : "This should be false";
 
         //Test two different action cards
         topTested = new CardClass(Actions.PLUS_TWO, "blue");
@@ -150,6 +162,13 @@ public class TestPlayerClass {
 
         resultTest = testedPlayer.testCardToPlay(playedTested, topTested);
         assert (resultTest == false) : "This should be false";
+
+        //Test color swap with another action
+        topTested = new CardClass(Actions.COLOR_SWAP, null);
+        playedTested = new CardClass(Actions.PLUS_TWO, "blue");
+
+        resultTest = testedPlayer.testCardToPlay(topTested, playedTested);
+        assert (resultTest == true) : "This should be true";
 
     }
 

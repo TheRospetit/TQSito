@@ -20,7 +20,7 @@ public class CardPlusFour extends CardClassState{
         boolean color_correcto = false;
         while(!color_correcto)
         {
-            System.out.println("A qué color quieres cambiar [azul, rojo, verde, amarillo]: ");
+            System.out.println("A qué color quieres cambiar [B, R, G, Y]: ");
             String input = game.getMyScanner().nextLine();
 
             switch (input){

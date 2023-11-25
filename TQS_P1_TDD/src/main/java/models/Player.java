@@ -47,29 +47,11 @@ public class Player {
     }
 
     /** Returns true if the current cardToPlay from the player can be played. */
-    public Boolean testCardToPlay(CardClass cardToP, CardClass lcPlayed) { // Test if card can
-        /*
-        if (Objects.equals(cardToP.getColour(), lcPlayed.getColour()) // Mismo color
-                || cardToP.getNumber() != null && lcPlayed.getNumber() != null
-                || Objects.equals(cardToP.getNumber(), lcPlayed.getNumber())
-                || Objects.equals(cardToP.getAction(), Actions.COLOUR_SWAP) // Carta de intercambio de color disponible en la mano
-                || Objects.equals(cardToP.getAction(), Actions.PLUS_FOUR)  // Puede jugar un +4
-                || (Objects.equals(cardToP.getAction(), Actions.PLUS_TWO)
-                && Objects.equals(lcPlayed.getAction(), Actions.PLUS_TWO)) // Última carta jugada fue un +2 y tengo un +2 disponible.
-                || !Objects.equals(cardToP.getAction(), lcPlayed.getAction())) // Last card played was a +2 and I have a +2 available.
-        {
-            return true;
-        }
-        */
+    public Boolean testCardToPlay(CardClass cardToP, CardClass lcPlayed) { // Test if card can be played
 
-        if(cardToP.getAction()== null && lcPlayed.getAction() == null && cardToP.getNumber()!= null && lcPlayed.getNumber() != null){
-            if(cardToP.getColour() == lcPlayed.getColour() || cardToP.getNumber() == lcPlayed.getNumber() ||
-                    (cardToP.getNumber() == lcPlayed.getNumber() && cardToP.getColour() == lcPlayed.getColour())){
-                return true;
-            }
-            else{
-                return false;
-            }
+        if(cardToP.getAction()== null && lcPlayed.getAction() == null && cardToP.getNumber()!= null && lcPlayed.getNumber() != null){ // Cards have number
+            return (cardToP.getColour().equals(lcPlayed.getColour()) || cardToP.getNumber().equals(lcPlayed.getNumber()) ||
+                    (cardToP.getNumber().equals(lcPlayed.getNumber()) && cardToP.getColour().equals(lcPlayed.getColour())));
         }
 
         if (cardToP.getAction() != null) {

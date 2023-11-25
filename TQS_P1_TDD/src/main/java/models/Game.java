@@ -43,7 +43,9 @@ public class Game {
         this.deck = new Deck();
         deck.giveStarterCardsToPlayers(listPlayers);
     }
+
     public static void reverseIterator(){ iterator *= -1; }
+
     public void nextPlayer() {
         nextPlayerIndex = (nextPlayerIndex + iterator) ;
 
@@ -70,7 +72,8 @@ public class Game {
             this.deck.setCardPlayed(cardPlayed);
             this.endGame(actualPlayer);
         }
-        this.setCurrentPlayer((this.getCurrentPlayer()+1) % this.getNumPlayers());
+        this.nextPlayer();
+        this.setCurrentPlayer((this.getNextPlayer()) % this.getNumPlayers());
         System.out.println("");
 
         // Control te iterator and the next player that will play
