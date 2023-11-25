@@ -41,6 +41,9 @@ public class Player {
     }
     public int numberHandCards(){return hand.size();}
 
+    public ArrayList<CardClass> getHand() {
+        return hand;
+    }
 
     /** Returns true if the current cardToPlay from the player can be played. */
     public Boolean testCardToPlay(CardClass cardToP, CardClass lcPlayed) { // Test if card can

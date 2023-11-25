@@ -68,22 +68,30 @@ public class ViewPlayerStatus {
 
 package view;
 
+import models.CardClass;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public final class ViewPlayerStatus {
+  public static String createCardClassStringName(CardClass card) {
+    String strAction = card.getAction();
+    String strNumb = String.valueOf(card.getNumber());
+    String strCol = card.getColour();
+    String cardStringName = null;
 
-  public static void main(String[] args) {
-    // Sample data for testing
-    String playerName = "Player 1";
-    List<String> playerHand = Arrays.asList("Red 3", "Blue Skip", "Draw Four", "Green 7");
-    String lastPlayedCard = "Yellow Reverse";
-
-    // Display player status
-    displayPlayerStatus(playerName, playerHand, lastPlayedCard);
+    if (strCol != null && !Objects.equals(strNumb, "null") && strAction == null){
+      cardStringName = strCol + strNumb;
+    } else if (strCol != null && Objects.equals(strNumb, "null") && strAction != null){
+      cardStringName = strCol + strAction;
+    } else if (strCol == null && Objects.equals(strNumb, "null") && strAction != null){
+      cardStringName = strAction;
+    }
+    return cardStringName;
   }
-
-  public static void displayPlayerStatus(String playerName, List<String> playerHand, String lastPlayedCard) {
+  public static void displayPlayerStatus(String playerName, ArrayList<CardClass> playerHand, CardClass lastPlayedCard) {
     int terminalWidth = getIntelliJTerminalWidth();
     String playerNameString = "Turn: " + playerName;
     // Display current player's name
@@ -93,7 +101,7 @@ public final class ViewPlayerStatus {
     System.out.println("╚" + fillWithCharacter('=', terminalWidth - 2) + "╝");
 
     // Display last played card
-    String lastCardPlayedString = "Last card played: " + lastPlayedCard;
+    String lastCardPlayedString = "Last card played: " + ViewPlayerStatus.createCardClassStringName(lastPlayedCard);
     int centerLastCard = (terminalWidth - (lastCardPlayedString.length() + 2)) / 2;
 
     System.out.println(" ");
@@ -108,21 +116,22 @@ public final class ViewPlayerStatus {
     System.out.println("\n");
   }
 
-  private static void displayCardTable(List<String> playerHand) {
+  private static void displayCardTable(ArrayList<CardClass> playerHand) {
     int cardWidth = 15; // Adjust according to your needs
 
-    for (String card : playerHand) {
+    for (CardClass card : playerHand) {
       System.out.print("┌" + fillWithCharacter('─', cardWidth - 2) + "┐ ");
     }
     System.out.println(); // Move to the next line
 
-    for (String card : playerHand) {
-      int padding = cardWidth - card.length() - 5; // Calculate padding for centering
-      System.out.print("│ " + fillWithCharacter(' ', padding / 2) + " " + card + fillWithCharacter(' ', padding - padding / 2) + " │ ");
+    for (CardClass card : playerHand) {
+      String cardName = ViewPlayerStatus.createCardClassStringName(card);
+      int padding = cardWidth - cardName.length() - 5; // Calculate padding for centering
+      System.out.print("│ " + fillWithCharacter(' ', padding / 2) + " " + cardName + fillWithCharacter(' ', padding - padding / 2) + " │ ");
     }
     System.out.println(); // Move to the next line
 
-    for (String card : playerHand) {
+    for (CardClass card : playerHand) {
       System.out.print("└" + fillWithCharacter('─', cardWidth - 2) + "┘ ");
     }
     System.out.println(); // Move to the next line

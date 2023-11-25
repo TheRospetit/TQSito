@@ -1,6 +1,9 @@
 package models;
 
 
+import javax.xml.crypto.Data;
+import java.util.ArrayList;
+
 public class Statistics {
     /** The player name shown on the Statistics DB file. */
     private String player_name;
@@ -109,5 +112,22 @@ public class Statistics {
         numWins += stats.getNumWins();
         numCards += stats.getNumCards();
     }
+
+    public static ArrayList<Statistics> getPlayerStatsListFromDDBB(DataBase myDatabase, ArrayList<Player> myPlayerList) {
+        ArrayList<Statistics> myStatList = new ArrayList<>();
+        Statistics stat;
+        for (Player player : myPlayerList) {
+            String linePlayer = myDatabase.searchString(player.getName());
+            if (linePlayer != null) {
+                stat = myDatabase.stringLineToStatistics(linePlayer);
+            } else {
+                stat = new Statistics(player.getName(), 0, 0, 0);
+            }
+            myStatList.add(stat);
+        }
+
+        return myStatList;
+    }
+
 
 }

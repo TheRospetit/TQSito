@@ -34,7 +34,9 @@ public class Game {
     public void setLastCardPlayed(CardClass card) { deck.getPlayedCards().add(card); }
     public void setCurrentPlayer(int i) { currentPlayer = i;}
 
-
+    public static Integer getNextPlayerIndex() {
+        return nextPlayerIndex;
+    }
 
     // OTHER METHODS
     public void giveHand() {
@@ -48,10 +50,10 @@ public class Game {
         if (nextPlayerIndex == -1) nextPlayerIndex = this.numPlayers-1; // We are going counterclockwise (reverse)
         else nextPlayerIndex = nextPlayerIndex % this.numPlayers; // Clockwise
     }
-    public void playerRound(){
-        Player actualPlayer = listPlayers.get(nextPlayerIndex);
+    public void playerRound(Player actualPlayer){
+        //Player actualPlayer = listPlayers.get(nextPlayerIndex);
 
-        System.out.println("TU TURNO " + actualPlayer.getName());
+        //System.out.println("Your turn " + actualPlayer.getName());
         CardClass cardPlayed = actualPlayer.playCard(this.getLastCardPlayed(), this.deck, this );
         if (cardPlayed == null) {
             this.deck.giveCardsToPlayer(actualPlayer);

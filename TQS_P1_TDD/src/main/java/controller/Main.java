@@ -6,9 +6,7 @@ import java.util.Scanner;
 
 import models.*;
 
-import view.ViewAskPlayers;
-import view.ViewMenu;
-import view.ViewStatistics;
+import view.*;
 
 public class Main {
 
@@ -18,7 +16,6 @@ public class Main {
 
         DataBase myDatabase = new DataBase("stats.txt");
         myDatabase.createFile();
-
 
 
         Scanner scanner = new Scanner(System.in);
@@ -51,7 +48,25 @@ public class Main {
                     ViewAskPlayers.displayPlayerNames(myPlayerList);
                     ViewStatistics.displayStatsIfInDDBB(myDatabase, myPlayerList);
 
-                    System.out.println("Starting the game...");
+                    // Create the Statistics list that will be in the same order as Player, so we can add the Stats
+                    // of the game to each player.
+                    ArrayList<Statistics> myStatList = Statistics.getPlayerStatsListFromDDBB(myDatabase, myPlayerList);
+
+                    // GAME INNIT
+                    Scanner Scanner = new Scanner(System.in);
+                    ScannerClass myScannerPlayerInput = new ScannerClass(Scanner);
+
+                    Game game = new Game(numPlayers,0, myPlayerList, myScannerPlayerInput);
+                    game.giveHand(); // Initializes the deck and gives the hands of each player
+                    game.setLastCardPlayed(game.deck.getPlayableCards().get(0)); // We set the first card
+
+                    while (!game.gameEndedWinner()) {
+                        Player actualPlayer = game.getListPlayers().get(Game.getNextPlayerIndex());
+                        ViewChangeTurn.showTurnChange(actualPlayer.getName());
+                        ViewPlayerStatus.displayPlayerStatus(actualPlayer.getName(), actualPlayer.getHand(), game.getLastCardPlayed());
+                        game.playerRound(actualPlayer);
+                    }
+                    System.out.println("THE END ENTRE COMILLAS");
                     break;
                 case 2:
                     // Add code for option 2 (View Statistics)
@@ -70,7 +85,7 @@ public class Main {
         }while (choice != 3);
 
 
-        System.out.println("THE END ENTRE COMILLAS");
+
 
 
     }
@@ -129,7 +144,8 @@ public class Main {
         game.setLastCardPlayed(game.deck.getPlayableCards().get(0)); // We set the first card
 
         while (!game.gameEndedWinner()) {
-            game.playerRound();
+            Player actualPlayer = game.getListPlayers().get(Game.getNextPlayerIndex());
+            game.playerRound(actualPlayer);
         }
 
     }
