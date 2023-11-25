@@ -14,6 +14,10 @@ public class Main {
 
     public static void main(String[] args){
 
+        int exitOption = 4; // Setting the exitOption value. In case we add more options, all
+        // prints will change the range of correct values (and the While too).
+
+        // Initialize the database (stats.txt file)
         DataBase myDatabase = new DataBase("stats.txt");
         myDatabase.createFile();
 

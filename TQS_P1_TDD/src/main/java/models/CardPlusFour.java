@@ -24,10 +24,10 @@ public class CardPlusFour extends CardClassState{
             String input = game.getMyScanner().nextLine();
 
             switch (input){
-                case("azul"): deck.setCardPlayed(new CardClass((Integer) null, input)); color_correcto = true;  return new CardClass((Integer) null, Colours.BLUE) ;
-                case("rojo"):  deck.setCardPlayed(new CardClass((Integer) null, input));color_correcto = true; return new CardClass((Integer) null, Colours.RED);
-                case("verde"):  deck.setCardPlayed(new CardClass((Integer) null, input)); color_correcto = true ;return new CardClass((Integer) null, Colours.GREEN);
-                case("amarillo"):  deck.setCardPlayed(new CardClass((Integer) null, input)); color_correcto = true ;return new CardClass((Integer) null, Colours.YELLOW);
+                case("B"): deck.setCardPlayed(new CardClass((Integer) null, input)); color_correcto = true;  return new CardClass(Actions.PLUS_FOUR, Colors.BLUE) ;
+                case("R"):  deck.setCardPlayed(new CardClass((Integer) null, input));color_correcto = true; return new CardClass(Actions.PLUS_FOUR, Colors.RED);
+                case("G"):  deck.setCardPlayed(new CardClass((Integer) null, input)); color_correcto = true ;return new CardClass(Actions.PLUS_FOUR, Colors.GREEN);
+                case("Y"):  deck.setCardPlayed(new CardClass((Integer) null, input)); color_correcto = true ;return new CardClass(Actions.PLUS_FOUR, Colors.YELLOW);
                 default: System.out.println("Color no correcto! Introduce otro de nuevo");
             }
         }

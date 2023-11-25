@@ -41,6 +41,8 @@ public class Player {
     }
     public int numberHandCards(){return hand.size();}
 
+    public void setHand(ArrayList<CardClass> newHand) { this.hand = newHand; }
+
     public ArrayList<CardClass> getHand() {
         return hand;
     }
@@ -70,33 +72,22 @@ public class Player {
                 return false;
             }
         }
-        if(cardToP.getNumber()== null && lcPlayed.getNumber() == null && cardToP.getAction()!= null && lcPlayed.getAction() != null){
-            if( (cardToP.getColour() == lcPlayed.getColour() && cardToP.getAction() == lcPlayed.getAction()) ||
-                    cardToP.getColour() == lcPlayed.getColour() || cardToP.getAction() == lcPlayed.getAction() ||
-                    cardToP.getAction() == Actions.PLUS_FOUR || cardToP.getAction() == Actions.COLOUR_SWAP ) {
+
+        if (cardToP.getAction() != null) {
+            if(cardToP.getAction().equals(Actions.COLOR_SWAP) || cardToP.getAction().equals(Actions.PLUS_FOUR)){
                 return true;
             }
-            else{
-                return false;
+        }
+
+        if(cardToP.getNumber()== null && lcPlayed.getNumber() == null && cardToP.getAction() != null && lcPlayed.getAction() != null){ // Cards have action
+            if (cardToP.getColour() != null && lcPlayed.getAction() != null){
+                return ((cardToP.getColour().equals(lcPlayed.getColour()) && cardToP.getAction().equals(lcPlayed.getAction())) ||
+                        cardToP.getColour().equals(lcPlayed.getColour()) || cardToP.getAction().equals(lcPlayed.getAction()));
             }
         }
 
-        if(cardToP.getAction() == Actions.COLOUR_SWAP || cardToP.getAction() == Actions.PLUS_FOUR){
-            return true;
-        }
-
-
-
-
-
-
-
-
-        return false;
-
-
-
-
+        // If they have the same color but not both have action or number (ej: 4 red & color_swap red)
+        return(cardToP.getColour() != null && lcPlayed.getColour() != null && cardToP.getColour().equals(lcPlayed.getColour()));
 
     }
 
@@ -123,17 +114,16 @@ public class Player {
         }
         CardClass returnedCard = new CardClass();
         if (canPlayCard(lastCardPlayed)) { // Checks if the player can play any card
-            Scanner scanner = new Scanner(System.in);
+            //Scanner scanner = new Scanner(System.in);
             while (true) {
                 //waiting to input variables
-                System.out.println("Select one card: ");
-                String input = scanner.nextLine();
-                int numPlayedCard = Integer.parseInt(input); //convert input into an integer, we should be care if its not correct value
+                System.out.println("Select one card (Position of the card): ");
+                //String input = scanner.nextLine();
+                //game.getMyScanner().nextLine();
+                int numPlayedCard = Integer.parseInt(game.getMyScanner().nextLine());
+                //convert input into an integer, we should be care if its not correct value
 
-                //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                //cuidado con la carta que se devuelve, hay que modificarlo para los casos de cartas con acciones/////////////////
                 cardToPlay =  hand.get( numPlayedCard - 1);
-
 
                 // if testCard(cardToPlay, lastCardPlayed) == true --> hand.remove();
                 if (testCardToPlay(cardToPlay, lastCardPlayed)) { // Checks if the player selected a playable card

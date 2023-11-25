@@ -17,10 +17,10 @@ public class CardColourSwap extends CardClassState{
 
 
             switch (input){
-                case("azul"): deck.setCardPlayed(new CardClass((Integer) null, input)); color_correcto = true;  return new CardClass((Integer) null, Colours.BLUE) ;
-                case("rojo"):  deck.setCardPlayed(new CardClass((Integer) null, input));color_correcto = true; return new CardClass((Integer) null, Colours.RED);
-                case("verde"):  deck.setCardPlayed(new CardClass((Integer) null, input)); color_correcto = true ;return new CardClass((Integer) null, Colours.GREEN);
-                case("amarillo"):  deck.setCardPlayed(new CardClass((Integer) null, input)); color_correcto = true ;return new CardClass((Integer) null, Colours.YELLOW);
+                case("B"): deck.setCardPlayed(new CardClass((Integer) null, input)); color_correcto = true;  return new CardClass(Actions.COLOR_SWAP, Colors.BLUE) ;
+                case("R"):  deck.setCardPlayed(new CardClass((Integer) null, input)); color_correcto = true; return new CardClass(Actions.COLOR_SWAP, Colors.RED);
+                case("G"):  deck.setCardPlayed(new CardClass((Integer) null, input)); color_correcto = true ;return new CardClass(Actions.COLOR_SWAP, Colors.GREEN);
+                case("Y"):  deck.setCardPlayed(new CardClass((Integer) null, input)); color_correcto = true ;return new CardClass(Actions.COLOR_SWAP, Colors.YELLOW);
                 default: System.out.println("Color no correcto! Introduce otro de nuevo");
             }
         }

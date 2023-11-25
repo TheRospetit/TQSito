@@ -20,4 +20,7 @@ public class ScannerClass {
 
     public String  next() { return scanner.next(); }
 
+    public void setInput(String input) {
+
+    }
 }

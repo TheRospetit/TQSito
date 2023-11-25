@@ -5,21 +5,16 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public class Mock_Deck extends Deck {
-  private Boolean mock_notMoreCards;
-  private int mock_numCards;
-  private ArrayList<CardClass> mock_playableCards;
-  private ArrayList<CardClass> mock_playedCards;
-
   public Mock_Deck(){
 
-    super(true, 108, new);
-    mock_playableCards = new ArrayList<>();
-    mock_playedCards = new ArrayList<>();
-    initializeDeck(); // Initialize the deck
-    //Collections.shuffle(playableCards); // Shuffle the deck
-    mock_notMoreCards = false;
-    mock_numCards = mock_playableCards.size();
-    mock_playedCards = new ArrayList<CardClass>();
+    //super(true, 108, new);
+    super();
+  }
+
+  @Override
+  public void shuffleCardsDeck(){
+    //The father method shuffle the deck, but we don't want that, so we
+    // override the method so we the method does nothing
   }
 
   // TODO. Check for removal: This does not have any type of useful implementation

@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TestCardClassState {
     @Test
     public void TestConstructorDefault() {
-        CardClass auxCard = new CardClass(Actions.BLOCK, Colours.RED);
+        CardClass auxCard = new CardClass(Actions.BLOCK, Colors.RED);
         CardClassState testedCCS = auxCard.getState();
         assert(testedCCS != null) : "CardClassState has not been added properly";
     }
@@ -19,7 +19,7 @@ public class TestCardClassState {
     @Test
     public void TestAttributes() {
         // Testing number of attributes
-        CardClass auxCard = new CardClass(Actions.BLOCK, Colours.RED);
+        CardClass auxCard = new CardClass(Actions.BLOCK, Colors.RED);
         CardClassState testedCCS  = auxCard.getState();
         List<Field> allFields = Arrays.asList(CardClassState.class.getDeclaredFields());
         assert(allFields.size() == 2) : "CardClassState does not have 2 attributes";
@@ -36,7 +36,7 @@ public class TestCardClassState {
 
     @Test
     public void TestGetters() {
-        CardClass auxCard = new CardClass(Actions.BLOCK, Colours.RED);
+        CardClass auxCard = new CardClass(Actions.BLOCK, Colors.RED);
         CardClassState testedCCS = auxCard.getState();
         String testedName = testedCCS.getState();
 

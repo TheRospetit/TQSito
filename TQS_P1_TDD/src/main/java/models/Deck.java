@@ -14,7 +14,7 @@ public class Deck {
 
   public Deck(){
     initializeDeck(); // Initialize the deck
-    Collections.shuffle(playableCards); // Shuffle the deck
+    shuffleCardsDeck();
     notMoreCards = false;
     numCards = playableCards.size();
     playedCards = new ArrayList<CardClass>();
@@ -28,6 +28,14 @@ public class Deck {
     playedCards = lastCard;
   }
 
+  //TODO TRYNG TO IMPLEMENT IF MOCK COULD WORK PROPERLY
+  public void shuffleCardsDeck(){
+    Collections.shuffle(playableCards);
+  }
+
+
+
+  //TODO
   public void initializeDeck() {
     /*
     SUMMARY of Cards:
@@ -40,7 +48,7 @@ public class Deck {
     - 4 PLUS_FOUR (+4).                       -- Total:  4
                                                 DECK = 108 Cards
      */
-    ArrayList<String> colours = new ArrayList<>(Arrays.asList(Colours.BLUE, Colours.RED, Colours.GREEN, Colours.YELLOW));
+    ArrayList<String> colours = new ArrayList<>(Arrays.asList(Colors.BLUE, Colors.RED, Colors.GREEN, Colors.YELLOW));
     ArrayList<String> actions_twice = new ArrayList<>(Arrays.asList(Actions.BLOCK, Actions.PLUS_TWO, Actions.REVERSE));
     // We only have a Zero card for each color
     // Initialize card with 0, and specail card +4 and colour swap

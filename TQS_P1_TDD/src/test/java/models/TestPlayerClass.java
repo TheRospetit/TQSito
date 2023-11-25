@@ -157,15 +157,15 @@ public class TestPlayerClass {
     public void TestCanPlayCard() {
         Player testedPlayer = new Player();
         for(int i = 0; i < 5; i++) {
-            testedPlayer.giveCard( new CardClass(i, Colours.RED));
+            testedPlayer.giveCard( new CardClass(i, Colors.RED));
         }
-        boolean resultTest = testedPlayer.canPlayCard(new CardClass(0, Colours.RED));
+        boolean resultTest = testedPlayer.canPlayCard(new CardClass(0, Colors.RED));
         assert (resultTest == true) : "Hand is all red and last card too, it should be true";
 
-        resultTest = testedPlayer.canPlayCard(new CardClass(0, Colours.GREEN));
+        resultTest = testedPlayer.canPlayCard(new CardClass(0, Colors.GREEN));
         assert (resultTest == true) : "Hand is all red [0-5] and last card is 0 Green, it should be true";
 
-        resultTest = testedPlayer.canPlayCard(new CardClass(7, Colours.GREEN));
+        resultTest = testedPlayer.canPlayCard(new CardClass(7, Colors.GREEN));
         assert (resultTest == false) : "Hand is all red and last card is 7 green, it should be false" ;
     }
 
@@ -180,15 +180,48 @@ public class TestPlayerClass {
         testedArrayPlayer.add(testedPlayer1);testedArrayPlayer.add(testedPlayer2);
         testedArrayPlayer.add(testedPlayer3);
 
-        ScannerClass scannerClass = new Mock_ScannerClass("" );
+        CardClass resultTested = new CardClass();
+        ScannerClass scannerClass = new Mock_ScannerClass("3" );
         Game testedGame = new Game(3, 0, testedArrayPlayer, scannerClass);
-        Deck testedDeck = new Deck();
+        //Deck testedDeck = new Deck();
         Deck testedDeck2 = new Mock_Deck();
 
-        CardClass lastCardNumber = new CardClass(7, Colours.RED);
-        CardClass lastCardAction = new CardClass(Actions.BLOCK, Colours.GREEN);
 
-        testedPlayer1.playCard(lastCardNumber,testedDeck, testedGame);
+        List<CardClass> subList = testedDeck2.getPlayableCards().subList(12, 19);
+        ArrayList<CardClass> onlyNumbersHand = new ArrayList<>(subList);
+        testedPlayer1.setHand(onlyNumbersHand);
+
+        CardClass lastCardNumber = new CardClass(7, Colors.RED);
+        CardClass lastCardAction = new CardClass(Actions.BLOCK, Colors.GREEN);
+
+
+        // Testing throw a card, no winner, no void hand
+        CardClass selectedCardByPlayer = onlyNumbersHand.get(2);
+
+        CardClass resultTested1 = new CardClass();
+        resultTested1 = testedPlayer1.playCard(lastCardNumber,testedDeck2, testedGame);
+
+        assert(resultTested1 == selectedCardByPlayer ) : "The last card played does not correspond the chosen one";
+        assert(testedPlayer1.getHand().size() == 6) : "The last card played has not been removed from the player hand";
+        assert(testedPlayer1.getWinner() == false) : "The player should not be a winner because his/her hand is not void";
+
+        // Testing throw a card, winner, void hand
+        testedGame.getMyScanner().setInput("1");
+
+        subList = testedDeck2.getPlayableCards().subList(14,15);
+        onlyNumbersHand = new ArrayList<>(subList);
+        testedPlayer1.setHand(onlyNumbersHand);
+        selectedCardByPlayer = onlyNumbersHand.get(0);
+
+        resultTested1 = testedPlayer1.playCard(lastCardNumber,testedDeck2, testedGame);
+        assert(resultTested1 == selectedCardByPlayer ) : "The last card played does not correspond the chosen one";
+        assert(testedPlayer1.getHand().size() == 0) : "The last card played has not been removed from the player hand";
+        assert(testedPlayer1.getWinner() == true) : "The player should be a winner because his/her hand is void";
+
+
+
+
+
 
 
 
