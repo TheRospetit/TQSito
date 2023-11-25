@@ -55,7 +55,7 @@ public class Deck {
     for (int i = 0; i < colours.size(); i++) { // Iterate through colours.
       playableCards.add(new CardClass(0, colours.get(i))); // Initialize a card and add it to the deck.
       playableCards.add(new CardClass(Actions.PLUS_FOUR,null)); //Initialize a plus four card but without a colour
-      playableCards.add(new CardClass(Actions.COLOUR_SWAP,null)); //Initialize a plus four card but without a colour
+      playableCards.add(new CardClass(Actions.COLOR_SWAP,null)); //Initialize a plus four card but without a colour
 
     }
 

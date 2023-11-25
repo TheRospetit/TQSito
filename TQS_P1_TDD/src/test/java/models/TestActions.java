@@ -11,7 +11,7 @@ public class TestActions {
         assert("reverse" == testedActions.REVERSE ):"Action.REVERSE has not the correct value";
         assert("plus_two" == testedActions.PLUS_TWO ):"Action.PLUS_TWO has not the correct value";
         assert("plus_four" == testedActions.PLUS_FOUR ):"Action.PLUS_FOUR has not the correct value";
-        assert("colour_swap" == testedActions.COLOUR_SWAP ):"Action.COLOUR_SWAP has not the correct value";
+        assert("color_swap" == testedActions.COLOR_SWAP):"Action.COLOR_SWAP has not the correct value";
 
     }
 }

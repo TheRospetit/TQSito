@@ -4,15 +4,6 @@ import java.util.Scanner;
 
 public final class ViewChangeTurn {
 
-  public static void main(String[] args) throws InterruptedException {
-    for (int i = 0; i < 5; i++) {
-      showTurnChange("Player 2");
-      waitForKeypress();
-      clearScreen();
-      //Thread.sleep(2000);
-    }
-  }
-
   /*
   public static void clearScreen() {
     // Uses ANSI escape sequence to clear the screen
@@ -31,7 +22,14 @@ public final class ViewChangeTurn {
 
   public static void waitForKeypress() {
     try {
-      System.out.println("Press 'ENTER' to continue.");
+      int terminalWidth = getIntelliJTerminalWidth();
+      String pressEnterString = "Press ENTER to continue . . .";
+      int centerPressEnter = (terminalWidth - (pressEnterString.length() + 2)) / 2;
+      System.out.println(" "); // New line (could be \n but is more visual now).
+      System.out.println("┌" + fillWithCharacter('─', terminalWidth - 2) + "┐");
+      System.out.println("│" + fillWithCharacter(' ', centerPressEnter) + pressEnterString + fillWithCharacter(' ', centerPressEnter) + " │");
+      System.out.println("└" + fillWithCharacter('─', terminalWidth - 2) + "┘");
+
       // Use Scanner to wait for the user to press a key
       Scanner scanner = new Scanner(System.in);
       scanner.nextLine();
@@ -45,11 +43,11 @@ public final class ViewChangeTurn {
     int terminalWidth = getIntelliJTerminalWidth();
 
     String nextPlayerString = "Next turn. Player name:";
-    String pressEnterString = "Press ENTER to continue . . .";
+
     // Calculate the position to center the player name
     int centerAt = (terminalWidth - (playerName.length() + 2)) / 2;
     int centerTitle = (terminalWidth - (nextPlayerString.length() + 2)) / 2;
-    int centerPressEnter = (terminalWidth - (pressEnterString.length() + 2)) / 2;
+
 
     // Print the turn change with the player name centered
     System.out.println("╔" + fillWithCharacter('=', terminalWidth - 2) + "╗");
@@ -57,10 +55,7 @@ public final class ViewChangeTurn {
     System.out.println("║" + fillWithCharacter(' ', centerAt) + playerName + fillWithCharacter(' ', centerAt) + " ║");
     System.out.println("╚" + fillWithCharacter('=', terminalWidth - 2) + "╝");
 
-    System.out.println(" "); // New line (could be \n but is more visual now).
-    System.out.println("┌" + fillWithCharacter('─', terminalWidth - 2) + "┐");
-    System.out.println("│" + fillWithCharacter(' ', centerPressEnter) + pressEnterString + fillWithCharacter(' ', centerPressEnter) + " │");
-    System.out.println("└" + fillWithCharacter('─', terminalWidth - 2) + "┘");
+    waitForKeypress();
   }
 
   public static String fillWithCharacter(char character, int length) {

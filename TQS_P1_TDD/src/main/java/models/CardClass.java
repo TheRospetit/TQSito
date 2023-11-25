@@ -36,7 +36,7 @@ public class CardClass {
                 this.state = new CardPlusFour(this);
                 break;
 
-            case Actions.COLOUR_SWAP:
+            case Actions.COLOR_SWAP:
                 this.state = new CardColourSwap(this);
                 break;
 

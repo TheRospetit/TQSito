@@ -109,7 +109,7 @@ public class TestPlayerClass {
 
         // Test with swap colour
         topTested = new CardClass(1, "blue");
-        playedTested = new CardClass(Actions.COLOUR_SWAP, null);
+        playedTested = new CardClass(Actions.COLOR_SWAP, null);
 
         resultTest = testedPlayer.testCardToPlay(playedTested , topTested);
         assert (resultTest == true) : "This should be correct";

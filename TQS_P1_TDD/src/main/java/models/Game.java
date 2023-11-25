@@ -50,13 +50,21 @@ public class Game {
         if (nextPlayerIndex == -1) nextPlayerIndex = this.numPlayers-1; // We are going counterclockwise (reverse)
         else nextPlayerIndex = nextPlayerIndex % this.numPlayers; // Clockwise
     }
-    public void playerRound(Player actualPlayer){
-        //Player actualPlayer = listPlayers.get(nextPlayerIndex);
 
-        //System.out.println("Your turn " + actualPlayer.getName());
+    public Integer getNextPlayer(){ return nextPlayerIndex; }
+
+    public CardClass getActualPlayerPlayedCard(Player actualPlayer){
         CardClass cardPlayed = actualPlayer.playCard(this.getLastCardPlayed(), this.deck, this );
+        return cardPlayed;
+    }
+    public boolean playerRound(Player actualPlayer, CardClass cardPlayed){
+        //Player actualPlayer = listPlayers.get(nextPlayerIndex);
+        boolean draw = false; // Just to check if the player draws a card, so in the controller we can display the playerCards again.
+        //System.out.println("Your turn " + actualPlayer.getName());
+        //CardClass cardPlayed = actualPlayer.playCard(this.getLastCardPlayed(), this.deck, this );
         if (cardPlayed == null) {
             this.deck.giveCardsToPlayer(actualPlayer);
+            draw = true;
         } else {
             this.setLastCardPlayed(cardPlayed); // Whatever the card is it will also do its action (+2, +4, reverse...)
             this.deck.setCardPlayed(cardPlayed);
@@ -66,8 +74,7 @@ public class Game {
         System.out.println("");
 
         // Control te iterator and the next player that will play
-        nextPlayer();
-
+        return draw;
     }
     public void endGame(Player player){
         if (player.getWinner()) {

@@ -1,7 +1,6 @@
 package models;
 
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Scanner;
 
 
@@ -103,15 +102,6 @@ public class Player {
     }
 
     public CardClass playCard(CardClass lastCardPlayed, Deck deck, Game game){
-
-        //Printing lastCardPlayed
-        System.out.println("Last Card Played: " + lastCardPlayed.getAction() + " " + lastCardPlayed.getColour() + " " + lastCardPlayed.getNumber());
-        //Printing hand cards
-        int i = 1;
-        for(CardClass carta : hand){
-            System.out.println("Carta " + i + ": " + carta.getAction() +" " + carta.getColour() + " " + carta.getNumber());
-            i++;
-        }
         CardClass returnedCard = new CardClass();
         if (canPlayCard(lastCardPlayed)) { // Checks if the player can play any card
             //Scanner scanner = new Scanner(System.in);

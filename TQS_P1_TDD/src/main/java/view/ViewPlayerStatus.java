@@ -68,7 +68,9 @@ public class ViewPlayerStatus {
 
 package view;
 
+import models.Actions;
 import models.CardClass;
+import models.Colors;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -77,9 +79,9 @@ import java.util.Objects;
 
 public final class ViewPlayerStatus {
   public static String createCardClassStringName(CardClass card) {
-    String strAction = card.getAction();
+    String strAction = Actions.getActionsStringName(card.getAction());
     String strNumb = String.valueOf(card.getNumber());
-    String strCol = card.getColour();
+    String strCol = Colors.getColorsStringName(card.getColour());
     String cardStringName = null;
 
     if (strCol != null && !Objects.equals(strNumb, "null") && strAction == null){
@@ -88,12 +90,14 @@ public final class ViewPlayerStatus {
       cardStringName = strCol + strAction;
     } else if (strCol == null && Objects.equals(strNumb, "null") && strAction != null){
       cardStringName = strAction;
+    } else if (strCol != null && Objects.equals(strNumb, "null") && strAction == null){
+      cardStringName = strCol;
     }
     return cardStringName;
   }
   public static void displayPlayerStatus(String playerName, ArrayList<CardClass> playerHand, CardClass lastPlayedCard) {
     int terminalWidth = getIntelliJTerminalWidth();
-    String playerNameString = "Turn: " + playerName;
+    String playerNameString = "Turn: " + playerName + new String(Character.toChars(0x1F913));
     // Display current player's name
     int centerPlayerName = (terminalWidth - (playerNameString.length() + 2)) / 2;
     System.out.println("╔" + fillWithCharacter('=', terminalWidth - 2) + "╗");
@@ -127,7 +131,7 @@ public final class ViewPlayerStatus {
     for (CardClass card : playerHand) {
       String cardName = ViewPlayerStatus.createCardClassStringName(card);
       int padding = cardWidth - cardName.length() - 5; // Calculate padding for centering
-      System.out.print("│ " + fillWithCharacter(' ', padding / 2) + " " + cardName + fillWithCharacter(' ', padding - padding / 2) + " │ ");
+      System.out.print("│ " + fillWithCharacter(' ', padding / 2) + " " + cardName + fillWithCharacter(' ', padding - padding / 2) + "│ ");
     }
     System.out.println(); // Move to the next line
 

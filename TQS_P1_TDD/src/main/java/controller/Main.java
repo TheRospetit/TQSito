@@ -10,6 +10,8 @@ import view.*;
 
 public class Main {
 
+
+
     public Main() { main(null);}
 
     public static void main(String[] args){
@@ -28,19 +30,17 @@ public class Main {
 
         int choice; // Switch case menu option(choice) by the user.
         do {
-
             ViewMenu.displayMenu();
 
             // Get user choice
-            System.out.print("Enter your choice (1-3): ");
+            System.out.print("Enter your choice (1-" + exitOption + "): ");;
             while (!myScanner.hasNextInt()) {
                 System.out.println("Invalid input. Please enter a number.");
                 myScanner.next(); // Consume the invalid input
             }
             choice = myScanner.nextInt();
 
-                // Ask User the menu Option
-            //choice = menu.askMenuOption();
+            // Ask User the menu Option
             switch (choice) {
                 case 1:
                     // Code for option 1 (Play)
@@ -68,7 +68,12 @@ public class Main {
                         Player actualPlayer = game.getListPlayers().get(Game.getNextPlayerIndex());
                         ViewChangeTurn.showTurnChange(actualPlayer.getName());
                         ViewPlayerStatus.displayPlayerStatus(actualPlayer.getName(), actualPlayer.getHand(), game.getLastCardPlayed());
-                        game.playerRound(actualPlayer);
+                        CardClass cardPlayed = game.getActualPlayerPlayedCard(actualPlayer);
+                        if (game.playerRound(actualPlayer, cardPlayed)){
+                            System.out.println("Card drawn: Showing hand again:");
+                            ViewPlayerStatus.displayPlayerStatus(actualPlayer.getName(), actualPlayer.getHand(), game.getLastCardPlayed());
+                        }
+
                     }
                     System.out.println("THE END ENTRE COMILLAS");
                     break;
@@ -78,15 +83,20 @@ public class Main {
                     ViewStatistics.viewAllStatistics(myDatabase);
                     break;
                 case 3:
+                    // Option 3 (How To Play)
+                    ViewHowToPlay.displayHowToPlay();
+                    ViewChangeTurn.waitForKeypress();
+                    break;
+                case 4:
                     // Option 3 (Exit)
                     System.out.println("Exiting the game. Goodbye!");
                     break;
                 default:
-                    System.out.println("Invalid choice. Please enter a number between 1 and 3.");
+                    System.out.println("Invalid choice. Please enter a number between 1 and " + exitOption + ".");
             }
 
 
-        }while (choice != 3);
+        }while (choice != exitOption);
 
 
 
@@ -149,7 +159,7 @@ public class Main {
 
         while (!game.gameEndedWinner()) {
             Player actualPlayer = game.getListPlayers().get(Game.getNextPlayerIndex());
-            game.playerRound(actualPlayer);
+            //game.playerRound(actualPlayer);
         }
 
     }

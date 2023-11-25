@@ -26,8 +26,8 @@ public class TestCardClass {
         cartita = new CardClass(Actions.REVERSE, Colors.YELLOW);
         assert !cartita.equals(new CardClass(Actions.REVERSE, Colors.YELLOW)) : "Inicialitzación REVERSE incorrecto";
 
-        cartita = new CardClass(Actions.COLOUR_SWAP, Colours.BLUE);
-        assert !cartita.equals(new CardClass(Actions.COLOUR_SWAP, Colours.BLUE)) : "Inicialitzación COLOUR_SWAP incorrecto";
+        cartita = new CardClass(Actions.COLOR_SWAP, Colors.BLUE);
+        assert !cartita.equals(new CardClass(Actions.COLOR_SWAP, Colors.BLUE)) : "Inicialitzación COLOUR_SWAP incorrecto";
 
         cartita = new CardClass(Actions.PLUS_TWO, Colors.GREEN);
         assert !cartita.equals(new CardClass(Actions.PLUS_TWO, Colors.GREEN)) : "Inicialitzación PLUS_TWO incorrecto";
