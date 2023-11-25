@@ -172,6 +172,28 @@ public class TestPlayerClass {
     //TODO
     @Test
     public void TestPlayCard() {
+        // Setting all params for the test
+        Player testedPlayer1 = new Player("Josias", false);
+        Player testedPlayer2 = new Player("Pol", false);
+        Player testedPlayer3 = new Player("Jan", false);
+        ArrayList<Player> testedArrayPlayer = new ArrayList<>();
+        testedArrayPlayer.add(testedPlayer1);testedArrayPlayer.add(testedPlayer2);
+        testedArrayPlayer.add(testedPlayer3);
+
+        ScannerClass scannerClass = new Mock_ScannerClass("" );
+        Game testedGame = new Game(3, 0, testedArrayPlayer, scannerClass);
+        Deck testedDeck = new Deck();
+        Deck testedDeck2 = new Mock_Deck();
+
+        CardClass lastCardNumber = new CardClass(7, Colours.RED);
+        CardClass lastCardAction = new CardClass(Actions.BLOCK, Colours.GREEN);
+
+        testedPlayer1.playCard(lastCardNumber,testedDeck, testedGame);
+
+
+
+
+
 
     }
 
