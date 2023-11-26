@@ -113,9 +113,6 @@ public class Player {
             if(returnedCard == null){
                 return cardToPlay;
             }
-            else{
-                return returnedCard;
-            }
         }
         return null;  // Player can't play card.
     }

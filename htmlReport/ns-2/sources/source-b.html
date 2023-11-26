@@ -52,18 +52,18 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    90%
+    100%
   </span>
   <span class="absValue">
-    (9/10)
+    (11/11)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    92,1%
+    100%
   </span>
   <span class="absValue">
-    (35/38)
+    (39/39)
   </span>
 </td>
 </tr>
@@ -91,7 +91,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 <b class="fc">&nbsp;  public Deck(){</b>
 <b class="fc">&nbsp;    initializeDeck(); // Initialize the deck</b>
-<b class="fc">&nbsp;    Collections.shuffle(playableCards); // Shuffle the deck</b>
+<b class="fc">&nbsp;    shuffleCardsDeck();</b>
 <b class="fc">&nbsp;    notMoreCards = false;</b>
 <b class="fc">&nbsp;    numCards = playableCards.size();</b>
 <b class="fc">&nbsp;    playedCards = new ArrayList&lt;CardClass&gt;();</b>
@@ -105,6 +105,14 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="fc">&nbsp;    playedCards = lastCard;</b>
 &nbsp;  }
 &nbsp;
+&nbsp;  //TODO TRYNG TO IMPLEMENT IF MOCK COULD WORK PROPERLY
+&nbsp;  public void shuffleCardsDeck(){
+<b class="fc">&nbsp;    Collections.shuffle(playableCards);</b>
+&nbsp;  }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;  //TODO
 &nbsp;  public void initializeDeck() {
 &nbsp;    /*
 &nbsp;    SUMMARY of Cards:
@@ -117,14 +125,14 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    - 4 PLUS_FOUR (+4).                       -- Total:  4
 &nbsp;                                                DECK = 108 Cards
 &nbsp;     */
-<b class="fc">&nbsp;    ArrayList&lt;String&gt; colours = new ArrayList&lt;&gt;(Arrays.asList(Colours.BLUE, Colours.RED, Colours.GREEN, Colours.YELLOW));</b>
+<b class="fc">&nbsp;    ArrayList&lt;String&gt; colours = new ArrayList&lt;&gt;(Arrays.asList(Colors.BLUE, Colors.RED, Colors.GREEN, Colors.YELLOW));</b>
 <b class="fc">&nbsp;    ArrayList&lt;String&gt; actions_twice = new ArrayList&lt;&gt;(Arrays.asList(Actions.BLOCK, Actions.PLUS_TWO, Actions.REVERSE));</b>
 &nbsp;    // We only have a Zero card for each color
 &nbsp;    // Initialize card with 0, and specail card +4 and colour swap
 <b class="fc">&nbsp;    for (int i = 0; i &lt; colours.size(); i++) { // Iterate through colours.</b>
 <b class="fc">&nbsp;      playableCards.add(new CardClass(0, colours.get(i))); // Initialize a card and add it to the deck.</b>
 <b class="fc">&nbsp;      playableCards.add(new CardClass(Actions.PLUS_FOUR,null)); //Initialize a plus four card but without a colour</b>
-<b class="fc">&nbsp;      playableCards.add(new CardClass(Actions.COLOUR_SWAP,null)); //Initialize a plus four card but without a colour</b>
+<b class="fc">&nbsp;      playableCards.add(new CardClass(Actions.COLOR_SWAP,null)); //Initialize a plus four card but without a colour</b>
 &nbsp;
 &nbsp;    }
 &nbsp;
@@ -154,9 +162,9 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 &nbsp;  public void giveStarterCardsToPlayers(ArrayList&lt;Player&gt; players) {
 &nbsp;    // Each player Starts with 7 cards.
-<b class="nc">&nbsp;    for (int i = 0; i &lt; 7; i++) {</b>
-<b class="nc">&nbsp;      for (int j = 0; j &lt; players.size(); j++) {</b>
-<b class="nc">&nbsp;        giveCardsToPlayer(players.get(j));</b>
+<b class="fc">&nbsp;    for (int i = 0; i &lt; 7; i++) {</b>
+<b class="fc">&nbsp;      for (int j = 0; j &lt; players.size(); j++) {</b>
+<b class="fc">&nbsp;        giveCardsToPlayer(players.get(j));</b>
 &nbsp;      }
 &nbsp;    }
 &nbsp;  }
@@ -191,7 +199,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-11-24 13:15</div>
+    <div style="float:right;">generated on 2023-11-26 20:12</div>
 </div>
 </body>
 </html>

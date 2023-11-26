@@ -25,6 +25,16 @@ public class Mock_ScannerClass extends ScannerClass{
     public void setInput(String input) { this.input = input; }
 
     @Override
+    public void setInputsList(String ... inputs) {
+        this.inputsList = new LinkedList<>();
+        for(String input : inputs){
+            inputsList.add(input);
+        }
+    }
+
+
+
+    @Override
     public String nextLine() {
         if(inputsList != null && !inputsList.isEmpty()) {
             return inputsList.poll();
