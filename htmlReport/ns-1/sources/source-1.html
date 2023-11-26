@@ -63,7 +63,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/59)
+    (0/78)
   </span>
 </td>
 </tr>
@@ -83,19 +83,22 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 &nbsp;import models.*;
 &nbsp;
-&nbsp;import view.ViewAskPlayers;
-&nbsp;import view.ViewMenu;
-&nbsp;import view.ViewStatistics;
+&nbsp;import view.*;
 &nbsp;
 &nbsp;public class Main {
+&nbsp;
+&nbsp;
 &nbsp;
 <b class="nc">&nbsp;    public Main() { main(null);}</b>
 &nbsp;
 &nbsp;    public static void main(String[] args){
 &nbsp;
+<b class="nc">&nbsp;        int exitOption = 4; // Setting the exitOption value. In case we add more options, all</b>
+&nbsp;        // prints will change the range of correct values (and the While too).
+&nbsp;
+&nbsp;        // Initialize the database (stats.txt file)
 <b class="nc">&nbsp;        DataBase myDatabase = new DataBase(&quot;stats.txt&quot;);</b>
 <b class="nc">&nbsp;        myDatabase.createFile();</b>
-&nbsp;
 &nbsp;
 &nbsp;
 <b class="nc">&nbsp;        Scanner scanner = new Scanner(System.in);</b>
@@ -104,19 +107,17 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 &nbsp;        int choice; // Switch case menu option(choice) by the user.
 &nbsp;        do {
-&nbsp;
 <b class="nc">&nbsp;            ViewMenu.displayMenu();</b>
 &nbsp;
 &nbsp;            // Get user choice
-<b class="nc">&nbsp;            System.out.print(&quot;Enter your choice (1-3): &quot;);</b>
+<b class="nc">&nbsp;            System.out.print(&quot;Enter your choice (1-&quot; + exitOption + &quot;): &quot;);;</b>
 <b class="nc">&nbsp;            while (!myScanner.hasNextInt()) {</b>
 <b class="nc">&nbsp;                System.out.println(&quot;Invalid input. Please enter a number.&quot;);</b>
 <b class="nc">&nbsp;                myScanner.next(); // Consume the invalid input</b>
 &nbsp;            }
 <b class="nc">&nbsp;            choice = myScanner.nextInt();</b>
 &nbsp;
-&nbsp;                // Ask User the menu Option
-&nbsp;            //choice = menu.askMenuOption();
+&nbsp;            // Ask User the menu Option
 <b class="nc">&nbsp;            switch (choice) {</b>
 &nbsp;                case 1:
 &nbsp;                    // Code for option 1 (Play)
@@ -128,7 +129,30 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="nc">&nbsp;                    ViewAskPlayers.displayPlayerNames(myPlayerList);</b>
 <b class="nc">&nbsp;                    ViewStatistics.displayStatsIfInDDBB(myDatabase, myPlayerList);</b>
 &nbsp;
-<b class="nc">&nbsp;                    System.out.println(&quot;Starting the game...&quot;);</b>
+&nbsp;                    // Create the Statistics list that will be in the same order as Player, so we can add the Stats
+&nbsp;                    // of the game to each player.
+<b class="nc">&nbsp;                    ArrayList&lt;Statistics&gt; myStatList = Statistics.getPlayerStatsListFromDDBB(myDatabase, myPlayerList);</b>
+&nbsp;
+&nbsp;                    // GAME INNIT
+<b class="nc">&nbsp;                    Scanner Scanner = new Scanner(System.in);</b>
+<b class="nc">&nbsp;                    ScannerClass myScannerPlayerInput = new ScannerClass(Scanner);</b>
+&nbsp;
+<b class="nc">&nbsp;                    Game game = new Game(numPlayers,0, myPlayerList, myScannerPlayerInput);</b>
+<b class="nc">&nbsp;                    game.giveHand(); // Initializes the deck and gives the hands of each player</b>
+<b class="nc">&nbsp;                    game.setLastCardPlayed(game.deck.getPlayableCards().get(0)); // We set the first card</b>
+&nbsp;
+<b class="nc">&nbsp;                    while (!game.gameEndedWinner()) {</b>
+<b class="nc">&nbsp;                        Player actualPlayer = game.getListPlayers().get(Game.getNextPlayerIndex());</b>
+<b class="nc">&nbsp;                        ViewChangeTurn.showTurnChange(actualPlayer.getName());</b>
+<b class="nc">&nbsp;                        ViewPlayerStatus.displayPlayerStatus(actualPlayer.getName(), actualPlayer.getHand(), game.getLastCardPlayed());</b>
+<b class="nc">&nbsp;                        CardClass cardPlayed = game.getActualPlayerPlayedCard(actualPlayer);</b>
+<b class="nc">&nbsp;                        if (game.playerRound(actualPlayer, cardPlayed)){</b>
+<b class="nc">&nbsp;                            System.out.println(&quot;Card drawn: Showing hand again:&quot;);</b>
+<b class="nc">&nbsp;                            ViewPlayerStatus.displayPlayerStatus(actualPlayer.getName(), actualPlayer.getHand(), game.getLastCardPlayed());</b>
+&nbsp;                        }
+&nbsp;
+<b class="nc">&nbsp;                    }</b>
+<b class="nc">&nbsp;                    System.out.println(&quot;THE END ENTRE COMILLAS&quot;);</b>
 <b class="nc">&nbsp;                    break;</b>
 &nbsp;                case 2:
 &nbsp;                    // Add code for option 2 (View Statistics)
@@ -136,18 +160,23 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="nc">&nbsp;                    ViewStatistics.viewAllStatistics(myDatabase);</b>
 <b class="nc">&nbsp;                    break;</b>
 &nbsp;                case 3:
+&nbsp;                    // Option 3 (How To Play)
+<b class="nc">&nbsp;                    ViewHowToPlay.displayHowToPlay();</b>
+<b class="nc">&nbsp;                    ViewChangeTurn.waitForKeypress();</b>
+<b class="nc">&nbsp;                    break;</b>
+&nbsp;                case 4:
 &nbsp;                    // Option 3 (Exit)
 <b class="nc">&nbsp;                    System.out.println(&quot;Exiting the game. Goodbye!&quot;);</b>
 <b class="nc">&nbsp;                    break;</b>
 &nbsp;                default:
-<b class="nc">&nbsp;                    System.out.println(&quot;Invalid choice. Please enter a number between 1 and 3.&quot;);</b>
+<b class="nc">&nbsp;                    System.out.println(&quot;Invalid choice. Please enter a number between 1 and &quot; + exitOption + &quot;.&quot;);</b>
 &nbsp;            }
 &nbsp;
 &nbsp;
-<b class="nc">&nbsp;        }while (choice != 3);</b>
+<b class="nc">&nbsp;        }while (choice != exitOption);</b>
 &nbsp;
 &nbsp;
-<b class="nc">&nbsp;        System.out.println(&quot;THE END ENTRE COMILLAS&quot;);</b>
+&nbsp;
 &nbsp;
 &nbsp;
 &nbsp;    }
@@ -206,8 +235,9 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="nc">&nbsp;        game.setLastCardPlayed(game.deck.getPlayableCards().get(0)); // We set the first card</b>
 &nbsp;
 <b class="nc">&nbsp;        while (!game.gameEndedWinner()) {</b>
-<b class="nc">&nbsp;            game.playerRound();</b>
-&nbsp;        }
+<b class="nc">&nbsp;            Player actualPlayer = game.getListPlayers().get(Game.getNextPlayerIndex());</b>
+&nbsp;            //game.playerRound(actualPlayer);
+<b class="nc">&nbsp;        }</b>
 &nbsp;
 &nbsp;    }
 &nbsp;}
@@ -236,7 +266,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-11-24 13:15</div>
+    <div style="float:right;">generated on 2023-11-26 20:12</div>
 </div>
 </body>
 </html>

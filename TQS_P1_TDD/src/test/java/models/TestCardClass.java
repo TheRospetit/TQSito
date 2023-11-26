@@ -215,7 +215,8 @@ public class TestCardClass {
             returnedValue = testCard.doAction(testedDeck, testedGame);
             assert(returnedValue == null) : "All block cards should return himself, not a empty card";
             // We have only two players, so we return to the same player all the time
-            assert (testedGame.getNextPlayer().equals(currentPlayer)) : "doAction Block is not changing the iterator order";
+            assert (!testedGame.getNextPlayer().equals(currentPlayer)) : "doAction Block is not changing the iterator order";
+            currentPlayer = testedGame.getNextPlayer();
         }
     }
 

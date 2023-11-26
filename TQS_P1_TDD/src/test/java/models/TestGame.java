@@ -88,6 +88,14 @@ public class TestGame {
         assert gameTested.getListPlayers().getClass() == ArrayList.class : "Get List Player does not return an ArrayList";
         assert gameTested.getCurrentPlayer().getClass() == Integer.class : "Get Current Player does not return an Integer";
         assert gameTested.getNumPlayers().getClass() == Integer.class : "Get Num Player does not return an Integer";
+
+        // Testing player index //
+        Integer resultValue = gameTested.getNextPlayer();
+        assert(resultValue == 1) : "The next player should be Pol (index = 1)";
+
+
+
+
     }
 
     @Test
@@ -146,6 +154,47 @@ public class TestGame {
 
         assert inicial != end : "Iterator remains the same " + end.toString();
     }
+
+    @Test
+    public void TestGetLastCardPlayed(){
+        ArrayList<Player> testedPlayers = new ArrayList<>();
+        Player janCarlo = new Player("Jan", false);
+        Player polilla = new Player("Pol", false);
+        testedPlayers.add(janCarlo); testedPlayers.add(polilla);
+        ScannerClass scannerClass = new Mock_ScannerClass("R" );
+
+        Game testedGame = new Game(2, 0, testedPlayers, scannerClass);
+        testedGame.giveHand();
+
+        CardClass inputTestCard = new CardClass(6, Colors.RED);
+        testedGame.deck.setCardPlayed(inputTestCard);
+
+        CardClass resultTest = testedGame.getLastCardPlayed();
+
+        assert(resultTest == inputTestCard) : "The input a result card does not match";
+    }
+
+    @Test
+    public void setLastCardPlayed(){
+        ArrayList<Player> testedPlayers = new ArrayList<>();
+        Player janCarlo = new Player("Jan", false);
+        Player polilla = new Player("Pol", false);
+        testedPlayers.add(janCarlo); testedPlayers.add(polilla);
+        ScannerClass scannerClass = new Mock_ScannerClass("R" );
+
+        Game testedGame = new Game(2, 0, testedPlayers, scannerClass);
+        testedGame.giveHand();
+        CardClass inputTestCard = new CardClass(6, Colors.RED);
+        testedGame.setLastCardPlayed(inputTestCard);
+        CardClass resultTest = testedGame.getLastCardPlayed();
+
+        assert(inputTestCard == resultTest): "The lastCardPlayed does not match with the input";
+
+    }
+
+
+
+
 
     //@Test
     //public void mockTestEndGame(){

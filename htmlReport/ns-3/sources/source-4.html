@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
-  <title>Coverage Report > ViewMenu</title>
+  <title>Coverage Report > ViewHowToPlay</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -22,7 +22,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">view</a>
 </div>
 
-<h1>Coverage Summary for Class: ViewMenu (view)</h1>
+<h1>Coverage Summary for Class: ViewHowToPlay (view)</h1>
 
 <table class="coverageStats">
 <tr>
@@ -41,7 +41,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">ViewMenu</td>
+  <td class="name">ViewHowToPlay</td>
 <td class="coverageStat">
   <span class="percent">
     0%
@@ -55,7 +55,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/4)
+    (0/3)
   </span>
 </td>
 <td class="coverageStat">
@@ -63,7 +63,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/24)
+    (0/12)
   </span>
 </td>
 </tr>
@@ -76,77 +76,40 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <pre>
 <code class="sourceCode" id="sourceCode">&nbsp;package view;
+&nbsp;// View for the &quot;How to Play&quot; section of the UNO game
+<b class="nc">&nbsp;public class ViewHowToPlay {</b>
+&nbsp;    // Method to display instructions on how to play
+&nbsp;    public static void displayHowToPlay() {
+<b class="nc">&nbsp;        System.out.println(&quot;=== How to Play UNO ===&quot;);</b>
+<b class="nc">&nbsp;        System.out.println(&quot;UNO is a card game played with a special deck. The goal is to get rid of all your cards before other players.&quot;);</b>
+<b class="nc">&nbsp;        System.out.println(&quot;The deck includes numbered cards in four colors: Red ?, Yellow ?, Green ?, Blue ?.&quot;);</b>
+<b class="nc">&nbsp;        System.out.println(&quot;Additionally, there are special cards with unique effects:&quot;);</b>
 &nbsp;
-&nbsp;import java.util.Scanner;
+&nbsp;        // Numbered cards
+<b class="nc">&nbsp;        displayCardExplanation(&quot;Numbered Cards&quot;, &quot;Represent the majority of the deck. Play a card with the same number or color as the top card on the discard pile.&quot;);</b>
 &nbsp;
-<b class="nc">&nbsp;public final class ViewMenu {</b>
+&nbsp;        // Wild cards
+<b class="nc">&nbsp;        displayCardExplanation(&quot;Wild Cards&quot;, &quot;Allow you to change the current color. You can play them at any time, even if you have a card in the current color.&quot;);</b>
 &nbsp;
+&nbsp;        // +2 cards
+<b class="nc">&nbsp;        displayCardExplanation(&quot;+2 Cards&quot;, &quot;Force the next player to draw two cards and lose their turn. You can play them on cards of the same color or another +2 card.&quot;);</b>
 &nbsp;
-&nbsp;  public static void displayMenu() {
-<b class="nc">&nbsp;    int terminalWidth = getIntelliJTerminalWidth();</b>
+&nbsp;        // Skip cards
+<b class="nc">&nbsp;        displayCardExplanation(&quot;Skip Cards&quot;, &quot;Make the next player lose their turn. You can play them on cards with the same number or color.&quot;);</b>
 &nbsp;
-&nbsp;    // Display the game title
-<b class="nc">&nbsp;    String[] gameTitle1 = {</b>
-&nbsp;            &quot; _   _ _   _  ___   &quot;,
-&nbsp;            &quot;| | | | \\ | |/ _ \\ &quot;,
-&nbsp;            &quot;| | | |  \\| | | | | &quot;,
-&nbsp;            &quot;| |_| | |\\  | |_| |  &quot;,
-&nbsp;            &quot; \\___/|_| \\_|\\___/ &quot;,
-&nbsp;    };
-<b class="nc">&nbsp;    String[] gameTitle2 = {</b>
-&nbsp;            &quot;   __     __ _____ _   _ _   _   &quot;,
-&nbsp;            &quot;  |   \\ /   | ____| \\ | | | | |&quot;,
-&nbsp;            &quot;  | |\\ V /| |  _| |  \\| | | | |&quot;,
-&nbsp;            &quot;  | | \\_/ | | |___| |\\  | |_| |&quot;,
-&nbsp;            &quot;  |_|     |_|_____|_| \\_|\\___/ &quot;
-&nbsp;    };
+&nbsp;        // Reverse cards
+<b class="nc">&nbsp;        displayCardExplanation(&quot;Reverse Cards&quot;, &quot;Change the direction of play. You can play them on cards with the same number or color.&quot;);</b>
 &nbsp;
-&nbsp;    // Determine the maximum width between the two game titles
-<b class="nc">&nbsp;    int maxTitleWidth = Math.max(gameTitle1[0].length(), gameTitle2[0].length());</b>
-&nbsp;
-&nbsp;    // Calculate left padding for the first game title
-<b class="nc">&nbsp;    int leftPadding1 = (terminalWidth - gameTitle1[0].length()) / 2;</b>
-&nbsp;
-&nbsp;    // Display the first game title
-<b class="nc">&nbsp;    System.out.println(&quot;?&quot; + fillWithCharacter(&#39;=&#39;, terminalWidth - 2) + &quot;?&quot;);</b>
-<b class="nc">&nbsp;    for (String line : gameTitle1) {</b>
-<b class="nc">&nbsp;      int rightPadding = terminalWidth - line.length() - leftPadding1 - 2;</b>
-<b class="nc">&nbsp;      System.out.println(&quot;?&quot; + fillWithCharacter(&#39; &#39;, leftPadding1) + line + fillWithCharacter(&#39; &#39;, rightPadding) + &quot;?&quot;);</b>
+&nbsp;        // +4 cards
+<b class="nc">&nbsp;        displayCardExplanation(&quot;+4 Cards&quot;, &quot;Force the next player to draw four cards, change the color, and lose their turn. You can play them at any time, even if you have a card in the current color.&quot;);</b>
 &nbsp;    }
 &nbsp;
-&nbsp;    // Calculate left padding for the second game title
-<b class="nc">&nbsp;    int leftPadding2 = (terminalWidth - maxTitleWidth) / 2;</b>
-&nbsp;
-&nbsp;    // Display the second game title
-<b class="nc">&nbsp;    for (String line : gameTitle2) {</b>
-<b class="nc">&nbsp;      int rightPadding = terminalWidth - line.length() - leftPadding2 - 2;</b>
-<b class="nc">&nbsp;      System.out.println(&quot;?&quot; + fillWithCharacter(&#39; &#39;, leftPadding2) + line + fillWithCharacter(&#39; &#39;, rightPadding) + &quot;?&quot;);</b>
+&nbsp;    // Method to display an explanation of a card category
+&nbsp;    private static void displayCardExplanation(String category, String explanation) {
+<b class="nc">&nbsp;        System.out.println(&quot;\n&quot; + category + &quot;: &quot; + explanation);</b>
 &nbsp;    }
-&nbsp;
-&nbsp;    // Display the closing line of the box
-<b class="nc">&nbsp;    System.out.println(&quot;?&quot; + fillWithCharacter(&#39;=&#39;, terminalWidth - 2) + &quot;?&quot;);</b>
-&nbsp;
-&nbsp;    // Display menu options
-<b class="nc">&nbsp;    System.out.println(&quot;\nSelect an option:&quot;);</b>
-<b class="nc">&nbsp;    System.out.println(&quot;1. Play&quot;);</b>
-<b class="nc">&nbsp;    System.out.println(&quot;2. View Statistics&quot;);</b>
-<b class="nc">&nbsp;    System.out.println(&quot;3. Exit&quot;);</b>
-&nbsp;  }
-&nbsp;
-&nbsp;
-&nbsp;  private static String fillWithCharacter(char character, int length) {
-<b class="nc">&nbsp;    StringBuilder result = new StringBuilder();</b>
-<b class="nc">&nbsp;    for (int i = 0; i &lt; length; i++) {</b>
-<b class="nc">&nbsp;      result.append(character);</b>
-&nbsp;    }
-<b class="nc">&nbsp;    return result.toString();</b>
-&nbsp;  }
-&nbsp;
-&nbsp;  private static int getIntelliJTerminalWidth() {
-&nbsp;    // You can adjust this according to your needs
-<b class="nc">&nbsp;    return 80;</b>
-&nbsp;  }
 &nbsp;}
+&nbsp;
 </code>
 </pre>
 </div>
@@ -170,7 +133,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-11-24 13:15</div>
+    <div style="float:right;">generated on 2023-11-26 20:12</div>
 </div>
 </body>
 </html>

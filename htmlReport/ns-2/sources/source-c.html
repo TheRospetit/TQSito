@@ -52,18 +52,18 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    52,9%
+    70%
   </span>
   <span class="absValue">
-    (9/17)
+    (14/20)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    43,6%
+    58,1%
   </span>
   <span class="absValue">
-    (17/39)
+    (25/43)
   </span>
 </td>
 </tr>
@@ -105,44 +105,56 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="fc">&nbsp;    public ScannerClass getMyScanner() {return myScanner;}</b>
 <b class="fc">&nbsp;    public Integer getNumPlayers(){return numPlayers;}</b>
 <b class="fc">&nbsp;    public Integer getCurrentPlayer() { return currentPlayer;}</b>
-<b class="nc">&nbsp;    public CardClass getLastCardPlayed() {return deck.getPlayedCards().get(deck.getPlayedCards().size()-1);}</b>
+<b class="fc">&nbsp;    public CardClass getLastCardPlayed() {return deck.getPlayedCards().get(deck.getPlayedCards().size()-1);}</b>
 <b class="fc">&nbsp;    public ArrayList&lt;Player&gt; getListPlayers() { return listPlayers;}</b>
 <b class="fc">&nbsp;    public Integer getIterator(){return iterator;}</b>
-<b class="nc">&nbsp;    public void setLastCardPlayed(CardClass card) { deck.getPlayedCards().add(card); }</b>
+<b class="fc">&nbsp;    public void setLastCardPlayed(CardClass card) { deck.getPlayedCards().add(card); }</b>
 <b class="nc">&nbsp;    public void setCurrentPlayer(int i) { currentPlayer = i;}</b>
 &nbsp;
-&nbsp;
+&nbsp;    public static Integer getNextPlayerIndex() {
+<b class="nc">&nbsp;        return nextPlayerIndex;</b>
+&nbsp;    }
 &nbsp;
 &nbsp;    // OTHER METHODS
 &nbsp;    public void giveHand() {
-<b class="nc">&nbsp;        this.deck = new Deck();</b>
-<b class="nc">&nbsp;        deck.giveStarterCardsToPlayers(listPlayers);</b>
+<b class="fc">&nbsp;        this.deck = new Deck();</b>
+<b class="fc">&nbsp;        deck.giveStarterCardsToPlayers(listPlayers);</b>
 &nbsp;    }
+&nbsp;
 <b class="fc">&nbsp;    public static void reverseIterator(){ iterator *= -1; }</b>
+&nbsp;
 &nbsp;    public void nextPlayer() {
-<b class="nc">&nbsp;        nextPlayerIndex = (nextPlayerIndex + iterator) ;</b>
+<b class="fc">&nbsp;        nextPlayerIndex = (nextPlayerIndex + iterator) ;</b>
 &nbsp;
-<b class="nc">&nbsp;        if (nextPlayerIndex == -1) nextPlayerIndex = this.numPlayers-1; // We are going counterclockwise (reverse)</b>
-<b class="nc">&nbsp;        else nextPlayerIndex = nextPlayerIndex % this.numPlayers; // Clockwise</b>
+<b class="fc">&nbsp;        if (nextPlayerIndex == -1) nextPlayerIndex = this.numPlayers-1; // We are going counterclockwise (reverse)</b>
+<b class="fc">&nbsp;        else nextPlayerIndex = nextPlayerIndex % this.numPlayers; // Clockwise</b>
 &nbsp;    }
-&nbsp;    public void playerRound(){
-<b class="nc">&nbsp;        Player actualPlayer = listPlayers.get(nextPlayerIndex);</b>
 &nbsp;
-<b class="nc">&nbsp;        System.out.println(&quot;TU TURNO &quot; + actualPlayer.getName());</b>
+<b class="fc">&nbsp;    public Integer getNextPlayer(){ return nextPlayerIndex; }</b>
+&nbsp;
+&nbsp;    public CardClass getActualPlayerPlayedCard(Player actualPlayer){
 <b class="nc">&nbsp;        CardClass cardPlayed = actualPlayer.playCard(this.getLastCardPlayed(), this.deck, this );</b>
+<b class="nc">&nbsp;        return cardPlayed;</b>
+&nbsp;    }
+&nbsp;    public boolean playerRound(Player actualPlayer, CardClass cardPlayed){
+&nbsp;        //Player actualPlayer = listPlayers.get(nextPlayerIndex);
+<b class="nc">&nbsp;        boolean draw = false; // Just to check if the player draws a card, so in the controller we can display the playerCards again.</b>
+&nbsp;        //System.out.println(&quot;Your turn &quot; + actualPlayer.getName());
+&nbsp;        //CardClass cardPlayed = actualPlayer.playCard(this.getLastCardPlayed(), this.deck, this );
 <b class="nc">&nbsp;        if (cardPlayed == null) {</b>
 <b class="nc">&nbsp;            this.deck.giveCardsToPlayer(actualPlayer);</b>
+<b class="nc">&nbsp;            draw = true;</b>
 &nbsp;        } else {
 <b class="nc">&nbsp;            this.setLastCardPlayed(cardPlayed); // Whatever the card is it will also do its action (+2, +4, reverse...)</b>
 <b class="nc">&nbsp;            this.deck.setCardPlayed(cardPlayed);</b>
 <b class="nc">&nbsp;            this.endGame(actualPlayer);</b>
 &nbsp;        }
-<b class="nc">&nbsp;        this.setCurrentPlayer((this.getCurrentPlayer()+1) % this.getNumPlayers());</b>
+<b class="nc">&nbsp;        this.nextPlayer();</b>
+<b class="nc">&nbsp;        this.setCurrentPlayer((this.getNextPlayer()) % this.getNumPlayers());</b>
 <b class="nc">&nbsp;        System.out.println(&quot;&quot;);</b>
 &nbsp;
 &nbsp;        // Control te iterator and the next player that will play
-<b class="nc">&nbsp;        nextPlayer();</b>
-&nbsp;
+<b class="nc">&nbsp;        return draw;</b>
 &nbsp;    }
 &nbsp;    public void endGame(Player player){
 <b class="nc">&nbsp;        if (player.getWinner()) {</b>
@@ -176,7 +188,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-11-24 13:15</div>
+    <div style="float:right;">generated on 2023-11-26 20:12</div>
 </div>
 </body>
 </html>
