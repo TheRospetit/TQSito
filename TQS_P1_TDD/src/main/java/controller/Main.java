@@ -15,7 +15,8 @@ public class Main {
     public Main() { main(null);}
 
     public static void main(String[] args){
-
+        int minPlayers = 1;
+        int maxPlayers = 6;
         int exitOption = 4; // Setting the exitOption value. In case we add more options, all
         // prints will change the range of correct values (and the While too).
 
@@ -44,7 +45,11 @@ public class Main {
             switch (choice) {
                 case 1:
                     // Code for option 1 (Play)
-                    int numPlayers = getNumberOfPlayers();
+                    int numPlayers = -1;
+                    while (numPlayers <= minPlayers || numPlayers > maxPlayers){
+                        numPlayers = getNumberOfPlayers();
+                    }
+
 
                     ArrayList<Player> myPlayerList = getPlayerNames(numPlayers);
 

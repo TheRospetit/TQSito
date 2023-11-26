@@ -71,6 +71,7 @@ package view;
 import models.Actions;
 import models.CardClass;
 import models.Colors;
+import models.Player;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -78,6 +79,17 @@ import java.util.List;
 import java.util.Objects;
 
 public final class ViewPlayerStatus {
+
+  public static void main(String[] args) {
+    ArrayList<Player> playerNames = new ArrayList<>();
+    playerNames.add(new Player("Hello", false));
+    CardClass card = new CardClass(1,Colors.RED);
+    ArrayList<CardClass> hand = new ArrayList<>();
+    hand.add(card);
+    playerNames.getFirst().setHand(hand);
+    displayPlayerStatus(playerNames.getFirst().getName(), hand,card);
+  }
+
   public static String createCardClassStringName(CardClass card) {
     String strAction = Actions.getActionsStringName(card.getAction());
     String strNumb = String.valueOf(card.getNumber());
@@ -85,13 +97,14 @@ public final class ViewPlayerStatus {
     String cardStringName = null;
 
     if (strCol != null && !Objects.equals(strNumb, "null") && strAction == null){
-      cardStringName = strCol + strNumb;
+      cardStringName = strCol + strNumb; // Color + Number = Normal card
     } else if (strCol != null && Objects.equals(strNumb, "null") && strAction != null){
-      cardStringName = strCol + strAction;
+      cardStringName = strCol + strAction; // Color + Action = Special Color Card
     } else if (strCol == null && Objects.equals(strNumb, "null") && strAction != null){
-      cardStringName = strAction;
+      cardStringName = strAction;  // Action = Special colorless Card (+4, change color)
     } else if (strCol != null && Objects.equals(strNumb, "null") && strAction == null){
-      cardStringName = strCol;
+      cardStringName = strCol; // Special case: When a special card is played, it returns a color card,
+      // which is the color that will be played on the next round.
     }
     return cardStringName;
   }
@@ -108,12 +121,12 @@ public final class ViewPlayerStatus {
 
     // Display last played card
     String lastCardPlayedString = "Last card played: " + ViewPlayerStatus.createCardClassStringName(lastPlayedCard);
-    //int centerLastCard = (terminalWidth - (lastCardPlayedString.length() + 2)) / 2;
-    int leftPaddingLastCardPlayed = (terminalWidth - lastCardPlayedString.length()) / 2;
-    int rightPaddingLastCardPlayed = terminalWidth - lastCardPlayedString.length() - leftPaddingLastCardPlayed - 2;
+    int centerLastCard = (terminalWidth - (lastCardPlayedString.length() + 2)) / 2;
+    //int leftPaddingLastCardPlayed = (terminalWidth - lastCardPlayedString.length()) / 2;
+    //int rightPaddingLastCardPlayed = terminalWidth - lastCardPlayedString.length() - leftPaddingLastCardPlayed - 2;
     System.out.println(" ");
     System.out.println("┌" + fillWithCharacter('─', terminalWidth - 2) + "┐");
-    System.out.println("│" + fillWithCharacter(' ', leftPaddingLastCardPlayed) + lastCardPlayedString + fillWithCharacter(' ', rightPaddingLastCardPlayed) + "│");
+    System.out.println("│" + fillWithCharacter(' ', centerLastCard) + lastCardPlayedString + fillWithCharacter(' ', centerLastCard) + "│");
     System.out.println("└" + fillWithCharacter('─', terminalWidth - 2) + "┘");
 
     // Display player's hand in a table-like format
@@ -124,28 +137,31 @@ public final class ViewPlayerStatus {
   }
 
   private static void displayCardTable(ArrayList<CardClass> playerHand) {
-    int cardWidth = 15; // Adjust according to your needs
+    int cardWidth = 15; // Ajusta según tus necesidades
+    char invisibleEmoticon = '\u200B'; // Carácter de espacio sin ancho
 
     for (CardClass card : playerHand) {
       System.out.print("┌" + fillWithCharacter('─', cardWidth - 2) + "┐ ");
     }
-    System.out.println(); // Move to the next line
+    System.out.println(); // Mueve a la siguiente línea
 
     for (CardClass card : playerHand) {
       String cardName = ViewPlayerStatus.createCardClassStringName(card);
-      int leftPaddingCard = (cardWidth - cardName.length()) / 2;
-      int rightPaddingCard = cardWidth - cardName.length() - leftPaddingCard - 2;
-      //int padding = cardWidth - cardName.length() - 5; // Calculate padding for centering
-      System.out.print("│ " + fillWithCharacter(' ', leftPaddingCard) + " " + cardName + fillWithCharacter(' ', rightPaddingCard) + "│ ");
+      int totalPadding = cardWidth - cardName.length();
+      int leftPaddingCard = totalPadding / 2;
+      int rightPaddingCard = totalPadding - leftPaddingCard;
+      String invisiblePadding = fillWithCharacter(invisibleEmoticon, 2); // Ajusta según sea necesario
+      System.out.print("│" + fillWithCharacter(invisibleEmoticon, leftPaddingCard) + cardName + invisiblePadding + fillWithCharacter(invisibleEmoticon, rightPaddingCard) + "│ ");
     }
-    System.out.println(); // Move to the next line
+    System.out.println(); // Mueve a la siguiente línea
 
     for (CardClass card : playerHand) {
       System.out.print("└" + fillWithCharacter('─', cardWidth - 2) + "┘ ");
     }
-    System.out.println(); // Move to the next line
+    System.out.println(); // Mueve a la siguiente línea
   }
 
+  // Método de utilidad para llenar una cadena con un carácter dado
   private static String fillWithCharacter(char character, int length) {
     StringBuilder result = new StringBuilder();
     for (int i = 0; i < length; i++) {
@@ -153,6 +169,10 @@ public final class ViewPlayerStatus {
     }
     return result.toString();
   }
+
+
+
+
 
   private static int getIntelliJTerminalWidth() {
     // You can adjust this according to your needs
