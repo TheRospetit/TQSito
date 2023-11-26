@@ -84,15 +84,20 @@ public class Player {
     }
 
     public CardClass playCard(CardClass lastCardPlayed, Deck deck, Game game){
-        CardClass returnedCard = new CardClass();
+        CardClass returnedCard ;
         if (canPlayCard(lastCardPlayed)) { // Checks if the player can play any card
-            //Scanner scanner = new Scanner(System.in);
             while (true) {
-                //waiting to input variables
-                System.out.println("Select one card (Position of the card): ");
-                //String input = scanner.nextLine();
-                //game.getMyScanner().nextLine();
-                int numPlayedCard = Integer.parseInt(game.getMyScanner().nextLine());
+                int numPlayedCard = hand.size() + 2;
+                while (numPlayedCard <= 0 || numPlayedCard > hand.size()){
+                    //waiting to input variables
+                    System.out.println("Select one card (Position of the card [ 1 - " + hand.size() + " ]): ");
+                    String number = game.getMyScanner().nextLine();
+                    try {
+                        numPlayedCard = Integer.parseInt(number);
+                    } catch (NumberFormatException nfe) {
+                        System.out.println("Insert a number, not anything else, thanks");
+                    }
+                }
                 //convert input into an integer, we should be care if its not correct value
 
                 cardToPlay =  hand.get( numPlayedCard - 1);
