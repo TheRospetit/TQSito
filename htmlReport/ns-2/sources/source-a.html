@@ -101,9 +101,9 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;        try {
 <b class="fc">&nbsp;            File file = new File(fileName);</b>
 <b class="fc">&nbsp;            if (file.createNewFile()) {</b>
-<b class="fc">&nbsp;                System.out.println(&quot;File created: &quot; + file.getName());</b>
+<b class="fc">&nbsp;                System.out.println(&quot;File created: &quot; + file.getName() + &quot;. Statistics for the next games will be saved here.&quot;);</b>
 &nbsp;            } else {
-<b class="fc">&nbsp;                System.out.println(&quot;File already exists.&quot;);</b>
+<b class="fc">&nbsp;                System.out.println(&quot;File already exists. Using an existing DataBase, previous game statistics will be saved.&quot;);</b>
 &nbsp;            }
 <b class="nc">&nbsp;        } catch (IOException e) {</b>
 <b class="nc">&nbsp;            e.printStackTrace();</b>
@@ -253,7 +253,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-11-27 17:17</div>
+    <div style="float:right;">generated on 2023-11-27 18:29</div>
 </div>
 </body>
 </html>

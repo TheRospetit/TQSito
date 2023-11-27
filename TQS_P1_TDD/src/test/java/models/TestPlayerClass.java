@@ -252,7 +252,7 @@ public class TestPlayerClass {
 
 
         // Hand size: 9 cards. Possible values [1-9]
-        testedGame.getMyScanner().setInputsList("0", "1", "2", "4", "8", "9", "10");
+        testedGame.getMyScanner().setInputsList("a", "1", "$", "4", "8", "-9", "100");
         subList.clear();
         subList.add(new CardClass(Actions.PLUS_TWO, Colors.RED));  subList.add(new CardClass(5, Colors.BLUE));
         onlyNumbersHand = new ArrayList<>(subList);
