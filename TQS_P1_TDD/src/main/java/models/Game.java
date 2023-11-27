@@ -10,7 +10,7 @@ public class Game {
     private ArrayList<Player> listPlayers = new ArrayList<>();
 
     public Deck deck;
-    private static Integer nextPlayerIndex = 0;
+    private Integer nextPlayerIndex = 0;
     public boolean winner = false;
     private ArrayList<Statistics> stats = new ArrayList<>();     // TODO. Remains to test when Pol's part finished.
 
@@ -34,7 +34,7 @@ public class Game {
     public Integer getIterator(){return iterator;}
     public void setCurrentPlayer(int i) { currentPlayer = i;}
 
-    public static Integer getNextPlayerIndex() {
+    public Integer getNextPlayerIndex() {
         return nextPlayerIndex;
     }
 

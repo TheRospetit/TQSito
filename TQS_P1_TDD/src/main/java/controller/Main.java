@@ -69,7 +69,7 @@ public class Main {
                     game.deck.setCardPlayed(game.deck.getPlayableCards().get(0)); // We set the first card
 
                     while (!game.gameEndedWinner()) {
-                        Player actualPlayer = game.getListPlayers().get(Game.getNextPlayerIndex());
+                        Player actualPlayer = game.getListPlayers().get(game.getNextPlayerIndex());
                         ViewChangeTurn.showTurnChange(actualPlayer.getName());
 
                         ViewPlayerStatus.displayPlayerStatus(actualPlayer.getName(), actualPlayer.getHand(), game.getLastCardPlayed());
@@ -78,9 +78,9 @@ public class Main {
 
                         if (game.getLastCardPlayed().getAction() != null){
                             if (game.getLastCardPlayed().getAction().equals(Actions.PLUS_TWO)){
-                                myStatList.get(Game.getNextPlayerIndex()).addDrawn2Stat();
+                                myStatList.get(game.getNextPlayerIndex()).addDrawn2Stat();
                             } else if (game.getLastCardPlayed().getAction().equals(Actions.PLUS_FOUR)) {
-                                myStatList.get(Game.getNextPlayerIndex()).addDrawn4Stat();
+                                myStatList.get(game.getNextPlayerIndex()).addDrawn4Stat();
                             }
                         }
 

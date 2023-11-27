@@ -285,4 +285,24 @@ public class TestPlayerClass {
 
     }
 
+    @Test
+    public void PairwiseTestingTestCardToPlayFirst() {
+        // We do pairwise testing of the first if of Player.testCardToPlay() and its return
+        Player player1 = new Player("jan", false);
+        CardClass cardPlayed = new CardClass();
+        CardClass lastCardPlayed = new CardClass();
+
+        // Case 1
+        /*
+        * cardToP.getAction(): null
+        * lcPlayed.getAction(): null
+        * cardToP.getNumber(): not null
+        * lcPlayed.getNumber(): not null
+        * cardToP.getColour(): any value
+        * lcPlayed.getColour(): any value
+        * */
+        cardPlayed = new CardClass(1, Colors.RED);
+        lastCardPlayed = new CardClass(1, Colors.RED);
+        //player1.testCardToPlay();
+    }
 }

@@ -94,9 +94,6 @@ public class TestGame {
         // Testing next Player index //
         assert (gameTested.getNextPlayerIndex() == 0) : "The next player index should be 0";
 
-
-
-
     }
 
     @Test
