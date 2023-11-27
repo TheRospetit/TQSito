@@ -1,18 +1,20 @@
 package models;
 
+// CardPlusTwo will override the method doAction in order to add
+// 2 cards to next player based in the iterator
 public class CardPlusTwo extends CardClassState{
-
+    // Constructor
     public CardPlusTwo(CardClass card) {
         super(card);
     }
 
+    // Explicit implementation of the abstract method swap
     @Override
     protected CardClass doAction(Deck deck, Game game) {
-        //CUIDADO QUE SE LO ESTAMOS DANDO AL MISMO JUGADOR, NO AL SIGUIENTE
-        // Puede ser que les estamos dando más de 2 cartas, falta debugar un poco más
         Player reciverPlayer;
         Integer number = 2;
 
+        // Calculate the following player
         if (game.getIterator() == 1) {
             reciverPlayer  = game.getListPlayers().get((game.getCurrentPlayer() + game.getIterator()) % game.getNumPlayers() );
         } else {
@@ -23,7 +25,7 @@ public class CardPlusTwo extends CardClassState{
             }
         }
 
-        for (int i = 0; i < number; i++) {
+        for (int i = 0; i < number; i++) { // Give 2 cards to the following player
             deck.giveCardsToPlayer(reciverPlayer);
         }
         return null;

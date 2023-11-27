@@ -76,24 +76,29 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <pre>
 <code class="sourceCode" id="sourceCode">&nbsp;package models;
-&nbsp;
+&nbsp;//
+&nbsp;// A class that will offer to a card all the possible colors that can have.
+&nbsp;// It also has an associate icon in order to make view more attractive.
+&nbsp;//
 <b class="fc">&nbsp;public final class Colors {</b>
 &nbsp;    public static final String RED = &quot;red&quot;;
 &nbsp;    public static final String YELLOW = &quot;yellow&quot;;
 &nbsp;    public static final String BLUE = &quot;blue&quot;;
 &nbsp;    public static final String GREEN = &quot;green&quot;;
 &nbsp;
+&nbsp;    // Used to visualize colors with emojis. (Sadly, an emoji uses one char space and a little bit more, so will make
+&nbsp;    // all the view fail a little bit.
 &nbsp;    public static String getColorsStringName(String color){
 <b class="fc">&nbsp;        String colorString = null;</b>
 <b class="fc">&nbsp;        if (color != null){</b>
 <b class="fc">&nbsp;            if (color.equals(Colors.RED)){</b>
-<b class="fc">&nbsp;                colorString = &quot;\uD83D\uDD34&quot;; // = &quot;?&quot;; o ?</b>
+<b class="fc">&nbsp;                colorString = &quot;\uD83D\uDD34&quot;; // = &quot;?&quot;; or ?</b>
 <b class="fc">&nbsp;            } else if (color.equals(Colors.YELLOW)){</b>
-<b class="fc">&nbsp;                colorString = &quot;\uD83D\uDFE1&quot;; // = &quot;?&quot;; o ?</b>
+<b class="fc">&nbsp;                colorString = &quot;\uD83D\uDFE1&quot;; // = &quot;?&quot;; or ?</b>
 <b class="fc">&nbsp;            } else if (color.equals(Colors.GREEN)){</b>
-<b class="fc">&nbsp;                colorString = &quot;\uD83D\uDFE2&quot;; // = &quot;?&quot; o ?</b>
+<b class="fc">&nbsp;                colorString = &quot;\uD83D\uDFE2&quot;; // = &quot;?&quot; or ?</b>
 <b class="fc">&nbsp;            }  else if (color.equals(Colors.BLUE)){</b>
-<b class="fc">&nbsp;                colorString = &quot;\uD83D\uDD35&quot;; // = &quot;?&quot;; o ?</b>
+<b class="fc">&nbsp;                colorString = &quot;\uD83D\uDD35&quot;; // = &quot;?&quot;; or ?</b>
 &nbsp;            }
 &nbsp;        }
 <b class="fc">&nbsp;        return colorString;</b>
@@ -122,7 +127,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-11-27 18:29</div>
+    <div style="float:right;">generated on 2023-11-27 21:12</div>
 </div>
 </body>
 </html>

@@ -77,20 +77,19 @@ Current scope:     <a href="../../index.html">all classes</a>
 <pre>
 <code class="sourceCode" id="sourceCode">&nbsp;package models;
 &nbsp;
+&nbsp;// CardClassState is the abstract class that manages the actions of the different type of cards.
 &nbsp;public abstract class CardClassState {
-&nbsp;    //Variables que vamos a usar
 &nbsp;    private CardClass card;
 &nbsp;    private String state;
 &nbsp;
-&nbsp;    // Constructor por defecto
 <b class="fc">&nbsp;    public CardClassState(CardClass card){</b>
 <b class="fc">&nbsp;        this.card = card;</b>
 <b class="fc">&nbsp;        state = card.getAction();</b>
 &nbsp;    }
-&nbsp;    // Getter
+&nbsp;
 <b class="fc">&nbsp;    public String getState(){return state;}</b>
 &nbsp;
-&nbsp;    // Funciones abstractas que se usarán dependiendo del tipo de carta que tenemos
+&nbsp;    // Abstract functions that will be used depending on the card type.
 &nbsp;    protected abstract CardClass doAction(Deck deck, Game game);
 &nbsp;}
 </code>
@@ -116,7 +115,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-11-27 18:29</div>
+    <div style="float:right;">generated on 2023-11-27 21:12</div>
 </div>
 </body>
 </html>

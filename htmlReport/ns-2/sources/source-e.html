@@ -76,11 +76,9 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <pre>
 <code class="sourceCode" id="sourceCode">&nbsp;package models;
-&nbsp;
 &nbsp;import java.io.ByteArrayInputStream;
 &nbsp;import java.util.LinkedList;
 &nbsp;import java.util.Queue;
-&nbsp;
 &nbsp;public class Mock_ScannerClass extends ScannerClass{
 &nbsp;    private String input;
 &nbsp;    private Queue&lt;String&gt; inputsList;
@@ -98,8 +96,6 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;        }
 &nbsp;    }
 &nbsp;
-&nbsp;
-&nbsp;
 &nbsp;    @Override
 &nbsp;    public void setInputsList(String ... inputs) {
 <b class="fc">&nbsp;        this.inputsList = new LinkedList&lt;&gt;();</b>
@@ -107,9 +103,6 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="fc">&nbsp;            inputsList.add(input);</b>
 &nbsp;        }
 &nbsp;    }
-&nbsp;
-&nbsp;
-&nbsp;
 &nbsp;    @Override
 &nbsp;    public String nextLine() {
 <b class="fc">&nbsp;        if(inputsList != null &amp;&amp; !inputsList.isEmpty()) {</b>
@@ -120,8 +113,6 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="nc">&nbsp;            throw new IllegalStateException(&quot;There no is more inputs for simulate nextLine&quot;);</b>
 &nbsp;        }
 &nbsp;    }
-&nbsp;
-&nbsp;
 &nbsp;}
 </code>
 </pre>
@@ -146,7 +137,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-11-27 18:29</div>
+    <div style="float:right;">generated on 2023-11-27 21:12</div>
 </div>
 </body>
 </html>

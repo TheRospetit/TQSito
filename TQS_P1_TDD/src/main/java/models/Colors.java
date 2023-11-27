@@ -1,5 +1,8 @@
 package models;
-
+//
+// A class that will offer to a card all the possible colors that can have.
+// It also has an associate icon in order to make view more attractive.
+//
 public final class Colors {
     public static final String RED = "red";
     public static final String YELLOW = "yellow";

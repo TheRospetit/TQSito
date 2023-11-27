@@ -77,19 +77,24 @@ Current scope:     <a href="../../index.html">all classes</a>
 <pre>
 <code class="sourceCode" id="sourceCode">&nbsp;package models;
 &nbsp;
+&nbsp;// CardColourSwap will override the method doAction in order to return a value
+&nbsp;// color selected by the user and adding plus 4 cards to the next player based
+&nbsp;// on the iterator.
 &nbsp;public class CardPlusFour extends CardClassState{
 &nbsp;
+&nbsp;    // Constructor
 &nbsp;    public CardPlusFour (CardClass card) {
 <b class="fc">&nbsp;        super(card);</b>
 &nbsp;    }
 &nbsp;
+&nbsp;    // Explicit implementation of the abstract method swap
 &nbsp;    @Override
 &nbsp;    protected CardClass doAction(Deck deck, Game game) {
-&nbsp;        //Add five cards to the next player
-&nbsp;        Player reciverPlayer;
 &nbsp;
+&nbsp;        Player reciverPlayer;
 <b class="fc">&nbsp;        Integer number = 4;</b>
 &nbsp;
+&nbsp;        // Calculate the next player that will receive the 4 cards
 <b class="fc">&nbsp;        if (game.getIterator() == 1) {</b>
 <b class="fc">&nbsp;            reciverPlayer  = game.getListPlayers().get((game.getCurrentPlayer() + game.getIterator()) % game.getNumPlayers() );</b>
 &nbsp;        } else {
@@ -104,7 +109,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="fc">&nbsp;            deck.giveCardsToPlayer(reciverPlayer);</b>
 &nbsp;        }
 &nbsp;
-&nbsp;        //Specify which colour is desired
+&nbsp;        // Specify which colour is desired
 &nbsp;        while(true)
 &nbsp;        {
 <b class="fc">&nbsp;            System.out.println(&quot;A qué color quieres cambiar [B, R, G, Y]: &quot;);</b>
@@ -143,7 +148,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-11-27 18:29</div>
+    <div style="float:right;">generated on 2023-11-27 21:12</div>
 </div>
 </body>
 </html>

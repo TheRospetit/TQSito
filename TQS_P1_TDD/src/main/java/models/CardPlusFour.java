@@ -1,18 +1,23 @@
 package models;
 
+// CardColourSwap will override the method doAction in order to return a value
+// color selected by the user and adding plus 4 cards to the next player based
+// on the iterator.
 public class CardPlusFour extends CardClassState{
 
+    // Constructor
     public CardPlusFour (CardClass card) {
         super(card);
     }
 
+    // Explicit implementation of the abstract method swap
     @Override
     protected CardClass doAction(Deck deck, Game game) {
-        //Add five cards to the next player
-        Player reciverPlayer;
 
+        Player reciverPlayer;
         Integer number = 4;
 
+        // Calculate the next player that will receive the 4 cards
         if (game.getIterator() == 1) {
             reciverPlayer  = game.getListPlayers().get((game.getCurrentPlayer() + game.getIterator()) % game.getNumPlayers() );
         } else {
@@ -27,7 +32,7 @@ public class CardPlusFour extends CardClassState{
             deck.giveCardsToPlayer(reciverPlayer);
         }
 
-        //Specify which colour is desired
+        // Specify which colour is desired
         while(true)
         {
             System.out.println("A qué color quieres cambiar [B, R, G, Y]: ");

@@ -76,7 +76,8 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <pre>
 <code class="sourceCode" id="sourceCode">&nbsp;package models;
-&nbsp;
+&nbsp;// A class that will offer to a card all the possible actions that can have.
+&nbsp;// It also has an associate icon in order to make view more attractive.
 <b class="fc">&nbsp;public final class Actions {</b>
 &nbsp;    // POSSIBLE ACTIONS OF THE CARDS
 &nbsp;    public static final String BLOCK = &quot;block&quot;;
@@ -85,20 +86,21 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    public static final String PLUS_FOUR = &quot;plus_four&quot;;
 &nbsp;    public static final String COLOR_SWAP = &quot;color_swap&quot;;
 &nbsp;
-&nbsp;    // Function to view the Actions with another name.
+&nbsp;    // Function to view the Actions with another format which includes emojis
+&nbsp;    // and especial characters.
 &nbsp;    public static String getActionsStringName(String action){
 <b class="fc">&nbsp;        String actionString = null;</b>
 <b class="fc">&nbsp;        if (action != null){</b>
 <b class="fc">&nbsp;            if (action.equals(Actions.BLOCK)){</b>
-<b class="fc">&nbsp;                actionString = String.valueOf(&#39;\u26D4&#39;);</b>
+<b class="fc">&nbsp;                actionString = String.valueOf(&#39;\u26D4&#39;);    // This will show a cross //</b>
 <b class="fc">&nbsp;            } else if (action.equals(Actions.REVERSE)){</b>
-<b class="fc">&nbsp;                actionString = String.valueOf(&#39;?&#39;) ; //String.valueOf(&#39;&#39;); // ? U+1D996 ?</b>
+<b class="fc">&nbsp;                actionString = String.valueOf(&#39;?&#39;) ;       //String.valueOf(&#39;&#39;); // ? U+1D996 ?</b>
 <b class="fc">&nbsp;            } else if (action.equals(Actions.PLUS_TWO)){</b>
 <b class="fc">&nbsp;                actionString = &quot;+2&quot;;</b>
 <b class="fc">&nbsp;            } else if (action.equals(Actions.PLUS_FOUR)){</b>
-<b class="fc">&nbsp;                actionString = &quot;+4\uD83C\uDFB2&quot;;</b>
+<b class="fc">&nbsp;                actionString = &quot;+4\uD83C\uDFB2&quot;;                // This will show a die //</b>
 <b class="fc">&nbsp;            } else if (action.equals(Actions.COLOR_SWAP)){</b>
-<b class="fc">&nbsp;                actionString = &quot;\uD83C\uDFA8\uD83D\uDD04&quot;;</b>
+<b class="fc">&nbsp;                actionString = &quot;\uD83C\uDFA8\uD83D\uDD04&quot;;      // This will show a tab symbol //</b>
 &nbsp;            }
 &nbsp;        }
 <b class="fc">&nbsp;        return actionString;</b>
@@ -127,7 +129,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-11-27 18:29</div>
+    <div style="float:right;">generated on 2023-11-27 21:12</div>
 </div>
 </body>
 </html>

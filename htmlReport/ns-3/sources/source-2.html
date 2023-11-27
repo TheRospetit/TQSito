@@ -55,7 +55,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/6)
+    (0/4)
   </span>
 </td>
 <td class="coverageStat">
@@ -63,7 +63,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/29)
+    (0/27)
   </span>
 </td>
 </tr>
@@ -79,6 +79,8 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 &nbsp;import java.util.Scanner;
 &nbsp;
+&nbsp;// View of the change turn part of the main loop. Shows the next turn&#39;s player name. Also asks to press ENTER key
+&nbsp;// each time to make sure that only the current player is looking at the screen.
 <b class="nc">&nbsp;public final class ViewChangeTurn {</b>
 &nbsp;
 &nbsp;  /*
@@ -89,23 +91,26 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;  }
 &nbsp;  */
 &nbsp;
-&nbsp;  // For the moment the &quot;visual&quot; solution in IntelliJ due to the
+&nbsp;  // For the moment the &quot; visual&quot; solution in IntelliJ due to the
 &nbsp;  // fact that we can&#39;t use any other option.
 &nbsp;  public static void clearScreen() {
 <b class="nc">&nbsp;    for (int i = 0; i &lt; 50; i++) {</b>
 <b class="nc">&nbsp;      System.out.println();</b>
 &nbsp;    }
+&nbsp;    // Just in case it works on the terminal used for the execution.
+<b class="nc">&nbsp;    System.out.print(&quot;\033[H\033[2J&quot;);</b>
+<b class="nc">&nbsp;    System.out.flush();</b>
 &nbsp;  }
 &nbsp;
 &nbsp;  public static void waitForKeypress() {
 &nbsp;    try {
-<b class="nc">&nbsp;      int terminalWidth = getIntelliJTerminalWidth();</b>
+<b class="nc">&nbsp;      int terminalWidth = ViewUtils.getIntelliJTerminalWidth();</b>
 <b class="nc">&nbsp;      String pressEnterString = &quot;Press ENTER to continue . . .&quot;;</b>
 <b class="nc">&nbsp;      int centerPressEnter = (terminalWidth - (pressEnterString.length() + 2)) / 2;</b>
 <b class="nc">&nbsp;      System.out.println(&quot; &quot;); // New line (could be \n but is more visual now).</b>
-<b class="nc">&nbsp;      System.out.println(&quot;?&quot; + fillWithCharacter(&#39;?&#39;, terminalWidth - 2) + &quot;?&quot;);</b>
-<b class="nc">&nbsp;      System.out.println(&quot;?&quot; + fillWithCharacter(&#39; &#39;, centerPressEnter) + pressEnterString + fillWithCharacter(&#39; &#39;, centerPressEnter) + &quot; ?&quot;);</b>
-<b class="nc">&nbsp;      System.out.println(&quot;?&quot; + fillWithCharacter(&#39;?&#39;, terminalWidth - 2) + &quot;?&quot;);</b>
+<b class="nc">&nbsp;      System.out.println(&quot;?&quot; + ViewUtils.fillWithCharacter(&#39;?&#39;, terminalWidth - 2) + &quot;?&quot;);</b>
+<b class="nc">&nbsp;      System.out.println(&quot;?&quot; + ViewUtils.fillWithCharacter(&#39; &#39;, centerPressEnter) + pressEnterString + ViewUtils.fillWithCharacter(&#39; &#39;, centerPressEnter) + &quot; ?&quot;);</b>
+<b class="nc">&nbsp;      System.out.println(&quot;?&quot; + ViewUtils.fillWithCharacter(&#39;?&#39;, terminalWidth - 2) + &quot;?&quot;);</b>
 &nbsp;
 &nbsp;      // Use Scanner to wait for the user to press a key
 <b class="nc">&nbsp;      Scanner scanner = new Scanner(System.in);</b>
@@ -116,8 +121,9 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;  }
 &nbsp;
 &nbsp;  public static void showTurnChange(String playerName) {
+<b class="nc">&nbsp;    ViewChangeTurn.clearScreen();</b>
 &nbsp;    // Get the width of the terminal in IntelliJ
-<b class="nc">&nbsp;    int terminalWidth = getIntelliJTerminalWidth();</b>
+<b class="nc">&nbsp;    int terminalWidth = ViewUtils.getIntelliJTerminalWidth();</b>
 &nbsp;
 <b class="nc">&nbsp;    String nextPlayerString = &quot;Next turn. Player name:&quot;;</b>
 &nbsp;
@@ -127,26 +133,14 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 &nbsp;
 &nbsp;    // Print the turn change with the player name centered
-<b class="nc">&nbsp;    System.out.println(&quot;?&quot; + fillWithCharacter(&#39;=&#39;, terminalWidth - 2) + &quot;?&quot;);</b>
-<b class="nc">&nbsp;    System.out.println(&quot;?&quot; + fillWithCharacter(&#39; &#39;, centerTitle) + nextPlayerString + fillWithCharacter(&#39; &#39;, centerTitle) + &quot; ?&quot;);</b>
-<b class="nc">&nbsp;    System.out.println(&quot;?&quot; + fillWithCharacter(&#39; &#39;, centerAt) + playerName + fillWithCharacter(&#39; &#39;, centerAt) + &quot; ?&quot;);</b>
-<b class="nc">&nbsp;    System.out.println(&quot;?&quot; + fillWithCharacter(&#39;=&#39;, terminalWidth - 2) + &quot;?&quot;);</b>
+<b class="nc">&nbsp;    System.out.println(&quot;?&quot; + ViewUtils.fillWithCharacter(&#39;=&#39;, terminalWidth - 2) + &quot;?&quot;);</b>
+<b class="nc">&nbsp;    System.out.println(&quot;?&quot; + ViewUtils.fillWithCharacter(&#39; &#39;, centerTitle) + nextPlayerString + ViewUtils.fillWithCharacter(&#39; &#39;, centerTitle) + &quot; ?&quot;);</b>
+<b class="nc">&nbsp;    System.out.println(&quot;?&quot; + ViewUtils.fillWithCharacter(&#39; &#39;, centerAt) + playerName + ViewUtils.fillWithCharacter(&#39; &#39;, centerAt) + &quot; ?&quot;);</b>
+<b class="nc">&nbsp;    System.out.println(&quot;?&quot; + ViewUtils.fillWithCharacter(&#39;=&#39;, terminalWidth - 2) + &quot;?&quot;);</b>
 &nbsp;
 <b class="nc">&nbsp;    waitForKeypress();</b>
 &nbsp;  }
 &nbsp;
-&nbsp;  public static String fillWithCharacter(char character, int length) {
-<b class="nc">&nbsp;    StringBuilder result = new StringBuilder();</b>
-<b class="nc">&nbsp;    for (int i = 0; i &lt; length; i++) {</b>
-<b class="nc">&nbsp;      result.append(character);</b>
-&nbsp;    }
-<b class="nc">&nbsp;    return result.toString();</b>
-&nbsp;  }
-&nbsp;
-&nbsp;  public static int getIntelliJTerminalWidth() {
-&nbsp;    // You can adjust this according to your needs
-<b class="nc">&nbsp;    return 160;</b>
-&nbsp;  }
 &nbsp;}
 </code>
 </pre>
@@ -171,7 +165,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-11-27 18:29</div>
+    <div style="float:right;">generated on 2023-11-27 21:12</div>
 </div>
 </body>
 </html>

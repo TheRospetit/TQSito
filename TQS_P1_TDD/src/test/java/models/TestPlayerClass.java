@@ -178,14 +178,73 @@ public class TestPlayerClass {
         for(int i = 0; i < 5; i++) {
             testedPlayer.giveCard( new CardClass(i, Colors.RED));
         }
+
+        // Test with same colour
         boolean resultTest = testedPlayer.canPlayCard(new CardClass(0, Colors.RED));
         assert (resultTest == true) : "Hand is all red and last card too, it should be true";
 
+        // Test with same number
         resultTest = testedPlayer.canPlayCard(new CardClass(0, Colors.GREEN));
         assert (resultTest == true) : "Hand is all red [0-5] and last card is 0 Green, it should be true";
 
+        // Test different color and number
         resultTest = testedPlayer.canPlayCard(new CardClass(7, Colors.GREEN));
         assert (resultTest == false) : "Hand is all red and last card is 7 green, it should be false" ;
+
+        // Test same color and number
+        resultTest = testedPlayer.canPlayCard(new CardClass(1, Colors.RED));
+        assert (resultTest == true) : "Hand is all red and last card is 1 RED, it should be true" ;
+
+        // Test same color different action
+        resultTest = testedPlayer.canPlayCard(new CardClass(Actions.BLOCK, Colors.RED));
+        assert (resultTest == true) : "Hand is all red and last card is BLOCK RED, it should be true" ;
+
+        // Test different color and different action
+        resultTest = testedPlayer.canPlayCard(new CardClass(Actions.BLOCK, Colors.YELLOW));
+        assert (resultTest == false) : "Hand is all red and last card is  BLOCK YELLOW, it should be false" ;
+
+        // Different color same action
+        testedPlayer.giveCard( new CardClass(Actions.BLOCK, Colors.RED));
+        resultTest = testedPlayer.canPlayCard(new CardClass(Actions.BLOCK, Colors.YELLOW));
+        assert (resultTest == true) : "Hand is all red and we have a block card, but the last card is Block Yellow, it should be true" ;
+
+        // Same color and action
+        resultTest = testedPlayer.canPlayCard(new CardClass(Actions.BLOCK, Colors.RED));
+        assert (resultTest == true) : "Hand is all red and last card is Block Red, we can play" ;
+
+
+
+        // NOW TESTING WITH ALL VARIATIONS OF +4 //
+        ArrayList<CardClass> testedNewHand= new ArrayList<>();
+        CardClass testedNewCard = new CardClass(Actions.PLUS_FOUR, null); testedNewHand.add(testedNewCard);
+        testedPlayer.setHand(testedNewHand);
+
+        // Plus four and different action
+        resultTest = testedPlayer.canPlayCard(new CardClass(Actions.BLOCK, Colors.RED));
+        assert (resultTest == true) : "Hand has a +4 and the last card i a Block red, so we can play" ;
+
+        // Plus four and different number
+        resultTest = testedPlayer.canPlayCard(new CardClass(7, Colors.RED));
+        assert (resultTest == true) : "Hand has a +4 and the last card i a 7 red, so we can play" ;
+
+
+
+
+        // NOW TESTING WITH ALL VARIATIONS OF COLOR SWAP //
+        testedNewHand= new ArrayList<>();
+        testedNewCard = new CardClass(Actions.COLOR_SWAP, null); testedNewHand.add(testedNewCard);
+        testedPlayer.setHand(testedNewHand);
+
+        // Plus four and different action
+        resultTest = testedPlayer.canPlayCard(new CardClass(Actions.BLOCK, Colors.RED));
+        assert (resultTest == true) : "Hand has a COLOR_SWAP and the last card i a Block red, so we can play" ;
+
+        // Plus four and different number
+        resultTest = testedPlayer.canPlayCard(new CardClass(7, Colors.RED));
+        assert (resultTest == true) : "Hand has a COLOR_SWAP and the last card i a 7 red, so we can play" ;
+
+
+
     }
 
     @Test

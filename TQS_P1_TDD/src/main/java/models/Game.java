@@ -8,14 +8,13 @@ public class Game {
     private int currentPlayer;
     private static Integer iterator;
     private ArrayList<Player> listPlayers = new ArrayList<>();
-
     public Deck deck;
     private Integer nextPlayerIndex = 0;
     public boolean winner = false;
     private ArrayList<Statistics> stats = new ArrayList<>();     // TODO. Remains to test when Pol's part finished.
 
 
-    // CONSTRUCTORS
+    // CONSTRUCTORS //
     public Game(){}
     public Game(int numPlayers, int currentPlayer, ArrayList<Player> listPlayers, ScannerClass inputScanner){
         myScanner = inputScanner;
@@ -32,11 +31,13 @@ public class Game {
     public CardClass getLastCardPlayed() {return deck.getPlayedCards().get(deck.getPlayedCards().size()-1);}
     public ArrayList<Player> getListPlayers() { return listPlayers;}
     public Integer getIterator(){return iterator;}
-    public void setCurrentPlayer(int i) { currentPlayer = i;}
-
+    public Integer getNextPlayer(){ return nextPlayerIndex; }
     public Integer getNextPlayerIndex() {
         return nextPlayerIndex;
     }
+    public void setCurrentPlayer(int i) { currentPlayer = i;}
+
+
 
     // OTHER METHODS
     public void giveHand() {
@@ -45,16 +46,13 @@ public class Game {
     }
 
     public static void reverseIterator(){ iterator *= -1; }
-
     public void nextPlayer() {
+        // Calculate the nextPlayer based on the iterator and actualPlayer
         nextPlayerIndex = (nextPlayerIndex + iterator) ;
 
         if (nextPlayerIndex == -1) nextPlayerIndex = this.numPlayers-1; // We are going counterclockwise (reverse)
         else nextPlayerIndex = nextPlayerIndex % this.numPlayers; // Clockwise
     }
-
-    public Integer getNextPlayer(){ return nextPlayerIndex; }
-
     public CardClass getActualPlayerPlayedCard(Player actualPlayer){
         CardClass cardPlayed = actualPlayer.playCard(this.getLastCardPlayed(), this.deck, this );
         return cardPlayed;

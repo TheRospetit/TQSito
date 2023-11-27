@@ -77,12 +77,15 @@ Current scope:     <a href="../../index.html">all classes</a>
 <pre>
 <code class="sourceCode" id="sourceCode">&nbsp;package models;
 &nbsp;
+&nbsp;// CardReverse will override the method doAction in order invert
+&nbsp;// the flow of the game [P1, P2 , P3] =&gt; [P3, P2, P1].
 &nbsp;public class CardReverse extends CardClassState{
-&nbsp;
+&nbsp;    // Constructor
 &nbsp;    public CardReverse(CardClass card) {
 <b class="fc">&nbsp;        super(card);</b>
 &nbsp;    }
 &nbsp;
+&nbsp;    // Explicit implementation of the abstract method swap
 &nbsp;    @Override
 &nbsp;    protected CardClass doAction(Deck deck, Game game) {
 <b class="fc">&nbsp;        Game.reverseIterator();</b>
@@ -112,7 +115,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-11-27 18:29</div>
+    <div style="float:right;">generated on 2023-11-27 21:12</div>
 </div>
 </body>
 </html>

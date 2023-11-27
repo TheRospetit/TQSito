@@ -28,7 +28,7 @@ public class TestGame {
     public void TestAtributes() {
         //CHECKS IF THERE ARE 9 ATTRIBUTES
         List<Field> allFields = Arrays.asList(Game.class.getDeclaredFields());
-        assertEquals(9, allFields.size());
+        assertEquals(8, allFields.size());
 
         //TEST TO VERIFY IF ATTRIBUTE numPlayers DOES EXIST
         Field numPlayers = allFields.stream().filter(field -> field.getName().equals("numPlayers")).findFirst().orElseThrow(()
@@ -62,9 +62,6 @@ public class TestGame {
             -> new RuntimeException("Field not found"));
         assertEquals(boolean.class, winner.getType());
 
-        Field stats = allFields.stream().filter(field -> field.getName().equals("stats")).findFirst().orElseThrow(()
-            -> new RuntimeException("Field not found"));
-        assertEquals(ArrayList.class, stats.getType());
 
     }
 

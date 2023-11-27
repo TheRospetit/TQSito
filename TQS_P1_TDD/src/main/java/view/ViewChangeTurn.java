@@ -12,7 +12,7 @@ public final class ViewChangeTurn {
   }
   */
 
-  // For the moment the "visual" solution in IntelliJ due to the
+  // For the moment the " visual" solution in IntelliJ due to the
   // fact that we can't use any other option.
   public static void clearScreen() {
     for (int i = 0; i < 50; i++) {

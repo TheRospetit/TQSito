@@ -10,24 +10,33 @@ public class Deck {
   private ArrayList<CardClass> playableCards = new ArrayList<>();
   private ArrayList<CardClass> playedCards = new ArrayList<>();
 
-
+  // Constructors //
   public Deck(){
     initializeDeck(); // Initialize the deck
     shuffleCardsDeck();
     numCards = playableCards.size();
     playedCards = new ArrayList<CardClass>();
   }
-
   public Deck(int nCards, ArrayList<CardClass> myCards, ArrayList<CardClass> lastCard){
     numCards= nCards;
     playableCards = myCards;
     playedCards = lastCard;
   }
 
+  // Setters & Getters //
+  public ArrayList<CardClass> getPlayableCards() {return playableCards;}
+  public ArrayList<CardClass> getPlayedCards() {return playedCards;}
+  public Integer getNumCards() {return numCards;}
+  public void setPlayableCards(ArrayList<CardClass> inputTest){
+        playableCards = inputTest;
+        this.numCards = inputTest.size();
+    }
+  public void setCardPlayed(CardClass card) { playedCards.add(card); }
+
+  // Other methods //
   public void shuffleCardsDeck(){
     Collections.shuffle(playableCards);
   }
-
   public void initializeDeck() {
     /*
     SUMMARY of Cards:
@@ -68,13 +77,11 @@ public class Deck {
 
 
   }
-
   public void giveCardsToPlayer(Player player){
     player.giveCard(playableCards.get(0));
-    playableCards.remove(0);
+    playableCards.remove(0); // Delete from playableCard the card that was given
     numCards--;
   }
-
   public void giveStarterCardsToPlayers(ArrayList<Player> players) {
     // Each player Starts with 7 cards.
     for (int i = 0; i < 7; i++) {
@@ -83,18 +90,8 @@ public class Deck {
         }
     }
   }
-
-  public ArrayList<CardClass> getPlayableCards() {return playableCards;}
-  public Integer getNumCards() {return numCards;}
-  public ArrayList<CardClass> getPlayedCards() {return playedCards;}
-  public void setCardPlayed(CardClass card) { playedCards.add(card); }
-
-  public void setPlayableCards(ArrayList<CardClass> inputTest){
-    playableCards = inputTest;
-    this.numCards = inputTest.size();
-  }
-
   public void refillPlayableCards() {
+    // Once the playableCards is empty, we reassign and shuffle the playedCards to playableCards
     for (CardClass card : playedCards) {
       if (card.getAction() != null) {
         if (card.getAction().equals(Actions.PLUS_FOUR) || card.getAction().equals(Actions.COLOR_SWAP)) {

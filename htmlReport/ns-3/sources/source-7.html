@@ -55,7 +55,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/5)
+    (0/4)
   </span>
 </td>
 <td class="coverageStat">
@@ -63,7 +63,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/36)
+    (0/43)
   </span>
 </td>
 </tr>
@@ -86,31 +86,9 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;import java.io.IOException;
 &nbsp;import java.util.ArrayList;
 &nbsp;
+&nbsp;// View part to show/view the Statistics, parsing and formatting a string to stats or vice-versa.
 <b class="nc">&nbsp;public final class ViewStatistics {</b>
-&nbsp;    // TODO. Valorar si es queda o es borra el mètode.
-&nbsp;    public Statistics stringLineToStatistics(String line) {
-<b class="nc">&nbsp;        String[] parts = line.split(&quot;,&quot;);</b>
 &nbsp;
-<b class="nc">&nbsp;        if (parts.length == 4) {</b>
-<b class="nc">&nbsp;            String playerName = parts[0];</b>
-<b class="nc">&nbsp;            int numGames = Integer.parseInt(parts[1]);</b>
-<b class="nc">&nbsp;            int numWins = Integer.parseInt(parts[2]);</b>
-<b class="nc">&nbsp;            int numCards = Integer.parseInt(parts[3]);</b>
-&nbsp;
-<b class="nc">&nbsp;            return new Statistics(playerName, numGames, numWins, numCards);</b>
-&nbsp;        } else {
-&nbsp;            // The input string is not in the expected format.
-<b class="nc">&nbsp;            return null;</b>
-&nbsp;        }
-&nbsp;    }
-&nbsp;    /**
-&nbsp;     * Simple method to format all the Statistics attributes in a single String line.
-&nbsp;     * @param stat -&gt; A Statistics Instance
-&nbsp;     * @return -&gt; Returns a String with all the attributes of a Statistics instance.
-&nbsp;     */
-&nbsp;    public String formatStatLine(Statistics stat) {
-<b class="nc">&nbsp;        return stat.getPlayer_name() + &quot;,&quot; + stat.getNumGames() + &quot;,&quot; + stat.getNumWins() + &quot;,&quot; + stat.getNumCards();</b>
-&nbsp;    }
 &nbsp;
 &nbsp;    /**
 &nbsp;     * Simple method to make the print of a row of the All Statistics table (With Format)
@@ -165,6 +143,33 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="nc">&nbsp;        ViewChangeTurn.waitForKeypress();</b>
 &nbsp;    }
 &nbsp;
+&nbsp;    // Extra function to show the stats of the players at the end of a game (Only the players that were on the game).
+&nbsp;    public static void viewPlayerStatistics(ArrayList&lt;Statistics&gt; myStatsList) {
+<b class="nc">&nbsp;        ArrayList&lt;String&gt; statMenuTitle = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;        statMenuTitle.add(&quot;=============================================================&quot;);</b>
+<b class="nc">&nbsp;        statMenuTitle.add(&quot;\t\t\t\t\t VIEW GAME STATISTICS&quot;);</b>
+<b class="nc">&nbsp;        statMenuTitle.add(&quot;=============================================================&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;        for (String line : statMenuTitle) {</b>
+<b class="nc">&nbsp;            System.out.println(line);</b>
+<b class="nc">&nbsp;        }</b>
+&nbsp;
+&nbsp;        /* Printing title:
+&nbsp;         * For format purposes, we use these special characters:
+&nbsp;         * %-16s: Will use 16 string type characters with left-align.
+&nbsp;         * %-8s: Will use 8 string type characters with left-align.
+&nbsp;         * %n: New line.
+&nbsp;         */
+<b class="nc">&nbsp;        String separator = &quot;\t-----------------------------------------------------%n&quot;;</b>
+<b class="nc">&nbsp;        System.out.printf(separator);</b>
+<b class="nc">&nbsp;        System.out.printf(&quot;\t| %-16s | %-8s | %-8s | %-8s |%n&quot;, &quot;PLAYER&quot;, &quot;# Games&quot;, &quot;# WINS&quot;, &quot;#CARDS+2&quot;);</b>
+<b class="nc">&nbsp;        System.out.printf(&quot;\t| %-16s | %-8s | %-8s | %-8s |%n&quot;, &quot;NAME&quot;, &quot;Played&quot;, &quot;&quot;, &quot; DRAWN+4&quot;);</b>
+<b class="nc">&nbsp;        System.out.printf(separator);</b>
+<b class="nc">&nbsp;        for (Statistics statistics:myStatsList){</b>
+<b class="nc">&nbsp;            statToTableFormatPrintf(statistics);</b>
+<b class="nc">&nbsp;        }</b>
+<b class="nc">&nbsp;        ViewChangeTurn.waitForKeypress();</b>
+&nbsp;    }
 &nbsp;}
 </code>
 </pre>
@@ -189,7 +194,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-11-27 18:29</div>
+    <div style="float:right;">generated on 2023-11-27 21:12</div>
 </div>
 </body>
 </html>

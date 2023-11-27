@@ -1,13 +1,16 @@
 package models;
-
 import java.io.ByteArrayInputStream;
 import java.util.LinkedList;
 import java.util.Queue;
 
+// This class is used in order to control when a test is required
+// and needs to simulate a series of inputs.
+// Is inheritance of ScannerClass
 public class Mock_ScannerClass extends ScannerClass{
     private String input;
     private Queue<String> inputsList;
 
+    // Constructors depending on if it just an element or more
     public Mock_ScannerClass(String input) {
         super(new ByteArrayInputStream(input.getBytes()));
         this.input = input;
@@ -21,8 +24,7 @@ public class Mock_ScannerClass extends ScannerClass{
         }
     }
 
-
-
+    // Other methods
     @Override
     public void setInputsList(String ... inputs) {
         this.inputsList = new LinkedList<>();
@@ -30,11 +32,9 @@ public class Mock_ScannerClass extends ScannerClass{
             inputsList.add(input);
         }
     }
-
-
-
     @Override
     public String nextLine() {
+        // Verify that there is elements inside the queue and is not null
         if(inputsList != null && !inputsList.isEmpty()) {
             return inputsList.poll();
         } else if (input != null){
@@ -43,6 +43,4 @@ public class Mock_ScannerClass extends ScannerClass{
             throw new IllegalStateException("There no is more inputs for simulate nextLine");
         }
     }
-
-
 }

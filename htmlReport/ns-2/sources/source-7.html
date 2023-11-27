@@ -77,19 +77,21 @@ Current scope:     <a href="../../index.html">all classes</a>
 <pre>
 <code class="sourceCode" id="sourceCode">&nbsp;package models;
 &nbsp;
+&nbsp;// CardPlusTwo will override the method doAction in order to add
+&nbsp;// 2 cards to next player based in the iterator
 &nbsp;public class CardPlusTwo extends CardClassState{
-&nbsp;
+&nbsp;    // Constructor
 &nbsp;    public CardPlusTwo(CardClass card) {
 <b class="fc">&nbsp;        super(card);</b>
 &nbsp;    }
 &nbsp;
+&nbsp;    // Explicit implementation of the abstract method swap
 &nbsp;    @Override
 &nbsp;    protected CardClass doAction(Deck deck, Game game) {
-&nbsp;        //CUIDADO QUE SE LO ESTAMOS DANDO AL MISMO JUGADOR, NO AL SIGUIENTE
-&nbsp;        // Puede ser que les estamos dando más de 2 cartas, falta debugar un poco más
 &nbsp;        Player reciverPlayer;
 <b class="fc">&nbsp;        Integer number = 2;</b>
 &nbsp;
+&nbsp;        // Calculate the following player
 <b class="fc">&nbsp;        if (game.getIterator() == 1) {</b>
 <b class="fc">&nbsp;            reciverPlayer  = game.getListPlayers().get((game.getCurrentPlayer() + game.getIterator()) % game.getNumPlayers() );</b>
 &nbsp;        } else {
@@ -100,7 +102,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;            }
 &nbsp;        }
 &nbsp;
-<b class="fc">&nbsp;        for (int i = 0; i &lt; number; i++) {</b>
+<b class="fc">&nbsp;        for (int i = 0; i &lt; number; i++) { // Give 2 cards to the following player</b>
 <b class="fc">&nbsp;            deck.giveCardsToPlayer(reciverPlayer);</b>
 &nbsp;        }
 <b class="fc">&nbsp;        return null;</b>
@@ -130,7 +132,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-11-27 18:29</div>
+    <div style="float:right;">generated on 2023-11-27 21:12</div>
 </div>
 </body>
 </html>

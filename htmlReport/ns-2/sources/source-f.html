@@ -80,64 +80,69 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;import java.util.ArrayList;
 &nbsp;import java.util.Scanner;
 &nbsp;
-&nbsp;
+&nbsp;// The player class manages all the features that a player can do on the game. Each player has a name, a boolean
+&nbsp;// value to determine if they won the game or not, a hand of cards to play the game and a card to play to manage if
+&nbsp;// the card that is trying to play can be played.
 &nbsp;public class Player {
 &nbsp;
 &nbsp;    private String name;
 &nbsp;    private boolean winner;
-&nbsp;    //private boolean blocked; NOT MORE REQUIRED FOR THE MOMENT
 &nbsp;    private CardClass cardToPlay;
 <b class="fc">&nbsp;    private ArrayList&lt;CardClass&gt; hand = new ArrayList&lt;&gt;();</b>
 &nbsp;
-&nbsp;    // Constructor
 <b class="fc">&nbsp;    public Player(){</b>
 <b class="fc">&nbsp;        name = &quot;&quot;;</b>
 <b class="fc">&nbsp;        winner = false;</b>
 &nbsp;    }
 &nbsp;
-&nbsp;    // Params constructor
 <b class="fc">&nbsp;    public Player(String name, boolean winner){</b>
 <b class="fc">&nbsp;        this.name = name;</b>
 <b class="fc">&nbsp;        this.winner = winner;</b>
 &nbsp;    }
 &nbsp;
-&nbsp;    // Getters and Setters
+&nbsp;    /** Getters and Setters */
 &nbsp;    public String getName() {
 <b class="fc">&nbsp;        return name;</b>
 &nbsp;    }
 &nbsp;    public boolean getWinner() {
 <b class="fc">&nbsp;        return winner;</b>
 &nbsp;    }
-<b class="fc">&nbsp;    public void giveCard(CardClass card) { this.hand.add(card); }</b>
+&nbsp;    public void giveCard(CardClass card) {
+<b class="fc">&nbsp;        this.hand.add(card);</b>
+&nbsp;    }
 &nbsp;    public void setName(String name) {
 <b class="fc">&nbsp;        this.name = name;</b>
 &nbsp;    }
 &nbsp;    public void setWinner(boolean winner) {
 <b class="fc">&nbsp;        this.winner = winner;</b>
 &nbsp;    }
-<b class="fc">&nbsp;    public int numberHandCards(){return hand.size();}</b>
-&nbsp;
-<b class="fc">&nbsp;    public void setHand(ArrayList&lt;CardClass&gt; newHand) { this.hand = newHand; }</b>
-&nbsp;
+&nbsp;    public int numberHandCards(){
+<b class="fc">&nbsp;        return hand.size();</b>
+&nbsp;    }
+&nbsp;    public void setHand(ArrayList&lt;CardClass&gt; newHand) {
+<b class="fc">&nbsp;        this.hand = newHand;</b>
+&nbsp;    }
 &nbsp;    public ArrayList&lt;CardClass&gt; getHand() {
 <b class="fc">&nbsp;        return hand;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    /** Returns true if the current cardToPlay from the player can be played. */
-&nbsp;    public Boolean testCardToPlay(CardClass cardToP, CardClass lcPlayed) { // Test if card can be played
-&nbsp;
-<b class="fc">&nbsp;        if(cardToP.getAction()== null &amp;&amp; lcPlayed.getAction() == null &amp;&amp; cardToP.getNumber()!= null &amp;&amp; lcPlayed.getNumber() != null){ // Cards have number</b>
+&nbsp;    public Boolean testCardToPlay(CardClass cardToP, CardClass lcPlayed) {
+&nbsp;        // Cards with number =&gt; true if same color, same number or both
+<b class="fc">&nbsp;        if(cardToP.getAction()== null &amp;&amp; lcPlayed.getAction() == null &amp;&amp; cardToP.getNumber()!= null &amp;&amp; lcPlayed.getNumber() != null){</b>
 <b class="fc">&nbsp;            return (cardToP.getColour().equals(lcPlayed.getColour()) || cardToP.getNumber().equals(lcPlayed.getNumber()) ||</b>
 <b class="fc">&nbsp;                    (cardToP.getNumber().equals(lcPlayed.getNumber()) &amp;&amp; cardToP.getColour().equals(lcPlayed.getColour())));</b>
 &nbsp;        }
 &nbsp;
+&nbsp;        // If it has an action it checks if it is a &quot;special&quot; one (COLOR_SWAP or PLUS_FOUR)
 <b class="fc">&nbsp;        if (cardToP.getAction() != null) {</b>
 <b class="fc">&nbsp;            if(cardToP.getAction().equals(Actions.COLOR_SWAP) || cardToP.getAction().equals(Actions.PLUS_FOUR)){</b>
 <b class="fc">&nbsp;                return true;</b>
 &nbsp;            }
 &nbsp;        }
 &nbsp;
-<b class="fc">&nbsp;        if(cardToP.getNumber()== null &amp;&amp; lcPlayed.getNumber() == null &amp;&amp; cardToP.getAction() != null &amp;&amp; lcPlayed.getAction() != null){ // Cards have action</b>
+&nbsp;        // Cards with action (they do not have number) | True =&gt; true if same color, same action or both
+<b class="fc">&nbsp;        if(cardToP.getNumber()== null &amp;&amp; lcPlayed.getNumber() == null &amp;&amp; cardToP.getAction() != null &amp;&amp; lcPlayed.getAction() != null){</b>
 <b class="fc">&nbsp;            if (cardToP.getColour() != null &amp;&amp; lcPlayed.getAction() != null){</b>
 <b class="fc">&nbsp;                return ((cardToP.getColour().equals(lcPlayed.getColour()) &amp;&amp; cardToP.getAction().equals(lcPlayed.getAction())) ||</b>
 <b class="fc">&nbsp;                        cardToP.getColour().equals(lcPlayed.getColour()) || cardToP.getAction().equals(lcPlayed.getAction()));</b>
@@ -151,7 +156,6 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 &nbsp;    /** Checks if a Player can Play any card from its hand. */
 &nbsp;    public Boolean canPlayCard(CardClass lastCardPlayed) {
-&nbsp;
 <b class="fc">&nbsp;        for (CardClass currentCard : hand) {</b>
 <b class="fc">&nbsp;            if (testCardToPlay(currentCard, lastCardPlayed)) {</b>
 <b class="fc">&nbsp;                return true;</b>
@@ -162,7 +166,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    }
 &nbsp;
 &nbsp;    public CardClass playCard(CardClass lastCardPlayed, Deck deck, Game game){
-&nbsp;        CardClass returnedCard ;
+&nbsp;        CardClass returnedCard; // Card that is going to get set form PLUS_FOUR ot COLOR_SWAP
 <b class="fc">&nbsp;        if (canPlayCard(lastCardPlayed)) { // Checks if the player can play any card</b>
 &nbsp;            while (true) {
 <b class="fc">&nbsp;                int numPlayedCard = hand.size() + 2;</b>
@@ -170,20 +174,18 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;                    //waiting to input variables
 <b class="fc">&nbsp;                    System.out.println(&quot;Select one card (Position of the card [ 1 - &quot; + hand.size() + &quot; ]): &quot;);</b>
 <b class="fc">&nbsp;                    String number = game.getMyScanner().nextLine();</b>
-&nbsp;                    try {
+&nbsp;                    try { // Checks that the input is an Integer
 <b class="fc">&nbsp;                        numPlayedCard = Integer.parseInt(number);</b>
 <b class="fc">&nbsp;                    } catch (NumberFormatException nfe) {</b>
 <b class="fc">&nbsp;                        System.out.println(&quot;Insert a number, not anything else, thanks&quot;);</b>
 <b class="fc">&nbsp;                    }</b>
 <b class="fc">&nbsp;                }</b>
-&nbsp;                //convert input into an integer, we should be care if its not correct value
 &nbsp;
-<b class="fc">&nbsp;                cardToPlay =  hand.get( numPlayedCard - 1);</b>
+<b class="fc">&nbsp;                cardToPlay =  hand.get(numPlayedCard - 1); // sets the card chosen</b>
 &nbsp;
-&nbsp;                // if testCard(cardToPlay, lastCardPlayed) == true --&gt; hand.remove();
 <b class="fc">&nbsp;                if (testCardToPlay(cardToPlay, lastCardPlayed)) { // Checks if the player selected a playable card</b>
-<b class="fc">&nbsp;                    returnedCard = cardToPlay.doAction(deck, game);</b>
-<b class="fc">&nbsp;                    hand.remove(numPlayedCard - 1);</b>
+<b class="fc">&nbsp;                    returnedCard = cardToPlay.doAction(deck, game); // Card does its action if it has one</b>
+<b class="fc">&nbsp;                    hand.remove(numPlayedCard - 1); // Remove card from hand</b>
 <b class="fc">&nbsp;                    if (hand.isEmpty()){</b>
 <b class="fc">&nbsp;                        this.winner = true;</b>
 &nbsp;                    }
@@ -192,11 +194,11 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="fc">&nbsp;                  System.out.println(&quot;Please select a correct card to play.&quot;);</b>
 &nbsp;                }
 <b class="fc">&nbsp;            }</b>
-&nbsp;            //scanner.close();
+&nbsp;
 <b class="fc">&nbsp;            if(returnedCard == null){</b>
 <b class="fc">&nbsp;                return cardToPlay;</b>
-&nbsp;                        } else {
-<b class="fc">&nbsp;                return returnedCard; // For the plus four and colour change</b>
+&nbsp;            } else {
+<b class="fc">&nbsp;                return returnedCard; // For the plus four and colour swap</b>
 &nbsp;            }
 &nbsp;        }
 <b class="fc">&nbsp;        return null;  // Player can&#39;t play card.</b>
@@ -225,7 +227,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-11-27 18:29</div>
+    <div style="float:right;">generated on 2023-11-27 21:12</div>
 </div>
 </body>
 </html>

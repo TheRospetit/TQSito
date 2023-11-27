@@ -82,10 +82,12 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;import java.util.ArrayList;
 &nbsp;import java.util.List;
 &nbsp;import java.util.Scanner;
+&nbsp;
+&nbsp;// View to ask the number of players, ask the entry of each player&#39;s name and finally display all the player names.
 <b class="nc">&nbsp;public final class ViewAskPlayers {</b>
 &nbsp;
-&nbsp;    public static void displayAskNumPlayers() {
-<b class="nc">&nbsp;        System.out.println(&quot;Enter the number of players: &quot;);</b>
+&nbsp;    public static void displayAskNumPlayers(int minPlayers, int maxPlayers) {
+<b class="nc">&nbsp;        System.out.print(&quot;Enter the number of players (&quot;+ minPlayers + &quot;-&quot; + maxPlayers + &quot;): &quot;);</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    public static void displayEnterPlayerN(int playerNum) {
@@ -125,7 +127,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-11-27 18:29</div>
+    <div style="float:right;">generated on 2023-11-27 21:12</div>
 </div>
 </body>
 </html>

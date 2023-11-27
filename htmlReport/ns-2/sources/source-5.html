@@ -77,18 +77,21 @@ Current scope:     <a href="../../index.html">all classes</a>
 <pre>
 <code class="sourceCode" id="sourceCode">&nbsp;package models;
 &nbsp;
-&nbsp;public class CardColourSwap extends CardClassState{
+&nbsp;// CardColourSwap will override the method doAction in order to return a value
+&nbsp;// color selected by the user.
 &nbsp;
+&nbsp;public class CardColourSwap extends CardClassState{
+&nbsp;    // Constructor
 &nbsp;    public CardColourSwap(CardClass card) {
 <b class="fc">&nbsp;        super(card);</b>
 &nbsp;    }
 &nbsp;
+&nbsp;    // Explicit implementation of the abstract method swap
 &nbsp;    @Override
 &nbsp;    protected CardClass doAction(Deck deck, Game game) {
 &nbsp;        while(true)
 &nbsp;        {
-<b class="fc">&nbsp;            System.out.println(&quot;A qué color quieres cambiar [B, R, G, Y]: &quot;);</b>
-&nbsp;            // Falta hacer el in
+<b class="fc">&nbsp;            System.out.println(&quot;Which color you desire to change [B, R, G, Y]: &quot;);</b>
 <b class="fc">&nbsp;            String input = game.getMyScanner().nextLine();</b>
 &nbsp;
 &nbsp;
@@ -97,7 +100,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="fc">&nbsp;                case(&quot;R&quot;): return new CardClass(Actions.COLOR_SWAP, Colors.RED);</b>
 <b class="fc">&nbsp;                case(&quot;G&quot;): return new CardClass(Actions.COLOR_SWAP, Colors.GREEN);</b>
 <b class="fc">&nbsp;                case(&quot;Y&quot;): return new CardClass(Actions.COLOR_SWAP, Colors.YELLOW);</b>
-<b class="fc">&nbsp;                default: System.out.println(&quot;Color no correcto! Introduce otro de nuevo&quot;);</b>
+<b class="fc">&nbsp;                default: System.out.println(&quot;Incorrect value, introduce a new one !&quot;);</b>
 &nbsp;            }
 <b class="fc">&nbsp;        }</b>
 &nbsp;    }
@@ -125,7 +128,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-11-27 18:29</div>
+    <div style="float:right;">generated on 2023-11-27 21:12</div>
 </div>
 </body>
 </html>

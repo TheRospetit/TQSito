@@ -55,7 +55,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/7)
+    (0/4)
   </span>
 </td>
 <td class="coverageStat">
@@ -63,7 +63,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/67)
+    (0/55)
   </span>
 </td>
 </tr>
@@ -155,18 +155,17 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;import java.util.List;
 &nbsp;import java.util.Objects;
 &nbsp;
+&nbsp;// The most complex view class. Shows the Player Status, so shows the actual turn player name, the
+&nbsp;// last card played and the player&#39;s hand. We decided to show the cards with emojis to make it more
+&nbsp;// visual due the fact that the use of emojis moves all the display a little bit (because an emoji uses a
+&nbsp;// little bit more than one terminal char slot (but less than 2)) and it&#39;s really difficult to fix that (if possible).
+&nbsp;// We tried a lot of different options but this one is the best one so far.
+&nbsp;// We also decided to show only 5 cards per row, so it will fit in smaller terminals.
 <b class="nc">&nbsp;public final class ViewPlayerStatus {</b>
 &nbsp;
-&nbsp;  public static void main(String[] args) {
-<b class="nc">&nbsp;    ArrayList&lt;Player&gt; playerNames = new ArrayList&lt;&gt;();</b>
-<b class="nc">&nbsp;    playerNames.add(new Player(&quot;Hello&quot;, false));</b>
-<b class="nc">&nbsp;    CardClass card = new CardClass(1,Colors.RED);</b>
-<b class="nc">&nbsp;    ArrayList&lt;CardClass&gt; hand = new ArrayList&lt;&gt;();</b>
-<b class="nc">&nbsp;    hand.add(card);</b>
-<b class="nc">&nbsp;    playerNames.getFirst().setHand(hand);</b>
-<b class="nc">&nbsp;    displayPlayerStatus(playerNames.getFirst().getName(), hand,card);</b>
-&nbsp;  }
-&nbsp;
+&nbsp;  // Creates the CardClass name that will be shown on the terminal based on the actions, color or number of the card.
+&nbsp;  // Parsing the name of each action/color to an emoji with `Actions.getActionsStringName()`
+&nbsp;  // and `Colors.getColorsStringName()`
 &nbsp;  public static String createCardClassStringName(CardClass card) {
 <b class="nc">&nbsp;    String strAction = Actions.getActionsStringName(card.getAction());</b>
 <b class="nc">&nbsp;    String strNumb = String.valueOf(card.getNumber());</b>
@@ -186,15 +185,15 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="nc">&nbsp;    return cardStringName;</b>
 &nbsp;  }
 &nbsp;  public static void displayPlayerStatus(String playerName, ArrayList&lt;CardClass&gt; playerHand, CardClass lastPlayedCard) {
-<b class="nc">&nbsp;    int terminalWidth = getIntelliJTerminalWidth();</b>
+<b class="nc">&nbsp;    int terminalWidth = ViewUtils.getIntelliJTerminalWidth();</b>
 <b class="nc">&nbsp;    String playerNameString = &quot;Turn: &quot; + playerName;</b>
 &nbsp;    // Display current player&#39;s name
 &nbsp;    //int centerPlayerName = (terminalWidth - (playerNameString.length() + 2)) / 2;
 <b class="nc">&nbsp;    int leftPaddingPlayerName = (terminalWidth - playerNameString.length()) / 2;</b>
 <b class="nc">&nbsp;    int rightPaddingPlayerName = terminalWidth - playerNameString.length() - leftPaddingPlayerName - 2;</b>
-<b class="nc">&nbsp;    System.out.println(&quot;?&quot; + fillWithCharacter(&#39;=&#39;, terminalWidth - 2) + &quot;?&quot;);</b>
-<b class="nc">&nbsp;    System.out.println(&quot;?&quot; + fillWithCharacter(&#39; &#39;, leftPaddingPlayerName) + playerNameString + fillWithCharacter(&#39; &#39;, rightPaddingPlayerName) + &quot;?&quot;);</b>
-<b class="nc">&nbsp;    System.out.println(&quot;?&quot; + fillWithCharacter(&#39;=&#39;, terminalWidth - 2) + &quot;?&quot;);</b>
+<b class="nc">&nbsp;    System.out.println(&quot;?&quot; + ViewUtils.fillWithCharacter(&#39;=&#39;, terminalWidth - 2) + &quot;?&quot;);</b>
+<b class="nc">&nbsp;    System.out.println(&quot;?&quot; + ViewUtils.fillWithCharacter(&#39; &#39;, leftPaddingPlayerName) + playerNameString + ViewUtils.fillWithCharacter(&#39; &#39;, rightPaddingPlayerName) + &quot;?&quot;);</b>
+<b class="nc">&nbsp;    System.out.println(&quot;?&quot; + ViewUtils.fillWithCharacter(&#39;=&#39;, terminalWidth - 2) + &quot;?&quot;);</b>
 &nbsp;
 &nbsp;    // Display last played card
 <b class="nc">&nbsp;    String lastCardPlayedString = &quot;Last card played: &quot; + ViewPlayerStatus.createCardClassStringName(lastPlayedCard);</b>
@@ -202,9 +201,9 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    //int leftPaddingLastCardPlayed = (terminalWidth - lastCardPlayedString.length()) / 2;
 &nbsp;    //int rightPaddingLastCardPlayed = terminalWidth - lastCardPlayedString.length() - leftPaddingLastCardPlayed - 2;
 <b class="nc">&nbsp;    System.out.println(&quot; &quot;);</b>
-<b class="nc">&nbsp;    System.out.println(&quot;?&quot; + fillWithCharacter(&#39;?&#39;, terminalWidth - 2) + &quot;?&quot;);</b>
-<b class="nc">&nbsp;    System.out.println(&quot;?&quot; + fillWithCharacter(&#39; &#39;, centerLastCard) + lastCardPlayedString + fillWithCharacter(&#39; &#39;, centerLastCard) + &quot;?&quot;);</b>
-<b class="nc">&nbsp;    System.out.println(&quot;?&quot; + fillWithCharacter(&#39;?&#39;, terminalWidth - 2) + &quot;?&quot;);</b>
+<b class="nc">&nbsp;    System.out.println(&quot;?&quot; + ViewUtils.fillWithCharacter(&#39;?&#39;, terminalWidth - 2) + &quot;?&quot;);</b>
+<b class="nc">&nbsp;    System.out.println(&quot;?&quot; + ViewUtils.fillWithCharacter(&#39; &#39;, centerLastCard) + lastCardPlayedString + ViewUtils.fillWithCharacter(&#39; &#39;, centerLastCard) + &quot;?&quot;);</b>
+<b class="nc">&nbsp;    System.out.println(&quot;?&quot; + ViewUtils.fillWithCharacter(&#39;?&#39;, terminalWidth - 2) + &quot;?&quot;);</b>
 &nbsp;
 &nbsp;    // Display player&#39;s hand in a table-like format
 <b class="nc">&nbsp;    System.out.println(&quot; &quot;);</b>
@@ -216,58 +215,42 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;  private static void displayCardTable(ArrayList&lt;CardClass&gt; playerHand) {
 <b class="nc">&nbsp;    int cardWidth = 15;</b>
 <b class="nc">&nbsp;    int cardsPerRow = 5;</b>
-<b class="nc">&nbsp;    char invisibleEmoticon = &#39;\u200B&#39;; // Carácter de espacio sin ancho</b>
+<b class="nc">&nbsp;    char invisibleEmoticon = &#39;\u200B&#39;; // Wide space char</b>
 &nbsp;
 <b class="nc">&nbsp;    int numRows = (int) Math.ceil((double) playerHand.size() / cardsPerRow);</b>
 &nbsp;
+&nbsp;    // Create a row with 5 cards (cardsPerRow as MAX)
 <b class="nc">&nbsp;    for (int row = 0; row &lt; numRows; row++) {</b>
+&nbsp;      // Creating the top part of a card.
 <b class="nc">&nbsp;      for (CardClass card : playerHand.subList(row * cardsPerRow, Math.min((row + 1) * cardsPerRow, playerHand.size()))) {</b>
-<b class="nc">&nbsp;        System.out.print(&quot;?&quot; + fillWithCharacter(&#39;?&#39;, cardWidth - 2) + &quot;? &quot;);</b>
+<b class="nc">&nbsp;        System.out.print(&quot;?&quot; + ViewUtils.fillWithCharacter(&#39;?&#39;, cardWidth - 2) + &quot;? &quot;);</b>
 <b class="nc">&nbsp;      }</b>
-<b class="nc">&nbsp;      System.out.println(); // Mueve a la siguiente línea</b>
-&nbsp;
+<b class="nc">&nbsp;      System.out.println();</b>
+&nbsp;      // Creating the middle part of a card. Trying to center properly the name of the card.
 <b class="nc">&nbsp;      for (CardClass card : playerHand.subList(row * cardsPerRow, Math.min((row + 1) * cardsPerRow, playerHand.size()))) {</b>
 <b class="nc">&nbsp;        String cardName = ViewPlayerStatus.createCardClassStringName(card);</b>
 <b class="nc">&nbsp;        int totalPadding = cardWidth - cardName.length();</b>
 <b class="nc">&nbsp;        int leftPaddingCard = totalPadding / 2;</b>
 <b class="nc">&nbsp;        int rightPaddingCard = totalPadding - leftPaddingCard;</b>
 &nbsp;
-&nbsp;        // Ajustar el espacio de relleno para alinear el nombre de la carta en el centro
+&nbsp;        // Adjust the padding space to align the card name in the center
 <b class="nc">&nbsp;        if (totalPadding % 2 != 0) {</b>
 <b class="nc">&nbsp;          leftPaddingCard += 1;</b>
 &nbsp;        }
 &nbsp;
-<b class="nc">&nbsp;        String invisiblePadding = fillWithCharacter(invisibleEmoticon, 2); // Ajusta según sea necesario</b>
-<b class="nc">&nbsp;        System.out.print(&quot;?&quot; + fillWithCharacter(invisibleEmoticon, leftPaddingCard-2) + cardName + invisiblePadding + fillWithCharacter(invisibleEmoticon, rightPaddingCard-2) + &quot;? &quot;);</b>
+<b class="nc">&nbsp;        String invisiblePadding = ViewUtils.fillWithCharacter(invisibleEmoticon, 2);</b>
+<b class="nc">&nbsp;        System.out.print(&quot;?&quot; + ViewUtils.fillWithCharacter(invisibleEmoticon, leftPaddingCard-2) + cardName + invisiblePadding + ViewUtils.fillWithCharacter(invisibleEmoticon, rightPaddingCard-2) + &quot;? &quot;);</b>
 <b class="nc">&nbsp;      }</b>
-<b class="nc">&nbsp;      System.out.println(); // Mueve a la siguiente línea</b>
-&nbsp;
+<b class="nc">&nbsp;      System.out.println();</b>
+&nbsp;      // Bottom part of the card.
 <b class="nc">&nbsp;      for (CardClass card : playerHand.subList(row * cardsPerRow, Math.min((row + 1) * cardsPerRow, playerHand.size()))) {</b>
-<b class="nc">&nbsp;        System.out.print(&quot;?&quot; + fillWithCharacter(&#39;?&#39;, cardWidth - 2) + &quot;? &quot;);</b>
+<b class="nc">&nbsp;        System.out.print(&quot;?&quot; + ViewUtils.fillWithCharacter(&#39;?&#39;, cardWidth - 2) + &quot;? &quot;);</b>
 <b class="nc">&nbsp;      }</b>
-<b class="nc">&nbsp;      System.out.println(); // Mueve a la siguiente línea</b>
+<b class="nc">&nbsp;      System.out.println();</b>
 &nbsp;    }
 &nbsp;  }
 &nbsp;
-&nbsp;
-&nbsp;
-&nbsp;  // Método de utilidad para llenar una cadena con un carácter dado
-&nbsp;  private static String fillWithCharacter(char character, int length) {
-<b class="nc">&nbsp;    StringBuilder result = new StringBuilder();</b>
-<b class="nc">&nbsp;    for (int i = 0; i &lt; length; i++) {</b>
-<b class="nc">&nbsp;      result.append(character);</b>
-&nbsp;    }
-<b class="nc">&nbsp;    return result.toString();</b>
-&nbsp;  }
-&nbsp;
-&nbsp;
-&nbsp;
-&nbsp;
-&nbsp;
-&nbsp;  private static int getIntelliJTerminalWidth() {
-&nbsp;    // You can adjust this according to your needs
-<b class="nc">&nbsp;    return 160;</b>
-&nbsp;  }
+&nbsp;  
 &nbsp;}
 </code>
 </pre>
@@ -292,7 +275,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-11-27 18:29</div>
+    <div style="float:right;">generated on 2023-11-27 21:12</div>
 </div>
 </body>
 </html>

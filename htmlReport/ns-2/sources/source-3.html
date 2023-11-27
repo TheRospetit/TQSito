@@ -77,25 +77,27 @@ Current scope:     <a href="../../index.html">all classes</a>
 <pre>
 <code class="sourceCode" id="sourceCode">&nbsp;package models;
 &nbsp;
+&nbsp;// CardClass that will manage cards used in the game. The attributes will be used according
+&nbsp;// the type of card created {Number , Action}
 &nbsp;public class CardClass {
-&nbsp;    // VARIABLES QUE USAMOS DEPENDIENDO DE LA CARTA
+&nbsp;    // Card attributes will be used depending on the type of card
 &nbsp;    private Integer number;
 &nbsp;    private String colour;
 &nbsp;    private String action;
 &nbsp;    private CardClassState state;
 &nbsp;
-&nbsp;    // CONSTRUCTORES
+&nbsp;    // Constructors
 <b class="fc">&nbsp;    public CardClass(){}</b>
-<b class="fc">&nbsp;    public CardClass(Integer number, String colour){ // Constructor en caso de que nos llegue una carta normal</b>
+<b class="fc">&nbsp;    public CardClass(Integer number, String colour){ // Constructor in number card case</b>
 <b class="fc">&nbsp;        this.number = number;</b>
 <b class="fc">&nbsp;        this.colour = colour;</b>
 &nbsp;    }
 &nbsp;
-<b class="fc">&nbsp;    public CardClass(String action, String colour){ // Constructor en caso de que nos llegue una carta especial</b>
+<b class="fc">&nbsp;    public CardClass(String action, String colour){ // Constructor in action card case</b>
 <b class="fc">&nbsp;        this.action = action;</b>
 <b class="fc">&nbsp;        this.colour = colour;</b>
 &nbsp;
-&nbsp;        // SWITCH CASE PARA DECLARAR EL STATE CON EL HIJO QUE LE TOCA
+&nbsp;        // Switch to set up the action state according to the string
 <b class="fc">&nbsp;        switch (action){</b>
 &nbsp;            case Actions.REVERSE:
 <b class="fc">&nbsp;                this.state = new CardReverse(this);</b>
@@ -123,13 +125,15 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;                break;
 &nbsp;        }
 &nbsp;    }
+&nbsp;
+&nbsp;    // Getters and Setters
 <b class="fc">&nbsp;    public Integer getNumber(){return number;}</b>
 <b class="fc">&nbsp;    public String getColour(){return colour;}</b>
 <b class="fc">&nbsp;    public String getAction(){return action;}</b>
 <b class="fc">&nbsp;    public CardClassState getState(){return state;}</b>
 &nbsp;    public void setState(CardClassState newState) {
 <b class="fc">&nbsp;        if(newState == null &amp;&amp; number != null) {</b>
-<b class="fc">&nbsp;            this.state =newState;</b>
+<b class="fc">&nbsp;            this.state = newState;</b>
 &nbsp;        }
 &nbsp;        else{
 <b class="fc">&nbsp;            if(newState != null &amp;&amp; number == null){</b>
@@ -137,12 +141,15 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;            }
 &nbsp;        }
 &nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    // Other methods
 &nbsp;    public void nullifyColour() {
 <b class="fc">&nbsp;        this.colour = null;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    public CardClass doAction(Deck deck, Game game){
-&nbsp;
+&nbsp;        // Just used by those cards which has an associated action
 <b class="fc">&nbsp;        if (this.action != null){</b>
 <b class="fc">&nbsp;            CardClass myCard = new CardClass();</b>
 <b class="fc">&nbsp;            myCard = state.doAction(deck, game);</b>
@@ -175,7 +182,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-11-27 18:29</div>
+    <div style="float:right;">generated on 2023-11-27 21:12</div>
 </div>
 </body>
 </html>
