@@ -23,8 +23,6 @@ public class ScannerClass {
 
 
     // Some methods which will be modified by Mock_ScannerClass
-    public void setInput(String input) {
-    }
 
     public void setInputsList(String ... inputs){
 

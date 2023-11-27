@@ -21,8 +21,7 @@ public class Mock_ScannerClass extends ScannerClass{
         }
     }
 
-    @Override
-    public void setInput(String input) { this.input = input; }
+
 
     @Override
     public void setInputsList(String ... inputs) {

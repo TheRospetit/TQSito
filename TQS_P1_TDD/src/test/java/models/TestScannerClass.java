@@ -74,8 +74,6 @@ public class TestScannerClass {
     String input = "Hello, World!";
     InputStream inputStream = new ByteArrayInputStream(input.getBytes());
     ScannerClass scannerClass = new ScannerClass(inputStream);
-
-    scannerClass.setInput(input);
     scannerClass.setInputsList(input, input);
   }
 

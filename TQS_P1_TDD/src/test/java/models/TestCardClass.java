@@ -109,7 +109,7 @@ public class TestCardClass {
 
         testedCardsNumbers.clear();
         testedCardsNumbers.add(testedCard1);testedCardsNumbers.add(testedCard2);
-        testedCardsNumbers.add(testedCard3);testedCardsNumbers.add(testedCard4);
+
 
         for(CardClass testCard : testedCardsNumbers)
         {
@@ -118,8 +118,25 @@ public class TestCardClass {
             assert(returnedValue == null) : "All +2 cards should return himself, not a empty card";
         }
 
-        assert(0 == testedGameDoAction.getListPlayers().get(0).numberHandCards()) : "Plus two cards has not added cards properly";
-        assert(8 == testedGameDoAction.getListPlayers().get(1).numberHandCards()) : "Plus two cards has not added cards properly";
+        assert(0 == testedGameDoAction.getListPlayers().get(0).numberHandCards()) : "Plus two cards has not added cards properly" + testedGameDoAction.getListPlayers().get(0).numberHandCards();
+        assert(4 == testedGameDoAction.getListPlayers().get(1).numberHandCards()) : "Plus two cards has not added cards properly" + testedGameDoAction.getListPlayers().get(1).numberHandCards();
+
+        testedCardsNumbers.clear();
+        testedCardsNumbers.add(testedCard3);testedCardsNumbers.add(testedCard4);
+
+        testedGameDoAction.reverseIterator();
+        for(CardClass testCard : testedCardsNumbers)
+        {
+            CardClass returnedValue = new CardClass();
+            returnedValue = testCard.doAction(testedDeck, testedGameDoAction);
+            assert(returnedValue == null) : "All +2 cards should return himself, not a empty card";
+        }
+
+        assert(0 == testedGameDoAction.getListPlayers().get(0).numberHandCards()) : "Plus two cards has not added cards properly" +testedGameDoAction.getListPlayers().get(0).numberHandCards() ;
+        assert(8 == testedGameDoAction.getListPlayers().get(1).numberHandCards()) : "Plus two cards has not added cards properly" + testedGameDoAction.getListPlayers().get(1).numberHandCards();
+
+        testedGameDoAction.reverseIterator();
+
 
         // Testing plus 4 card with all the colors //
         testedCard1 = new CardClass(Actions.PLUS_FOUR, Colors.GREEN);
@@ -235,6 +252,7 @@ public class TestCardClass {
 
     @Test
     public void TestDoActionReversed(){
+        // SET UP COMMON VARIABLES
         ArrayList<Player> testedPlayers = new ArrayList<>();
         Player janCarlo = new Player("Jan", false);
         Player polilla = new Player("Pol", false);
@@ -250,6 +268,7 @@ public class TestCardClass {
 
         ArrayList<CardClass> testedCardsNumbers = new ArrayList<>();
 
+        // TESTING +4 IN REVERSED WAY //
         CardClass testedCard1 = new CardClass(Actions.PLUS_FOUR, Colors.BLUE); // current player 0
         CardClass testedCard2 = new CardClass(Actions.PLUS_FOUR, Colors.YELLOW); // current player 1
         testedCardsNumbers.clear();
@@ -265,8 +284,24 @@ public class TestCardClass {
         assert(returnedValue != null) : "doAction is returning null, it should return a new blue card";
         assert(returnedValue.getColour() == Colors.GREEN ) : "doAction mock test is not returning colour blue card selected"; // Check for GREEN option
 
+        // TESTING +3 IN REVERSED WAY //
+
+        testedCard1 = new CardClass(Actions.PLUS_TWO, Colors.GREEN);
+        testedCard2 = new CardClass(Actions.PLUS_TWO, Colors.BLUE);
+
+        testedCardsNumbers.clear();
+        testedCardsNumbers.add(testedCard1);testedCardsNumbers.add(testedCard2);
 
 
-        //assert() : "";
+        for(CardClass testCard : testedCardsNumbers)
+        {
+            returnedValue = new CardClass();
+            returnedValue = testCard.doAction(testedDeck, testedGame);
+            assert(returnedValue == null) : "All +2 cards should return himself, not a empty card";
+        }
+
+        assert(12 == testedGame.getListPlayers().get(0).numberHandCards()) : "Plus two cards has not added cards properly" + testedGame.getListPlayers().get(0).numberHandCards();
+        assert(0 == testedGame.getListPlayers().get(1).numberHandCards()) : "Plus two cards has not added cards properly" + testedGame.getListPlayers().get(1).numberHandCards();
+
     }
 }
