@@ -188,7 +188,6 @@ public class TestPlayerClass {
         assert (resultTest == false) : "Hand is all red and last card is 7 green, it should be false" ;
     }
 
-    //TODO
     @Test
     public void TestPlayCard() {
         // Setting all params for the test
@@ -265,13 +264,24 @@ public class TestPlayerClass {
         assert(testedPlayer1.getHand().size() == 1) : "The last card played has not been removed from the player hand";
         assert(testedPlayer1.getWinner() == false) : "The player should not be a winner because his/her hand is not void";
 
+        // Testing that user does not have any card available to play //
+        ArrayList<CardClass> inputHand = new ArrayList<>();
+        inputHand.add(new CardClass(6, Colors.YELLOW));
+        testedPlayer1.setHand(inputHand);
+        resultTested1 = testedPlayer1.playCard(lastCardNumber,testedDeck2, testedGame);
+        assert(resultTested1 == null) : "The user does not have any card to throw, so he has to pick one card";
 
 
+        //Testing that user throws a +4 a switch color to red //
+        testedGame.getMyScanner().setInputsList("1","R");
+        inputHand = new ArrayList<>();
+        inputHand.add(new CardClass(Actions.PLUS_FOUR, null));
+        testedPlayer1.setHand(inputHand);
 
-
-
-
-
+        CardClass exepectedValue = new CardClass(Actions.PLUS_FOUR, Colors.RED);
+        resultTested1 = testedPlayer1.playCard(lastCardNumber,testedDeck2, testedGame);
+        assert(resultTested1 != null) : "The user played has throw a plus four and changed to red";
+        assert(resultTested1.getAction() == exepectedValue.getAction() && resultTested1.getColour() == exepectedValue.getColour()) : "The returned value should be a +4 red";
 
     }
 

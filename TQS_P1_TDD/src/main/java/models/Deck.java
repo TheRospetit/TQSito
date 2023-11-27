@@ -89,6 +89,11 @@ public class Deck {
   public ArrayList<CardClass> getPlayedCards() {return playedCards;}
   public void setCardPlayed(CardClass card) { playedCards.add(card); }
 
+  public void setPlayableCards(ArrayList<CardClass> inputTest){
+    playableCards = inputTest;
+    this.numCards = inputTest.size();
+  }
+
   public void refillPlayableCards() {
     for (CardClass card : playedCards) {
       if (card.getAction() != null) {

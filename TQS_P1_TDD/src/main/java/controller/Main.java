@@ -34,7 +34,7 @@ public class Main {
             ViewMenu.displayMenu();
 
             // Get user choice
-            System.out.print("Enter your choice (1-" + exitOption + "): ");;
+            System.out.print("Enter your choice (1-" + EXIT_OPTION + "): ");;
             while (!myScanner.hasNextInt()) {
                 System.out.println("Invalid input. Please enter a number.");
                 myScanner.next(); // Consume the invalid input
@@ -130,11 +130,11 @@ public class Main {
                     System.out.println("Exiting the game. Goodbye!");
                     break;
                 default:
-                    System.out.println("Invalid choice. Please enter a number between 1 and " + exitOption + ".");
+                    System.out.println("Invalid choice. Please enter a number between 1 and " + EXIT_OPTION + ".");
             }
 
 
-        }while (choice != exitOption);
+        }while (choice != EXIT_OPTION);
 
     }
 

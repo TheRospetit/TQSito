@@ -299,8 +299,6 @@ public class TestGame {
         Player josias = new Player("Josias",   false);
         myPlayerList.add(jan); myPlayerList.add(pol); myPlayerList.add(josias);
 
-
-
         String input = "8";
         InputStream inputStream = new ByteArrayInputStream(input.getBytes());
         Scanner mockScanner = new Scanner(inputStream);
@@ -321,6 +319,18 @@ public class TestGame {
         assert(testOutput == true) : "The card is null and the the controller should print and check if the party is finished";
 
 
+        // Testing that there is no more playable cards available //
+      List<CardClass> subList =  gameTested.deck.getPlayableCards().subList(0,1);
+      ArrayList<CardClass> arrayListFromSubList = new ArrayList<>(subList);
+
+      gameTested.deck.setPlayableCards(arrayListFromSubList);
+      CardClass inputCard = null;
+
+
+
+      Boolean resultTest = gameTested.playerRound(pol, inputCard);
+      assert(resultTest == true) : "";
+      assert(gameTested.deck.getPlayableCards().size() == 1) : "";
     }
 
 

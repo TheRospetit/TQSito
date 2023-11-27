@@ -59,6 +59,7 @@ public class Game {
         CardClass cardPlayed = actualPlayer.playCard(this.getLastCardPlayed(), this.deck, this );
         return cardPlayed;
     }
+
     public boolean playerRound(Player actualPlayer, CardClass cardPlayed){
         boolean draw = false; // Just to check if the player draws a card, so in the controller we can display the playerCards again.
 
