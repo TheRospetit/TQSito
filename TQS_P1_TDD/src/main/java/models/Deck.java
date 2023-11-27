@@ -28,14 +28,10 @@ public class Deck {
     playedCards = lastCard;
   }
 
-  //TODO TRYNG TO IMPLEMENT IF MOCK COULD WORK PROPERLY
   public void shuffleCardsDeck(){
     Collections.shuffle(playableCards);
   }
 
-
-
-  //TODO
   public void initializeDeck() {
     /*
     SUMMARY of Cards:

@@ -60,10 +60,10 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    94,2%
+    96,3%
   </span>
   <span class="absValue">
-    (49/52)
+    (52/54)
   </span>
 </td>
 </tr>
@@ -157,6 +157,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="fc">&nbsp;                return true;</b>
 &nbsp;            }
 <b class="fc">&nbsp;        }</b>
+<b class="fc">&nbsp;        System.out.println(this.name + &quot; can&#39;t play a card, drawing a card&quot;);</b>
 <b class="fc">&nbsp;        return false;</b>
 &nbsp;    }
 &nbsp;
@@ -171,8 +172,8 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="fc">&nbsp;                    String number = game.getMyScanner().nextLine();</b>
 &nbsp;                    try {
 <b class="fc">&nbsp;                        numPlayedCard = Integer.parseInt(number);</b>
-<b class="nc">&nbsp;                    } catch (NumberFormatException nfe) {</b>
-<b class="nc">&nbsp;                        System.out.println(&quot;Insert a number, not anything else, thanks&quot;);</b>
+<b class="fc">&nbsp;                    } catch (NumberFormatException nfe) {</b>
+<b class="fc">&nbsp;                        System.out.println(&quot;Insert a number, not anything else, thanks&quot;);</b>
 <b class="fc">&nbsp;                    }</b>
 <b class="fc">&nbsp;                }</b>
 &nbsp;                //convert input into an integer, we should be care if its not correct value
@@ -194,6 +195,8 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;            //scanner.close();
 <b class="fc">&nbsp;            if(returnedCard == null){</b>
 <b class="fc">&nbsp;                return cardToPlay;</b>
+&nbsp;                        } else {
+<b class="nc">&nbsp;                return returnedCard; // For the plus four and colour change</b>
 &nbsp;            }
 &nbsp;        }
 <b class="nc">&nbsp;        return null;  // Player can&#39;t play card.</b>
@@ -222,7 +225,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-11-26 20:12</div>
+    <div style="float:right;">generated on 2023-11-27 02:10</div>
 </div>
 </body>
 </html>

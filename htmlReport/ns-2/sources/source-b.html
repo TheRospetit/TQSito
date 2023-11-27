@@ -63,7 +63,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     100%
   </span>
   <span class="absValue">
-    (39/39)
+    (43/43)
   </span>
 </td>
 </tr>
@@ -83,7 +83,6 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 &nbsp;public class Deck {
 &nbsp;  /*Attributes*/
-&nbsp;  private Boolean notMoreCards;
 &nbsp;  private int numCards;
 <b class="fc">&nbsp;  private ArrayList&lt;CardClass&gt; playableCards = new ArrayList&lt;&gt;();</b>
 <b class="fc">&nbsp;  private ArrayList&lt;CardClass&gt; playedCards = new ArrayList&lt;&gt;();</b>
@@ -92,27 +91,20 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="fc">&nbsp;  public Deck(){</b>
 <b class="fc">&nbsp;    initializeDeck(); // Initialize the deck</b>
 <b class="fc">&nbsp;    shuffleCardsDeck();</b>
-<b class="fc">&nbsp;    notMoreCards = false;</b>
 <b class="fc">&nbsp;    numCards = playableCards.size();</b>
 <b class="fc">&nbsp;    playedCards = new ArrayList&lt;CardClass&gt;();</b>
 &nbsp;  }
 &nbsp;
-&nbsp;  // TODO. Check for removal: This does not have any type of useful implementation
-<b class="fc">&nbsp;  public Deck(Boolean thereIsCards, int nCards, ArrayList&lt;CardClass&gt; myCards, ArrayList&lt;CardClass&gt; lastCard){</b>
-<b class="fc">&nbsp;    notMoreCards = thereIsCards;</b>
+<b class="fc">&nbsp;  public Deck(int nCards, ArrayList&lt;CardClass&gt; myCards, ArrayList&lt;CardClass&gt; lastCard){</b>
 <b class="fc">&nbsp;    numCards= nCards;</b>
 <b class="fc">&nbsp;    playableCards = myCards;</b>
 <b class="fc">&nbsp;    playedCards = lastCard;</b>
 &nbsp;  }
 &nbsp;
-&nbsp;  //TODO TRYNG TO IMPLEMENT IF MOCK COULD WORK PROPERLY
 &nbsp;  public void shuffleCardsDeck(){
 <b class="fc">&nbsp;    Collections.shuffle(playableCards);</b>
 &nbsp;  }
 &nbsp;
-&nbsp;
-&nbsp;
-&nbsp;  //TODO
 &nbsp;  public void initializeDeck() {
 &nbsp;    /*
 &nbsp;    SUMMARY of Cards:
@@ -169,12 +161,22 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    }
 &nbsp;  }
 &nbsp;
-<b class="fc">&nbsp;  public Boolean getNotMoreCards() {return notMoreCards;}</b>
 <b class="fc">&nbsp;  public ArrayList&lt;CardClass&gt; getPlayableCards() {return playableCards;}</b>
 <b class="fc">&nbsp;  public Integer getNumCards() {return numCards;}</b>
 <b class="fc">&nbsp;  public ArrayList&lt;CardClass&gt; getPlayedCards() {return playedCards;}</b>
-&nbsp;
 <b class="fc">&nbsp;  public void setCardPlayed(CardClass card) { playedCards.add(card); }</b>
+&nbsp;
+&nbsp;  public void refillPlayableCards() {
+<b class="fc">&nbsp;    for (CardClass card : playedCards) {</b>
+<b class="fc">&nbsp;      if (card.getAction() != null) {</b>
+<b class="fc">&nbsp;        if (card.getAction().equals(Actions.PLUS_FOUR) || card.getAction().equals(Actions.COLOR_SWAP)) {</b>
+<b class="fc">&nbsp;          card.nullifyColour();</b>
+&nbsp;        }
+&nbsp;      }
+<b class="fc">&nbsp;      playableCards.add(card);</b>
+<b class="fc">&nbsp;    }</b>
+<b class="fc">&nbsp;    playedCards.clear();</b>
+&nbsp;  }
 &nbsp;}
 </code>
 </pre>
@@ -199,7 +201,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-11-26 20:12</div>
+    <div style="float:right;">generated on 2023-11-27 02:10</div>
 </div>
 </body>
 </html>

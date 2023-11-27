@@ -60,10 +60,10 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    92,3%
+    100%
   </span>
   <span class="absValue">
-    (12/13)
+    (10/10)
   </span>
 </td>
 </tr>
@@ -85,8 +85,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 &nbsp;    @Override
 &nbsp;    protected CardClass doAction(Deck deck, Game game) {
-<b class="fc">&nbsp;        boolean color_correcto = false;</b>
-<b class="fc">&nbsp;        while(!color_correcto)</b>
+&nbsp;        while(true)
 &nbsp;        {
 <b class="fc">&nbsp;            System.out.println(&quot;A qué color quieres cambiar [B, R, G, Y]: &quot;);</b>
 &nbsp;            // Falta hacer el in
@@ -94,14 +93,13 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 &nbsp;
 <b class="fc">&nbsp;            switch (input){</b>
-<b class="fc">&nbsp;                case(&quot;B&quot;): deck.setCardPlayed(new CardClass((Integer) null, input)); color_correcto = true;  return new CardClass(Actions.COLOR_SWAP, Colors.BLUE) ;</b>
-<b class="fc">&nbsp;                case(&quot;R&quot;):  deck.setCardPlayed(new CardClass((Integer) null, input)); color_correcto = true; return new CardClass(Actions.COLOR_SWAP, Colors.RED);</b>
-<b class="fc">&nbsp;                case(&quot;G&quot;):  deck.setCardPlayed(new CardClass((Integer) null, input)); color_correcto = true ;return new CardClass(Actions.COLOR_SWAP, Colors.GREEN);</b>
-<b class="fc">&nbsp;                case(&quot;Y&quot;):  deck.setCardPlayed(new CardClass((Integer) null, input)); color_correcto = true ;return new CardClass(Actions.COLOR_SWAP, Colors.YELLOW);</b>
+<b class="fc">&nbsp;                case(&quot;B&quot;): return new CardClass(Actions.COLOR_SWAP, Colors.BLUE) ;</b>
+<b class="fc">&nbsp;                case(&quot;R&quot;): return new CardClass(Actions.COLOR_SWAP, Colors.RED);</b>
+<b class="fc">&nbsp;                case(&quot;G&quot;): return new CardClass(Actions.COLOR_SWAP, Colors.GREEN);</b>
+<b class="fc">&nbsp;                case(&quot;Y&quot;): return new CardClass(Actions.COLOR_SWAP, Colors.YELLOW);</b>
 <b class="fc">&nbsp;                default: System.out.println(&quot;Color no correcto! Introduce otro de nuevo&quot;);</b>
 &nbsp;            }
 <b class="fc">&nbsp;        }</b>
-<b class="nc">&nbsp;        return null;</b>
 &nbsp;    }
 &nbsp;}
 </code>
@@ -127,7 +125,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-11-26 20:12</div>
+    <div style="float:right;">generated on 2023-11-27 02:10</div>
 </div>
 </body>
 </html>

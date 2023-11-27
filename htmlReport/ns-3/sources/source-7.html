@@ -55,7 +55,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/7)
+    (0/5)
   </span>
 </td>
 <td class="coverageStat">
@@ -63,7 +63,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/65)
+    (0/36)
   </span>
 </td>
 </tr>
@@ -87,7 +87,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;import java.util.ArrayList;
 &nbsp;
 <b class="nc">&nbsp;public final class ViewStatistics {</b>
-&nbsp;
+&nbsp;    // TODO. Valorar si es queda o es borra el mètode.
 &nbsp;    public Statistics stringLineToStatistics(String line) {
 <b class="nc">&nbsp;        String[] parts = line.split(&quot;,&quot;);</b>
 &nbsp;
@@ -165,112 +165,6 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="nc">&nbsp;        ViewChangeTurn.waitForKeypress();</b>
 &nbsp;    }
 &nbsp;
-&nbsp;
-&nbsp;    public static void displayStatsIfInDDBB(DataBase myDatabase, ArrayList&lt;Player&gt; players){
-&nbsp;
-<b class="nc">&nbsp;        for (Player player : players) {</b>
-<b class="nc">&nbsp;            String linePlayer = myDatabase.searchString(player.getName());</b>
-<b class="nc">&nbsp;            if (linePlayer != null) {</b>
-<b class="nc">&nbsp;                System.out.println(&quot;Searching to DDBB &quot; + player.getName() + &quot; -&gt; &quot; + linePlayer);</b>
-&nbsp;            }
-&nbsp;            else {
-<b class="nc">&nbsp;                System.out.println(&quot;Searching to DDBB &quot; + player.getName() + &quot; -&gt; Not found: &quot;);</b>
-&nbsp;            }
-<b class="nc">&nbsp;        }</b>
-&nbsp;
-&nbsp;    }
-&nbsp;
-&nbsp;    public static void main(String[] args) throws InterruptedException {
-&nbsp;
-<b class="nc">&nbsp;        DataBase myDatabase = new DataBase(&quot;stats.txt&quot;);</b>
-&nbsp;
-<b class="nc">&nbsp;        myDatabase.createFile();</b>
-&nbsp;
-&nbsp;
-&nbsp;        // TEST DE PRINTS:
-&nbsp;
-<b class="nc">&nbsp;        Statistics statPlayer500 = new Statistics(&quot;Player500&quot;, 500, 500, 500);</b>
-<b class="nc">&nbsp;        String lineToWrite = myDatabase.formatStatLine(statPlayer500);</b>
-<b class="nc">&nbsp;        myDatabase.writeToFile(lineToWrite, myDatabase);</b>
-&nbsp;
-&nbsp;        // Afegir un player al final per veure que funcioni bé el replace entre mig del fitxer i no només append:
-<b class="nc">&nbsp;        Statistics justAdd = new Statistics(&quot;Rage quit&quot;, 1, 0, 0);</b>
-<b class="nc">&nbsp;        String justAddLine = myDatabase.formatStatLine(justAdd);</b>
-<b class="nc">&nbsp;        myDatabase.writeToFile(justAddLine, myDatabase);</b>
-&nbsp;
-<b class="nc">&nbsp;        myDatabase.viewAllStatistics(myDatabase); // S&#39;hauria de veure un nou jugador, &quot;Player500&quot;</b>
-&nbsp;
-&nbsp;        // Suposem que es juga una partida i que Player500 acaba i suma algunes stats:
-<b class="nc">&nbsp;        Statistics newStatsPlayer500 = new Statistics(&quot;Player500&quot;, 1, 1, 55);</b>
-&nbsp;
-<b class="nc">&nbsp;        String linePlayer500 = myDatabase.searchString(&quot;Player500&quot;);</b>
-<b class="nc">&nbsp;        System.out.println(&quot;Linea trobada buscant &#39;Player500&#39; -&gt; &quot; + linePlayer500);</b>
-<b class="nc">&nbsp;        Statistics statsFromDBPlayer500 = myDatabase.stringLineToStatistics(linePlayer500);</b>
-&nbsp;
-<b class="nc">&nbsp;        if (statPlayer500.equals(statsFromDBPlayer500)) {</b>
-<b class="nc">&nbsp;            System.out.println(&quot;Les stats són iguals. Es formateja bé de BD a object Stats.&quot;);</b>
-&nbsp;        } else {
-<b class="nc">&nbsp;            System.out.println(&quot;Les stats NO són iguals. ALGO ESTÀ PASSANT, ESPAVILA.\n&quot;);</b>
-<b class="nc">&nbsp;            System.out.println(&quot;statPlayer500: &quot; + myDatabase.formatStatLine(statPlayer500));</b>
-<b class="nc">&nbsp;            System.out.println(&quot;statsFromDBPlayer500: &quot; + myDatabase.formatStatLine(statsFromDBPlayer500));</b>
-&nbsp;
-&nbsp;        }
-&nbsp;
-&nbsp;        // Actualitzem les estadístiques amb les de la última partida i comprovem que siguin correctes:
-<b class="nc">&nbsp;        statsFromDBPlayer500.updateStatistics(newStatsPlayer500);</b>
-<b class="nc">&nbsp;        String lineAct = myDatabase.formatStatLine(statsFromDBPlayer500);</b>
-<b class="nc">&nbsp;        System.out.println(&quot;Estadistiques actualitzades: &quot; + lineAct);</b>
-&nbsp;
-&nbsp;        // Replace del DataBase
-<b class="nc">&nbsp;        myDatabase.replaceLineInFile(linePlayer500, lineAct);</b>
-&nbsp;
-&nbsp;
-<b class="nc">&nbsp;        myDatabase.viewAllStatistics(myDatabase); // S&#39;hauria de veure el jugador &quot;Player500&quot; amb les estadístiques actualitzades.</b>
-&nbsp;
-&nbsp;
-&nbsp;
-&nbsp;
-&nbsp;
-&nbsp;
-&nbsp;
-&nbsp;
-&nbsp;
-&nbsp;
-&nbsp;
-&nbsp;
-&nbsp;        /*
-&nbsp;        Thread.sleep(1000);
-&nbsp;        // Setejar els valors del player que volem afegir:
-&nbsp;        Statistics statistics = new Statistics();
-&nbsp;        statistics.setPlayer_name(&quot;PlayerNumOne&quot;);
-&nbsp;        statistics.setNumCards(127);
-&nbsp;        statistics.setNumGames(66);
-&nbsp;        statistics.setNumWins(2);
-&nbsp;
-&nbsp;        String lineToAdd = myDatabase.formatStatLine(statistics);
-&nbsp;        myDatabase.writeToFile(lineToAdd);
-&nbsp;        myDatabase.searchCharacter(&#39;a&#39;);
-&nbsp;        Thread.sleep(5000);
-&nbsp;        statistics.setPlayer_name(&quot;BadPlayer&quot;);
-&nbsp;        String lineToAdd1 = myDatabase.formatStatLine(statistics);
-&nbsp;        myDatabase.replaceLineInFile(lineToAdd, lineToAdd1);
-&nbsp;
-&nbsp;        String lineToAdd2 = myDatabase.formatStatLine(new Statistics(&quot;Player2&quot;, 2, 4, 3));
-&nbsp;        String lineToAdd3 = myDatabase.formatStatLine(new Statistics(&quot;Player3&quot;, 20, 40, 30));
-&nbsp;        String lineToAdd4 = myDatabase.formatStatLine(new Statistics(&quot;Player4&quot;, 4, 8, 6));
-&nbsp;        String lineToAdd5 = myDatabase.formatStatLine(new Statistics(&quot;Player5&quot;, 200, 400, 300));
-&nbsp;
-&nbsp;
-&nbsp;        myDatabase.writeToFile(lineToAdd2);
-&nbsp;        myDatabase.writeToFile(lineToAdd3);
-&nbsp;        myDatabase.writeToFile(lineToAdd4);
-&nbsp;        myDatabase.writeToFile(lineToAdd5);
-&nbsp;
-&nbsp;
-&nbsp;        // myDatabase.writeToFile(String.valueOf(LocalDateTime.now()));
-&nbsp;        */
-&nbsp;
-&nbsp;    }
 &nbsp;}
 </code>
 </pre>
@@ -295,7 +189,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-11-26 20:12</div>
+    <div style="float:right;">generated on 2023-11-27 02:10</div>
 </div>
 </body>
 </html>

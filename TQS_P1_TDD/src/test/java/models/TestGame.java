@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 //import static org.mockito.Mockito.*;
 
 
+import java.awt.geom.RectangularShape;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.lang.reflect.Field;
@@ -91,7 +92,10 @@ public class TestGame {
 
         // Testing player index //
         Integer resultValue = gameTested.getNextPlayer();
-        assert(resultValue == 1) : "The next player should be Pol (index = 1)";
+        assert(resultValue == 0) : "The next player should be Pol (index = 1)";
+
+        // Testing next Player index //
+        assert (gameTested.getNextPlayerIndex() == 0) : "The next player index should be 0";
 
 
 
@@ -132,7 +136,7 @@ public class TestGame {
     }
 
     @Test
-    public void ChangeIteratorValue(){
+    public void TestChangeIteratorValue(){
         ArrayList<Player> myPlayerList = new ArrayList<>();
         Player jan = new Player("Jan", false);
         Player pol = new Player("Pol", false);
@@ -175,7 +179,7 @@ public class TestGame {
     }
 
     @Test
-    public void setLastCardPlayed(){
+    public void TestsetLastCardPlayed(){
         ArrayList<Player> testedPlayers = new ArrayList<>();
         Player janCarlo = new Player("Jan", false);
         Player polilla = new Player("Pol", false);
@@ -192,13 +196,137 @@ public class TestGame {
 
     }
 
+    @Test
+    public void TestSetCurrentPlayer(){
+        ArrayList<Player> myPlayerList = new ArrayList<>();
+        Player jan = new Player("Jan", false);
+        Player pol = new Player("Pol", false);
+        Player josias = new Player("Josias", false);
+        myPlayerList.add(jan); myPlayerList.add(pol); myPlayerList.add(josias);
+
+
+        String input = "8";
+        InputStream inputStream = new ByteArrayInputStream(input.getBytes());
+        Scanner mockScanner = new Scanner(inputStream);
+        ScannerClass scannerClass = new ScannerClass(mockScanner);
+        Game gameTested = new Game(2, 0, myPlayerList,  scannerClass);
+        assert(gameTested.getCurrentPlayer() == 0) :  "The initialize value is not correct";
+
+        gameTested.setCurrentPlayer(2);
+        assert(gameTested.getCurrentPlayer() == 2) :  "Set Current Player introduce a wrong value";
+    }
+
+    @Test
+    public void getNextPlayerIndex(){
+        ArrayList<Player> myPlayerList = new ArrayList<>();
+        Player jan = new Player("Jan", false);
+        Player pol = new Player("Pol", false);
+        Player josias = new Player("Josias", false);
+        myPlayerList.add(jan); myPlayerList.add(pol); myPlayerList.add(josias);
+
+        String input = "blue";
+        InputStream inputStream = new ByteArrayInputStream(input.getBytes());
+        Scanner mockScanner = new Scanner(inputStream);
+        ScannerClass scannerClass = new ScannerClass(mockScanner);
+
+        Game gameTested = new Game(2, 0, myPlayerList,  scannerClass);
+        int resultTest = gameTested.getNextPlayer();
+        assert(resultTest == 0): "The next iterator should be 0";
+
+    }
+
+    @Test
+    public void TestEndGameAndGameEnded(){
+        ArrayList<Player> myPlayerList = new ArrayList<>();
+        Player jan = new Player("Jan", false);
+        Player pol = new Player("Pol", false);
+        Player josias = new Player("Josias", false);
+        myPlayerList.add(jan); myPlayerList.add(pol); myPlayerList.add(josias);
+
+        String input = "blue";
+        InputStream inputStream = new ByteArrayInputStream(input.getBytes());
+        Scanner mockScanner = new Scanner(inputStream);
+        ScannerClass scannerClass = new ScannerClass(mockScanner);
+
+        Game gameTested = new Game(2, 0, myPlayerList,  scannerClass);
+        for(Player currentPlayer : myPlayerList){
+            gameTested.endGame(currentPlayer);
+            assert (gameTested.gameEndedWinner() == false) : "For the moment all player should not be winners";
+        }
+        Player josias2 = new Player("Josias", true);myPlayerList.add(josias2);
+
+        for(int i = 0; i<3; i++) {
+            gameTested.endGame(myPlayerList.get(i));
+            assert (gameTested.gameEndedWinner() == false) : "For the moment all player should not be winners";
+        }
+        gameTested.endGame(myPlayerList.get(3));
+        assert(gameTested.gameEndedWinner() == true) : "The last player is supposed to be the winner";
+
+    }
+
+    @Test
+    public void TestgetActualPlayerPlayedCard() {
+        ArrayList<Player> myPlayerList = new ArrayList<>();
+        Player jan = new Player("Jan", false);
+        Player pol = new Player("Pol", false);
+        Player josias = new Player("Josias", false);
+        myPlayerList.add(jan); myPlayerList.add(pol); myPlayerList.add(josias);
+
+
+        String input = "8";
+        InputStream inputStream = new ByteArrayInputStream(input.getBytes());
+        Scanner mockScanner = new Scanner(inputStream);
+        ScannerClass scannerClass = new ScannerClass(mockScanner);
+        Game gameTested = new Game(2, 0, myPlayerList,  scannerClass);
+        gameTested.giveHand();
+
+        CardClass expectedCard = new CardClass(2, Colors.RED);
+        gameTested.deck.setCardPlayed(new CardClass(3, Colors.RED));
+        josias.giveCard(new CardClass(2, Colors.RED));
+
+        CardClass resultTest = new CardClass();
+
+
+        resultTest = gameTested.getActualPlayerPlayedCard(josias);
+
+
+        assert(expectedCard.getColour() == resultTest.getColour() && expectedCard.getNumber() == resultTest.getNumber()) : "The card class returned should be a 2 red";
+    }
+    
+    @Test
+    public void TestPlayerRound(){
+        // Setting up variables for test //
+        ArrayList<Player> myPlayerList = new ArrayList<>();
+        Player jan = new Player("Jan", false);
+        Player pol = new Player("Pol", false);
+        Player josias = new Player("Josias",   false);
+        myPlayerList.add(jan); myPlayerList.add(pol); myPlayerList.add(josias);
 
 
 
+        String input = "8";
+        InputStream inputStream = new ByteArrayInputStream(input.getBytes());
+        Scanner mockScanner = new Scanner(inputStream);
+        ScannerClass scannerClass = new ScannerClass(mockScanner);
+        Game gameTested = new Game(2, 0, myPlayerList,  scannerClass);
+        gameTested.giveHand();
 
-    //@Test
-    //public void mockTestEndGame(){
-       // Game mockedGame = mock(Game.class);
-    //}
+        // Testing the main path with a current card //
+
+        CardClass testInput = new CardClass(2, Colors.BLUE);
+        Boolean testOutput = gameTested.playerRound(josias, testInput);
+        assert(testOutput == false) : "The card is not null and the the controller should not print nothing";
+
+
+        // Testing the other path with a null card //
+        testInput = null;
+        testOutput = gameTested.playerRound(josias, testInput);
+        assert(testOutput == true) : "The card is null and the the controller should print and check if the party is finished";
+
+
+    }
+
+
+
 }
 

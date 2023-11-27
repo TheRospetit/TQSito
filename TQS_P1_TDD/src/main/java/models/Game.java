@@ -24,7 +24,7 @@ public class Game {
         iterator = 1;
     }
 
-    // GET & SET METHODS
+    //// GET & SET METHODS ////
     public ScannerClass getMyScanner() {return myScanner;}
     public Integer getNumPlayers(){return numPlayers;}
     public Integer getCurrentPlayer() { return currentPlayer;}

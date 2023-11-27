@@ -43,11 +43,9 @@ public class TestDeck {
   @Test
   public void TestAtributes(){
     List<Field> allFields = Arrays.asList(Deck.class.getDeclaredFields());
-    assertEquals(4, allFields.size());
+    assertEquals(3, allFields.size());
 
-    Field moreCards = allFields.stream().filter(field -> field.getName().equals("notMoreCards")).findFirst().orElseThrow(()
-        -> new RuntimeException("Field not found"));
-    assertEquals(Boolean.class, moreCards.getType());
+
 
     Field nCards = allFields.stream().filter(field -> field.getName().equals("numCards")).findFirst().orElseThrow(()
         -> new RuntimeException("Field not found"));
