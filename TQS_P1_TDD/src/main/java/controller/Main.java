@@ -55,7 +55,6 @@ public class Main {
 
                     // Display the player names
                     ViewAskPlayers.displayPlayerNames(myPlayerList);
-                    ViewStatistics.displayStatsIfInDDBB(myDatabase, myPlayerList);
 
                     // Create the Statistics list that will be in the same order as Player, so we can add the Stats
                     // of the game to each player.
@@ -72,15 +71,49 @@ public class Main {
                     while (!game.gameEndedWinner()) {
                         Player actualPlayer = game.getListPlayers().get(Game.getNextPlayerIndex());
                         ViewChangeTurn.showTurnChange(actualPlayer.getName());
+
                         ViewPlayerStatus.displayPlayerStatus(actualPlayer.getName(), actualPlayer.getHand(), game.getLastCardPlayed());
+
                         CardClass cardPlayed = game.getActualPlayerPlayedCard(actualPlayer);
+
+                        if (game.getLastCardPlayed().getAction() != null){
+                            if (game.getLastCardPlayed().getAction().equals(Actions.PLUS_TWO)){
+                                myStatList.get(Game.getNextPlayerIndex()).addDrawn2Stat();
+                            } else if (game.getLastCardPlayed().getAction().equals(Actions.PLUS_FOUR)) {
+                                myStatList.get(Game.getNextPlayerIndex()).addDrawn4Stat();
+                            }
+                        }
+
+
                         if (game.playerRound(actualPlayer, cardPlayed)){
                             System.out.println("Card drawn: Showing hand again:");
                             ViewPlayerStatus.displayPlayerStatus(actualPlayer.getName(), actualPlayer.getHand(), game.getLastCardPlayed());
                         }
 
                     }
-                    System.out.println("THE END ENTRE COMILLAS");
+                    String winnerName = "";
+                    for (Player player : game.getListPlayers()){
+                        if (player.getWinner()){
+                            winnerName = player.getName();
+                        }
+                    }
+                    ViewGameOver.displayEndGame(winnerName);
+
+                    for (Statistics statAct : myStatList){
+                        if (statAct.getPlayer_name().equals(winnerName)){
+                            statAct.addWin();
+                        }
+                        statAct.addGame();
+
+                        String actualString = myDatabase.formatStatLine(statAct);
+                        String linePlayer = myDatabase.searchString(statAct.getPlayer_name());
+                        if (linePlayer != null) {
+                            myDatabase.replaceLineInFile(linePlayer, actualString);
+                        }
+                        else{
+                            myDatabase.writeToFile(actualString, myDatabase);
+                        }
+                    }
                     break;
                 case 2:
                     // Add code for option 2 (View Statistics)

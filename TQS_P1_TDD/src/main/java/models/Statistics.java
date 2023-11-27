@@ -1,6 +1,5 @@
 package models;
 
-
 import javax.xml.crypto.Data;
 import java.util.ArrayList;
 
@@ -40,38 +39,8 @@ public class Statistics {
     }
 
     // ===============================================
-    // ||           SETTERS and GETTERS             ||
+    // ||                   GETTERS                 ||
     // ===============================================
-
-    /** Sets the numCards attribute of the Statistics instance. numCards: The total number of cards drawn because of a +4 or +2 of the player.
-     * @param numCards See also.
-     * @see Statistics#numCards
-     */
-    public void setNumCards(int numCards) {
-        this.numCards = numCards;
-    }
-
-    /** Sets the player name attribute of the Statistics instance.
-     * @param player_name See also
-     * @see Statistics#player_name
-     */
-    public void setPlayer_name(String player_name) {
-        this.player_name = player_name;
-    }
-    /** Sets the numGames attribute of the Statistics instance.
-     * @param numGames See also
-     * @see Statistics#numGames
-     */
-    public void setNumGames(int numGames) {
-        this.numGames = numGames;
-    }
-    /** Sets the numWins attribute of the Statistics instance.
-     * @param numWins See also
-     * @see Statistics#numWins
-     */
-    public void setNumWins(int numWins) {
-        this.numWins = numWins;
-    }
 
     /**
      * @return <code>int</code> with the value of the numCards attribute of the Statistics instance.
@@ -105,13 +74,11 @@ public class Statistics {
         return player_name;
     }
 
+    public void addDrawn2Stat(){this.numCards += 2;}
+    public void addDrawn4Stat(){this.numCards += 4;}
+    public void addWin(){this.numWins += 1;}
+    public void addGame(){this.numGames += 1;}
 
-
-    public void updateStatistics(Statistics stats) {
-        numGames += stats.getNumGames();
-        numWins += stats.getNumWins();
-        numCards += stats.getNumCards();
-    }
 
     public static ArrayList<Statistics> getPlayerStatsListFromDDBB(DataBase myDatabase, ArrayList<Player> myPlayerList) {
         ArrayList<Statistics> myStatList = new ArrayList<>();

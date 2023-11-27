@@ -137,29 +137,42 @@ public final class ViewPlayerStatus {
   }
 
   private static void displayCardTable(ArrayList<CardClass> playerHand) {
-    int cardWidth = 15; // Ajusta según tus necesidades
+    int cardWidth = 15;
+    int cardsPerRow = 5;
     char invisibleEmoticon = '\u200B'; // Carácter de espacio sin ancho
 
-    for (CardClass card : playerHand) {
-      System.out.print("┌" + fillWithCharacter('─', cardWidth - 2) + "┐ ");
-    }
-    System.out.println(); // Mueve a la siguiente línea
+    int numRows = (int) Math.ceil((double) playerHand.size() / cardsPerRow);
 
-    for (CardClass card : playerHand) {
-      String cardName = ViewPlayerStatus.createCardClassStringName(card);
-      int totalPadding = cardWidth - cardName.length();
-      int leftPaddingCard = totalPadding / 2;
-      int rightPaddingCard = totalPadding - leftPaddingCard;
-      String invisiblePadding = fillWithCharacter(invisibleEmoticon, 2); // Ajusta según sea necesario
-      System.out.print("│" + fillWithCharacter(invisibleEmoticon, leftPaddingCard) + cardName + invisiblePadding + fillWithCharacter(invisibleEmoticon, rightPaddingCard) + "│ ");
-    }
-    System.out.println(); // Mueve a la siguiente línea
+    for (int row = 0; row < numRows; row++) {
+      for (CardClass card : playerHand.subList(row * cardsPerRow, Math.min((row + 1) * cardsPerRow, playerHand.size()))) {
+        System.out.print("┌" + fillWithCharacter('─', cardWidth - 2) + "┐ ");
+      }
+      System.out.println(); // Mueve a la siguiente línea
 
-    for (CardClass card : playerHand) {
-      System.out.print("└" + fillWithCharacter('─', cardWidth - 2) + "┘ ");
+      for (CardClass card : playerHand.subList(row * cardsPerRow, Math.min((row + 1) * cardsPerRow, playerHand.size()))) {
+        String cardName = ViewPlayerStatus.createCardClassStringName(card);
+        int totalPadding = cardWidth - cardName.length();
+        int leftPaddingCard = totalPadding / 2;
+        int rightPaddingCard = totalPadding - leftPaddingCard;
+
+        // Ajustar el espacio de relleno para alinear el nombre de la carta en el centro
+        if (totalPadding % 2 != 0) {
+          leftPaddingCard += 1;
+        }
+
+        String invisiblePadding = fillWithCharacter(invisibleEmoticon, 2); // Ajusta según sea necesario
+        System.out.print("│" + fillWithCharacter(invisibleEmoticon, leftPaddingCard-1) + cardName + invisiblePadding + fillWithCharacter(invisibleEmoticon, rightPaddingCard-1) + "│ ");
+      }
+      System.out.println(); // Mueve a la siguiente línea
+
+      for (CardClass card : playerHand.subList(row * cardsPerRow, Math.min((row + 1) * cardsPerRow, playerHand.size()))) {
+        System.out.print("└" + fillWithCharacter('─', cardWidth - 2) + "┘ ");
+      }
+      System.out.println(); // Mueve a la siguiente línea
     }
-    System.out.println(); // Mueve a la siguiente línea
   }
+
+
 
   // Método de utilidad para llenar una cadena con un carácter dado
   private static String fillWithCharacter(char character, int length) {
