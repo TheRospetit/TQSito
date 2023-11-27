@@ -30,10 +30,9 @@ public class TestDeck {
     CardClass card4 = new CardClass();
     cardsPlayed.add(card3); cardsPlayed.add(card4);
 
-    Deck testedDeck = new Deck(true, 10, cards, cardsPlayed );
+    Deck testedDeck = new Deck(10, cards, cardsPlayed );
 
     assert testedDeck != null : "Deck has not been initialize properly";
-    assert true == testedDeck.getNotMoreCards() : "Bolean of more cards available has not been set properly";
     assert testedDeck.getNumCards() == 10 : "Num Cards has not been set properly";
     assert testedDeck.getPlayableCards().get(0) == card1 : "Playable Cards has not been set properly";
     assert testedDeck.getPlayedCards().get(0) == card3 : "Played cards has not been set properly";
@@ -64,12 +63,32 @@ public class TestDeck {
     CardClass card4 = new CardClass();
     cardsPlayed.add(card3); cardsPlayed.add(card4);
 
-    Deck testedDeck = new Deck(true, 10, cards, cardsPlayed );
+    Deck testedDeck = new Deck(10, cards, cardsPlayed );
 
-    assert testedDeck.getNotMoreCards().getClass() == Boolean.class : "Get Not More Cards does not return a boolean";
     assert testedDeck.getPlayedCards().getClass() == ArrayList.class : "Get Played Cards list does not return an arraylist";
     assert testedDeck.getPlayableCards().getClass() == ArrayList.class : "Get Playable Cards list does not return an array";
     assert testedDeck.getNumCards().getClass() == Integer.class : "Get Num Cards does not return a integer";
+
+    assert testedDeck.getPlayableCards() == cards : "Deck getPlayableCards incorrect";
+    assert testedDeck.getPlayedCards() == cardsPlayed : "Deck getPlayedCards incorrect";
+    assert testedDeck.getNumCards() == 10 : "Deck getNumCards incorrect";
+  }
+
+  @Test
+  public void TestRefillPlayableCards() {
+    ArrayList<CardClass> playable = new ArrayList<>();
+    ArrayList<CardClass> played = new ArrayList<>();
+    CardClass card1 = new CardClass(Actions.PLUS_FOUR, Colors.RED);
+    CardClass card2 = new CardClass(Actions.COLOR_SWAP, Colors.YELLOW);
+    CardClass card3 = new CardClass(7, Colors.BLUE);
+    CardClass card4 = new CardClass(Actions.PLUS_TWO, Colors.GREEN);
+    played.add(card1); played.add(card2); played.add(card3); played.add(card4);
+
+    Deck testDeck = new Deck(4, playable, played);
+
+    testDeck.refillPlayableCards();
+    assert(playable.size() == 4) : "refillPlayableCards incorrect playable cards";
+    assert(played.isEmpty()) : "refillPlayableCards incorrect played cards";
   }
 
 }

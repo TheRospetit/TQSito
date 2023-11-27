@@ -6,7 +6,6 @@ import java.util.Collections;
 
 public class Deck {
   /*Attributes*/
-  private Boolean notMoreCards;
   private int numCards;
   private ArrayList<CardClass> playableCards = new ArrayList<>();
   private ArrayList<CardClass> playedCards = new ArrayList<>();
@@ -15,14 +14,11 @@ public class Deck {
   public Deck(){
     initializeDeck(); // Initialize the deck
     shuffleCardsDeck();
-    notMoreCards = false;
     numCards = playableCards.size();
     playedCards = new ArrayList<CardClass>();
   }
 
-  // TODO. Check for removal: This does not have any type of useful implementation
-  public Deck(Boolean thereIsCards, int nCards, ArrayList<CardClass> myCards, ArrayList<CardClass> lastCard){
-    notMoreCards = thereIsCards;
+  public Deck(int nCards, ArrayList<CardClass> myCards, ArrayList<CardClass> lastCard){
     numCards= nCards;
     playableCards = myCards;
     playedCards = lastCard;
@@ -88,10 +84,20 @@ public class Deck {
     }
   }
 
-  public Boolean getNotMoreCards() {return notMoreCards;}
   public ArrayList<CardClass> getPlayableCards() {return playableCards;}
   public Integer getNumCards() {return numCards;}
   public ArrayList<CardClass> getPlayedCards() {return playedCards;}
-
   public void setCardPlayed(CardClass card) { playedCards.add(card); }
+
+  public void refillPlayableCards() {
+    for (CardClass card : playedCards) {
+      if (card.getAction() != null) {
+        if (card.getAction().equals(Actions.PLUS_FOUR) || card.getAction().equals(Actions.COLOR_SWAP)) {
+          card.nullifyColour();
+        }
+      }
+      playableCards.add(card);
+    }
+    playedCards.clear();
+  }
 }

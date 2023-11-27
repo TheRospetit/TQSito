@@ -58,8 +58,6 @@ public class DataBase {
             Statistics playerToCheck = myDB.stringLineToStatistics(text);
             if (myDB.searchString(playerToCheck.getPlayer_name()) == null) {
 
-
-
             FileWriter fileWriter = new FileWriter(fileName, true); // True to add to the existing file
                                                             // (and NOT replace the entire file with this text).
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);

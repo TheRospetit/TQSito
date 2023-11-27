@@ -9,28 +9,37 @@ public class CardPlusFour extends CardClassState{
     @Override
     protected CardClass doAction(Deck deck, Game game) {
         //Add five cards to the next player
+        Player reciverPlayer;
 
         Integer number = 4;
-        Player reciverPlayer = game.getListPlayers().get((game.getCurrentPlayer() + 1) % game.getNumPlayers() );
+
+        if (game.getIterator() == 1) {
+            reciverPlayer  = game.getListPlayers().get((game.getCurrentPlayer() + game.getIterator()) % game.getNumPlayers() );
+        } else {
+            if (game.getCurrentPlayer() + game.getIterator() == -1) {
+                reciverPlayer = game.getListPlayers().get((game.getNumPlayers() - 1));
+            } else {
+                reciverPlayer = game.getListPlayers().get((game.getCurrentPlayer() + game.getIterator()));
+            }
+        }
+
         for (int i = 0; i < number; i++) {
             deck.giveCardsToPlayer(reciverPlayer);
         }
 
         //Specify which colour is desired
-        boolean color_correcto = false;
-        while(!color_correcto)
+        while(true)
         {
             System.out.println("A qué color quieres cambiar [B, R, G, Y]: ");
             String input = game.getMyScanner().nextLine();
 
             switch (input){
-                case("B"): deck.setCardPlayed(new CardClass((Integer) null, input)); color_correcto = true;  return new CardClass(Actions.PLUS_FOUR, Colors.BLUE) ;
-                case("R"):  deck.setCardPlayed(new CardClass((Integer) null, input));color_correcto = true; return new CardClass(Actions.PLUS_FOUR, Colors.RED);
-                case("G"):  deck.setCardPlayed(new CardClass((Integer) null, input)); color_correcto = true ;return new CardClass(Actions.PLUS_FOUR, Colors.GREEN);
-                case("Y"):  deck.setCardPlayed(new CardClass((Integer) null, input)); color_correcto = true ;return new CardClass(Actions.PLUS_FOUR, Colors.YELLOW);
+                case("B"):  return new CardClass(Actions.PLUS_FOUR, Colors.BLUE) ;
+                case("R"):  return new CardClass(Actions.PLUS_FOUR, Colors.RED);
+                case("G"):  return new CardClass(Actions.PLUS_FOUR, Colors.GREEN);
+                case("Y"):  return new CardClass(Actions.PLUS_FOUR, Colors.YELLOW);
                 default: System.out.println("Color no correcto! Introduce otro de nuevo");
             }
         }
-        return null;
     }
 }

@@ -189,7 +189,7 @@ public class TestGame {
         Game testedGame = new Game(2, 0, testedPlayers, scannerClass);
         testedGame.giveHand();
         CardClass inputTestCard = new CardClass(6, Colors.RED);
-        testedGame.setLastCardPlayed(inputTestCard);
+        testedGame.deck.setCardPlayed(inputTestCard);
         CardClass resultTest = testedGame.getLastCardPlayed();
 
         assert(inputTestCard == resultTest): "The lastCardPlayed does not match with the input";

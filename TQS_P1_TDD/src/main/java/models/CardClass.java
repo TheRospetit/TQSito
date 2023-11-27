@@ -60,6 +60,10 @@ public class CardClass {
             }
         }
     }
+    public void nullifyColour() {
+        this.colour = null;
+    }
+
     public CardClass doAction(Deck deck, Game game){
 
         if (this.action != null){

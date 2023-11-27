@@ -14,6 +14,7 @@ public class Game {
     public boolean winner = false;
     private ArrayList<Statistics> stats = new ArrayList<>();     // TODO. Remains to test when Pol's part finished.
 
+
     // CONSTRUCTORS
     public Game(){}
     public Game(int numPlayers, int currentPlayer, ArrayList<Player> listPlayers, ScannerClass inputScanner){
@@ -31,7 +32,6 @@ public class Game {
     public CardClass getLastCardPlayed() {return deck.getPlayedCards().get(deck.getPlayedCards().size()-1);}
     public ArrayList<Player> getListPlayers() { return listPlayers;}
     public Integer getIterator(){return iterator;}
-    public void setLastCardPlayed(CardClass card) { deck.getPlayedCards().add(card); }
     public void setCurrentPlayer(int i) { currentPlayer = i;}
 
     public static Integer getNextPlayerIndex() {
@@ -60,20 +60,20 @@ public class Game {
         return cardPlayed;
     }
     public boolean playerRound(Player actualPlayer, CardClass cardPlayed){
-        //Player actualPlayer = listPlayers.get(nextPlayerIndex);
         boolean draw = false; // Just to check if the player draws a card, so in the controller we can display the playerCards again.
-        //System.out.println("Your turn " + actualPlayer.getName());
-        //CardClass cardPlayed = actualPlayer.playCard(this.getLastCardPlayed(), this.deck, this );
+
         if (cardPlayed == null) {
             this.deck.giveCardsToPlayer(actualPlayer);
+            if (this.deck.getNumCards() == 0) {
+                this.deck.refillPlayableCards();
+            }
             draw = true;
         } else {
-            this.setLastCardPlayed(cardPlayed); // Whatever the card is it will also do its action (+2, +4, reverse...)
             this.deck.setCardPlayed(cardPlayed);
             this.endGame(actualPlayer);
         }
         this.nextPlayer();
-        this.setCurrentPlayer((this.getNextPlayer()) % this.getNumPlayers());
+        this.setCurrentPlayer(this.getNextPlayer());
         System.out.println("");
 
         // Control te iterator and the next player that will play

@@ -66,7 +66,7 @@ public class Main {
 
                     Game game = new Game(numPlayers,0, myPlayerList, myScannerPlayerInput);
                     game.giveHand(); // Initializes the deck and gives the hands of each player
-                    game.setLastCardPlayed(game.deck.getPlayableCards().get(0)); // We set the first card
+                    game.deck.setCardPlayed(game.deck.getPlayableCards().get(0)); // We set the first card
 
                     while (!game.gameEndedWinner()) {
                         Player actualPlayer = game.getListPlayers().get(Game.getNextPlayerIndex());
@@ -136,10 +136,6 @@ public class Main {
 
         }while (choice != exitOption);
 
-
-
-
-
     }
 
 
@@ -180,27 +176,6 @@ public class Main {
         return playerNames;
     }
 
-    public void playGame() {
-        //Setting the game
-        ArrayList<Player> myPlayerList = new ArrayList<>();
-        Player jan = new Player("Jan", false);
-        Player pol = new Player("Pol", false);
-        Player josias = new Player("Josias", false);
-        myPlayerList.add(jan); myPlayerList.add(pol); myPlayerList.add(josias);
-
-        Scanner Scanner = new Scanner(System.in);
-        ScannerClass myScanner = new ScannerClass(Scanner);
-        Game game = new Game(3,0, myPlayerList, myScanner );
-
-        game.giveHand(); // Initializes the deck and gives the hands of each player
-        game.setLastCardPlayed(game.deck.getPlayableCards().get(0)); // We set the first card
-
-        while (!game.gameEndedWinner()) {
-            Player actualPlayer = game.getListPlayers().get(Game.getNextPlayerIndex());
-            //game.playerRound(actualPlayer);
-        }
-
-    }
 }
 
 

@@ -80,6 +80,7 @@ public class Player {
                 return true;
             }
         }
+        System.out.println(this.name + " can't play a card, drawing a card");
         return false;
     }
 
@@ -117,6 +118,8 @@ public class Player {
             //scanner.close();
             if(returnedCard == null){
                 return cardToPlay;
+                        } else {
+                return returnedCard; // For the plus four and colour change
             }
         }
         return null;  // Player can't play card.
