@@ -6,13 +6,9 @@ import java.util.ArrayList;
 // We were using these functions in almost all the classes of the view, so we extracted them in an external
 // class to not repeat so much code.
 public class Statistics {
-    /** The player name shown on the Statistics DB file. */
     private String player_name;
-    /** The total number of cards drawn because of a +4 or +2 of the player. */
     private int numCards;
-    /** Total number of games played of the current player.  */
     private int numGames;
-    /** Total number of wins of the current player. Using numGames, we can calculate the winRate. */
     private int numWins;
 
     /** Base constructor of Statistics. */

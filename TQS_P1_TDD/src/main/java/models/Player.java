@@ -10,7 +10,6 @@ public class Player {
 
     private String name;
     private boolean winner;
-    //private boolean blocked; NOT MORE REQUIRED FOR THE MOMENT
     private CardClass cardToPlay;
     private ArrayList<CardClass> hand = new ArrayList<>();
 
@@ -24,43 +23,51 @@ public class Player {
         this.winner = winner;
     }
 
-    // Getters and Setters
+    // Getters & Setters
     public String getName() {
         return name;
     }
     public boolean getWinner() {
         return winner;
     }
-    public void giveCard(CardClass card) { this.hand.add(card); }
+    public void giveCard(CardClass card) {
+        this.hand.add(card);
+    }
     public void setName(String name) {
         this.name = name;
     }
     public void setWinner(boolean winner) {
         this.winner = winner;
     }
-    public int numberHandCards(){return hand.size();}
-
-    public void setHand(ArrayList<CardClass> newHand) { this.hand = newHand; }
-
+    public void setHand(ArrayList<CardClass> newHand) {
+        this.hand = newHand;
+    }
     public ArrayList<CardClass> getHand() {
         return hand;
     }
 
-    /** Returns true if the current cardToPlay from the player can be played. */
-    public Boolean testCardToPlay(CardClass cardToP, CardClass lcPlayed) { // Test if card can be played
+    // Other methods
+    public int numberHandCards(){
+        return hand.size();
+    }
 
-        if(cardToP.getAction()== null && lcPlayed.getAction() == null && cardToP.getNumber()!= null && lcPlayed.getNumber() != null){ // Cards have number
+    /** Returns true if the current cardToPlay from the player can be played. */
+    public Boolean testCardToPlay(CardClass cardToP, CardClass lcPlayed) {
+        // Cards with number => true if same color, same number or both
+        if(cardToP.getAction()== null && lcPlayed.getAction() == null && cardToP.getNumber()!= null && lcPlayed.getNumber() != null){
             return (cardToP.getColour().equals(lcPlayed.getColour()) || cardToP.getNumber().equals(lcPlayed.getNumber()) ||
                     (cardToP.getNumber().equals(lcPlayed.getNumber()) && cardToP.getColour().equals(lcPlayed.getColour())));
         }
 
+        // If it has an action it checks if it is a "special" one (COLOR_SWAP or PLUS_FOUR)
         if (cardToP.getAction() != null) {
             if(cardToP.getAction().equals(Actions.COLOR_SWAP) || cardToP.getAction().equals(Actions.PLUS_FOUR)){
                 return true;
             }
         }
 
-        if(cardToP.getNumber()== null && lcPlayed.getNumber() == null && cardToP.getAction() != null && lcPlayed.getAction() != null){ // Cards have action
+        // Cards with action (they do not have number) | True => true if same color, same action or both
+        if(cardToP.getNumber()== null && lcPlayed.getNumber() == null && cardToP.getAction() != null && lcPlayed.getAction() != null){
             if (cardToP.getColour() != null && lcPlayed.getAction() != null){
                 return ((cardToP.getColour().equals(lcPlayed.getColour()) && cardToP.getAction().equals(lcPlayed.getAction())) ||
                         cardToP.getColour().equals(lcPlayed.getColour()) || cardToP.getAction().equals(lcPlayed.getAction()));
@@ -74,7 +81,6 @@ public class Player {
 
     /** Checks if a Player can Play any card from its hand. */
     public Boolean canPlayCard(CardClass lastCardPlayed) {
-
         for (CardClass currentCard : hand) {
             if (testCardToPlay(currentCard, lastCardPlayed)) {
                 return true;
@@ -85,7 +91,7 @@ public class Player {
     }
 
     public CardClass playCard(CardClass lastCardPlayed, Deck deck, Game game){
-        CardClass returnedCard ;
+        CardClass returnedCard; // Card that is going to get set form PLUS_FOUR ot COLOR_SWAP
         if (canPlayCard(lastCardPlayed)) { // Checks if the player can play any card
             while (true) {
                 int numPlayedCard = hand.size() + 2;
@@ -93,20 +99,18 @@ public class Player {
                     //waiting to input variables
                     System.out.println("Select one card (Position of the card [ 1 - " + hand.size() + " ]): ");
                     String number = game.getMyScanner().nextLine();
-                    try {
+                    try { // Checks that the input is an Integer
                         numPlayedCard = Integer.parseInt(number);
                     } catch (NumberFormatException nfe) {
                         System.out.println("Insert a number, not anything else, thanks");
                     }
                 }
-                //convert input into an integer, we should be care if its not correct value
 
-                cardToPlay =  hand.get( numPlayedCard - 1);
+                cardToPlay =  hand.get(numPlayedCard - 1); // sets the card chosen
 
-                // if testCard(cardToPlay, lastCardPlayed) == true --> hand.remove();
                 if (testCardToPlay(cardToPlay, lastCardPlayed)) { // Checks if the player selected a playable card
-                    returnedCard = cardToPlay.doAction(deck, game);
-                    hand.remove(numPlayedCard - 1);
+                    returnedCard = cardToPlay.doAction(deck, game); // Card does its action if it has one
+                    hand.remove(numPlayedCard - 1); // Remove card from hand
                     if (hand.isEmpty()){
                         this.winner = true;
                     }
@@ -115,11 +119,11 @@ public class Player {
                   System.out.println("Please select a correct card to play.");
                 }
             }
-            //scanner.close();
+
             if(returnedCard == null){
                 return cardToPlay;
-                        } else {
-                return returnedCard; // For the plus four and colour change
+            } else {
+                return returnedCard; // For the plus four and colour swap
             }
         }
         return null;  // Player can't play card.

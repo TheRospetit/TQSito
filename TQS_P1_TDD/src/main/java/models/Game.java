@@ -42,9 +42,19 @@ public class Game {
 
 
     // OTHER METHODS
+    public void endGame(Player player){
+        if (player.getWinner()) {
+            this.winner = true;
+        }
+    }
+
+    public boolean gameEndedWinner(){
+        return this.winner;
+    }
+
     public void giveHand() {
-        this.deck = new Deck();
-        deck.giveStarterCardsToPlayers(listPlayers);
+        this.deck = new Deck(); // Generates the initial deck
+        deck.giveStarterCardsToPlayers(listPlayers); // Gives the players its starting hand
     }
 
     public static void reverseIterator(){ iterator *= -1; }
@@ -64,27 +74,21 @@ public class Game {
         boolean draw = false; // Just to check if the player draws a card, so in the controller we can display the playerCards again.
 
         if (cardPlayed == null) {
+            // The player does not throw any card
             this.deck.giveCardsToPlayer(actualPlayer);
             if (this.deck.getNumCards() == 0) {
                 this.deck.refillPlayableCards();
             }
             draw = true;
         } else {
+            // The player throws a card
             this.deck.setCardPlayed(cardPlayed);
-            this.endGame(actualPlayer);
+            this.endGame(actualPlayer); // Checks if the player has won in its round
         }
         this.nextPlayer();
         this.setCurrentPlayer(this.getNextPlayer());
 
         // Control te iterator and the next player that will play
         return draw;
-    }
-    public void endGame(Player player){
-        if (player.getWinner()) {
-            this.winner = true;
-        }
-    }
-    public boolean gameEndedWinner(){
-        return this.winner;
     }
 }

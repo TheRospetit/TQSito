@@ -72,6 +72,7 @@ public class TestPlayerClass {
         assert player.getName() != null: "Player has not been set correctly";
         assert !player.getWinner() : "Player getWinner did not work correctly";
     }
+
     @Test
     public void TestConstructorDefault() throws NoSuchMethodException, SecurityException{
         player = new Player();
@@ -355,26 +356,5 @@ public class TestPlayerClass {
         assert(resultTested1 != null) : "The user played has throw a plus four and changed to red";
         assert(resultTested1.getAction() == exepectedValue.getAction() && resultTested1.getColour() == exepectedValue.getColour()) : "The returned value should be a +4 red";
 
-    }
-
-    @Test
-    public void PairwiseTestingTestCardToPlayFirst() {
-        // We do pairwise testing of the first if of Player.testCardToPlay() and its return
-        Player player1 = new Player("jan", false);
-        CardClass cardPlayed = new CardClass();
-        CardClass lastCardPlayed = new CardClass();
-
-        // Case 1
-        /*
-        * cardToP.getAction(): null
-        * lcPlayed.getAction(): null
-        * cardToP.getNumber(): not null
-        * lcPlayed.getNumber(): not null
-        * cardToP.getColour(): any value
-        * lcPlayed.getColour(): any value
-        * */
-        cardPlayed = new CardClass(1, Colors.RED);
-        lastCardPlayed = new CardClass(1, Colors.RED);
-        //player1.testCardToPlay();
     }
 }
