@@ -52,18 +52,18 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    45,5%
+    100%
   </span>
   <span class="absValue">
-    (5/11)
+    (11/11)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    33,3%
+    100%
   </span>
   <span class="absValue">
-    (9/27)
+    (27/27)
   </span>
 </td>
 </tr>
@@ -91,11 +91,11 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    private int numWins;
 &nbsp;
 &nbsp;    /** Base constructor of Statistics. */
-<b class="nc">&nbsp;    public Statistics(){</b>
-<b class="nc">&nbsp;        this.player_name = &quot;&quot;;</b>
-<b class="nc">&nbsp;        this.numCards = 0;</b>
-<b class="nc">&nbsp;        this.numGames = 0;</b>
-<b class="nc">&nbsp;        this.numWins = 0;</b>
+<b class="fc">&nbsp;    public Statistics(){</b>
+<b class="fc">&nbsp;        this.player_name = &quot;&quot;;</b>
+<b class="fc">&nbsp;        this.numCards = 0;</b>
+<b class="fc">&nbsp;        this.numGames = 0;</b>
+<b class="fc">&nbsp;        this.numWins = 0;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    /** Params constructor of Statistics.
@@ -151,26 +151,26 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="fc">&nbsp;        return player_name;</b>
 &nbsp;    }
 &nbsp;
-<b class="nc">&nbsp;    public void addDrawn2Stat(){this.numCards += 2;}</b>
-<b class="nc">&nbsp;    public void addDrawn4Stat(){this.numCards += 4;}</b>
-<b class="nc">&nbsp;    public void addWin(){this.numWins += 1;}</b>
-<b class="nc">&nbsp;    public void addGame(){this.numGames += 1;}</b>
+<b class="fc">&nbsp;    public void addDrawn2Stat(){this.numCards += 2;}</b>
+<b class="fc">&nbsp;    public void addDrawn4Stat(){this.numCards += 4;}</b>
+<b class="fc">&nbsp;    public void addWin(){this.numWins += 1;}</b>
+<b class="fc">&nbsp;    public void addGame(){this.numGames += 1;}</b>
 &nbsp;
 &nbsp;
 &nbsp;    public static ArrayList&lt;Statistics&gt; getPlayerStatsListFromDDBB(DataBase myDatabase, ArrayList&lt;Player&gt; myPlayerList) {
-<b class="nc">&nbsp;        ArrayList&lt;Statistics&gt; myStatList = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;        ArrayList&lt;Statistics&gt; myStatList = new ArrayList&lt;&gt;();</b>
 &nbsp;        Statistics stat;
-<b class="nc">&nbsp;        for (Player player : myPlayerList) {</b>
-<b class="nc">&nbsp;            String linePlayer = myDatabase.searchString(player.getName());</b>
-<b class="nc">&nbsp;            if (linePlayer != null) {</b>
-<b class="nc">&nbsp;                stat = myDatabase.stringLineToStatistics(linePlayer);</b>
+<b class="fc">&nbsp;        for (Player player : myPlayerList) {</b>
+<b class="fc">&nbsp;            String linePlayer = myDatabase.searchString(player.getName());</b>
+<b class="fc">&nbsp;            if (linePlayer != null) {</b>
+<b class="fc">&nbsp;                stat = myDatabase.stringLineToStatistics(linePlayer);</b>
 &nbsp;            } else {
-<b class="nc">&nbsp;                stat = new Statistics(player.getName(), 0, 0, 0);</b>
+<b class="fc">&nbsp;                stat = new Statistics(player.getName(), 0, 0, 0);</b>
 &nbsp;            }
-<b class="nc">&nbsp;            myStatList.add(stat);</b>
-<b class="nc">&nbsp;        }</b>
+<b class="fc">&nbsp;            myStatList.add(stat);</b>
+<b class="fc">&nbsp;        }</b>
 &nbsp;
-<b class="nc">&nbsp;        return myStatList;</b>
+<b class="fc">&nbsp;        return myStatList;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;
@@ -198,7 +198,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-11-27 02:10</div>
+    <div style="float:right;">generated on 2023-11-27 12:10</div>
 </div>
 </body>
 </html>

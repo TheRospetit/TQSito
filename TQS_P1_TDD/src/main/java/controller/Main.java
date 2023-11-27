@@ -1,7 +1,6 @@
 package controller;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 import models.*;
@@ -9,16 +8,17 @@ import models.*;
 import view.*;
 
 public class Main {
-
+    // Global constants to change the game configs.
+    public static final int MIN_PLAYERS = 2;
+    public static final int MAX_PLAYERS = 6;
+    public static final int EXIT_OPTION = 4; // Setting the exitOption value. In case we add more options, all
+    // prints will change the range of correct values (and the While too).
 
 
     public Main() { main(null);}
 
     public static void main(String[] args){
-        int minPlayers = 1;
-        int maxPlayers = 6;
-        int exitOption = 4; // Setting the exitOption value. In case we add more options, all
-        // prints will change the range of correct values (and the While too).
+
 
         // Initialize the database (stats.txt file)
         DataBase myDatabase = new DataBase("stats.txt");
@@ -46,7 +46,7 @@ public class Main {
                 case 1:
                     // Code for option 1 (Play)
                     int numPlayers = -1;
-                    while (numPlayers <= minPlayers || numPlayers > maxPlayers){
+                    while (numPlayers < MIN_PLAYERS || numPlayers > MAX_PLAYERS){
                         numPlayers = getNumberOfPlayers();
                     }
 
@@ -146,13 +146,13 @@ public class Main {
         // Input validation
         while (numPlayers <= 0) {
             try {
-                System.out.print("Enter the number of players (2-6): ");
+                System.out.print("Enter the number of players ("+MIN_PLAYERS + "-" + MAX_PLAYERS + "): ");
                 numPlayers = scanner.nextInt();
 
                 if (numPlayers <= 1) {
-                    System.out.println("Please enter a valid number greater than one.");
+                    System.out.println("Please enter a valid number greater than + " + (MIN_PLAYERS - 1) + ".");
                 } else if (numPlayers > 6) {
-                    System.out.println("Please enter a valid number lower than seven.");
+                    System.out.println("Please enter a valid number lower than " + (MAX_PLAYERS + 1) + ".");
                 }
             } catch (Exception e) {
                 System.out.println("Input error. Please enter a valid number.");

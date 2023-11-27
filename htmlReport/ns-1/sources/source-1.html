@@ -63,7 +63,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/88)
+    (0/85)
   </span>
 </td>
 </tr>
@@ -78,7 +78,6 @@ Current scope:     <a href="../../index.html">all classes</a>
 <code class="sourceCode" id="sourceCode">&nbsp;package controller;
 &nbsp;
 &nbsp;import java.util.ArrayList;
-&nbsp;import java.util.List;
 &nbsp;import java.util.Scanner;
 &nbsp;
 &nbsp;import models.*;
@@ -86,16 +85,17 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;import view.*;
 &nbsp;
 &nbsp;public class Main {
-&nbsp;
+&nbsp;    // Global constants to change the game configs.
+&nbsp;    public static final int MIN_PLAYERS = 2;
+&nbsp;    public static final int MAX_PLAYERS = 6;
+&nbsp;    public static final int EXIT_OPTION = 4; // Setting the exitOption value. In case we add more options, all
+&nbsp;    // prints will change the range of correct values (and the While too).
 &nbsp;
 &nbsp;
 <b class="nc">&nbsp;    public Main() { main(null);}</b>
 &nbsp;
 &nbsp;    public static void main(String[] args){
-<b class="nc">&nbsp;        int minPlayers = 1;</b>
-<b class="nc">&nbsp;        int maxPlayers = 6;</b>
-<b class="nc">&nbsp;        int exitOption = 4; // Setting the exitOption value. In case we add more options, all</b>
-&nbsp;        // prints will change the range of correct values (and the While too).
+&nbsp;
 &nbsp;
 &nbsp;        // Initialize the database (stats.txt file)
 <b class="nc">&nbsp;        DataBase myDatabase = new DataBase(&quot;stats.txt&quot;);</b>
@@ -111,7 +111,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="nc">&nbsp;            ViewMenu.displayMenu();</b>
 &nbsp;
 &nbsp;            // Get user choice
-<b class="nc">&nbsp;            System.out.print(&quot;Enter your choice (1-&quot; + exitOption + &quot;): &quot;);;</b>
+<b class="nc">&nbsp;            System.out.print(&quot;Enter your choice (1-&quot; + EXIT_OPTION + &quot;): &quot;);;</b>
 <b class="nc">&nbsp;            while (!myScanner.hasNextInt()) {</b>
 <b class="nc">&nbsp;                System.out.println(&quot;Invalid input. Please enter a number.&quot;);</b>
 <b class="nc">&nbsp;                myScanner.next(); // Consume the invalid input</b>
@@ -123,7 +123,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;                case 1:
 &nbsp;                    // Code for option 1 (Play)
 <b class="nc">&nbsp;                    int numPlayers = -1;</b>
-<b class="nc">&nbsp;                    while (numPlayers &lt;= minPlayers || numPlayers &gt; maxPlayers){</b>
+<b class="nc">&nbsp;                    while (numPlayers &lt; MIN_PLAYERS || numPlayers &gt; MAX_PLAYERS){</b>
 <b class="nc">&nbsp;                        numPlayers = getNumberOfPlayers();</b>
 &nbsp;                    }
 &nbsp;
@@ -146,7 +146,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="nc">&nbsp;                    game.deck.setCardPlayed(game.deck.getPlayableCards().get(0)); // We set the first card</b>
 &nbsp;
 <b class="nc">&nbsp;                    while (!game.gameEndedWinner()) {</b>
-<b class="nc">&nbsp;                        Player actualPlayer = game.getListPlayers().get(Game.getNextPlayerIndex());</b>
+<b class="nc">&nbsp;                        Player actualPlayer = game.getListPlayers().get(game.getNextPlayerIndex());</b>
 <b class="nc">&nbsp;                        ViewChangeTurn.showTurnChange(actualPlayer.getName());</b>
 &nbsp;
 <b class="nc">&nbsp;                        ViewPlayerStatus.displayPlayerStatus(actualPlayer.getName(), actualPlayer.getHand(), game.getLastCardPlayed());</b>
@@ -155,9 +155,9 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 <b class="nc">&nbsp;                        if (game.getLastCardPlayed().getAction() != null){</b>
 <b class="nc">&nbsp;                            if (game.getLastCardPlayed().getAction().equals(Actions.PLUS_TWO)){</b>
-<b class="nc">&nbsp;                                myStatList.get(Game.getNextPlayerIndex()).addDrawn2Stat();</b>
+<b class="nc">&nbsp;                                myStatList.get(game.getNextPlayerIndex()).addDrawn2Stat();</b>
 <b class="nc">&nbsp;                            } else if (game.getLastCardPlayed().getAction().equals(Actions.PLUS_FOUR)) {</b>
-<b class="nc">&nbsp;                                myStatList.get(Game.getNextPlayerIndex()).addDrawn4Stat();</b>
+<b class="nc">&nbsp;                                myStatList.get(game.getNextPlayerIndex()).addDrawn4Stat();</b>
 &nbsp;                            }
 &nbsp;                        }
 &nbsp;
@@ -207,11 +207,11 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="nc">&nbsp;                    System.out.println(&quot;Exiting the game. Goodbye!&quot;);</b>
 <b class="nc">&nbsp;                    break;</b>
 &nbsp;                default:
-<b class="nc">&nbsp;                    System.out.println(&quot;Invalid choice. Please enter a number between 1 and &quot; + exitOption + &quot;.&quot;);</b>
+<b class="nc">&nbsp;                    System.out.println(&quot;Invalid choice. Please enter a number between 1 and &quot; + EXIT_OPTION + &quot;.&quot;);</b>
 &nbsp;            }
 &nbsp;
 &nbsp;
-<b class="nc">&nbsp;        }while (choice != exitOption);</b>
+<b class="nc">&nbsp;        }while (choice != EXIT_OPTION);</b>
 &nbsp;
 &nbsp;    }
 &nbsp;
@@ -223,13 +223,13 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;        // Input validation
 <b class="nc">&nbsp;        while (numPlayers &lt;= 0) {</b>
 &nbsp;            try {
-<b class="nc">&nbsp;                System.out.print(&quot;Enter the number of players (2-6): &quot;);</b>
+<b class="nc">&nbsp;                System.out.print(&quot;Enter the number of players (&quot;+MIN_PLAYERS + &quot;-&quot; + MAX_PLAYERS + &quot;): &quot;);</b>
 <b class="nc">&nbsp;                numPlayers = scanner.nextInt();</b>
 &nbsp;
 <b class="nc">&nbsp;                if (numPlayers &lt;= 1) {</b>
-<b class="nc">&nbsp;                    System.out.println(&quot;Please enter a valid number greater than one.&quot;);</b>
+<b class="nc">&nbsp;                    System.out.println(&quot;Please enter a valid number greater than + &quot; + (MIN_PLAYERS - 1) + &quot;.&quot;);</b>
 <b class="nc">&nbsp;                } else if (numPlayers &gt; 6) {</b>
-<b class="nc">&nbsp;                    System.out.println(&quot;Please enter a valid number lower than seven.&quot;);</b>
+<b class="nc">&nbsp;                    System.out.println(&quot;Please enter a valid number lower than &quot; + (MAX_PLAYERS + 1) + &quot;.&quot;);</b>
 &nbsp;                }
 <b class="nc">&nbsp;            } catch (Exception e) {</b>
 <b class="nc">&nbsp;                System.out.println(&quot;Input error. Please enter a valid number.&quot;);</b>
@@ -279,7 +279,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-11-27 02:10</div>
+    <div style="float:right;">generated on 2023-11-27 12:10</div>
 </div>
 </body>
 </html>

@@ -24,9 +24,9 @@ public class DataBase {
         try {
             File file = new File(fileName);
             if (file.createNewFile()) {
-                //System.out.println("File created: " + file.getName());
+                System.out.println("File created: " + file.getName());
             } else {
-                //System.out.println("File already exists.");
+                System.out.println("File already exists.");
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -146,4 +146,10 @@ public class DataBase {
 
         System.out.printf(separator);
     }
+    /*
+    protected void handleIOException(IOException e) {
+        e.printStackTrace(); // Log or handle the exception as needed
+    }
+    */
+
 }

@@ -3,7 +3,6 @@ package models;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class TestCardClass {
     CardClass cartita;
@@ -78,7 +77,7 @@ public class TestCardClass {
 
         ScannerClass scannerClass = new Mock_ScannerClass("B", "G","Y", "agucate" ,"R", "G" , "B","Y","agucate", "R" );
 
-        Game testedGame = new Game(2, 0, testedPlayers, scannerClass);
+        Game testedGameDoAction = new Game(2, 0, testedPlayers, scannerClass);
         Deck testedDeck = new Deck();
 
         //Testing number cards//
@@ -98,7 +97,7 @@ public class TestCardClass {
         for(CardClass testCard : testedCardsNumbers)
         {
             CardClass returnedValue = new CardClass();
-            returnedValue = testCard.doAction(testedDeck, testedGame);
+            returnedValue = testCard.doAction(testedDeck, testedGameDoAction);
             assert(returnedValue == returnedValue) :"All number cards should return null once execute doAction " ;
         }
 
@@ -115,12 +114,12 @@ public class TestCardClass {
         for(CardClass testCard : testedCardsNumbers)
         {
             CardClass returnedValue = new CardClass();
-            returnedValue = testCard.doAction(testedDeck, testedGame);
+            returnedValue = testCard.doAction(testedDeck, testedGameDoAction);
             assert(returnedValue == null) : "All +2 cards should return himself, not a empty card";
         }
 
-        assert(0 == testedGame.getListPlayers().get(0).numberHandCards()) : "Plus two cards has not added cards properly";
-        assert(8 == testedGame.getListPlayers().get(1).numberHandCards()) : "Plus two cards has not added cards properly";
+        assert(0 == testedGameDoAction.getListPlayers().get(0).numberHandCards()) : "Plus two cards has not added cards properly";
+        assert(8 == testedGameDoAction.getListPlayers().get(1).numberHandCards()) : "Plus two cards has not added cards properly";
 
         // Testing plus 4 card with all the colors//
         testedCard1 = new CardClass(Actions.PLUS_FOUR, Colors.GREEN);
@@ -134,15 +133,15 @@ public class TestCardClass {
 
         CardClass returnedValue = new CardClass();
 
-        returnedValue = testedCardsNumbers.get(0).doAction(testedDeck, testedGame);
+        returnedValue = testedCardsNumbers.get(0).doAction(testedDeck, testedGameDoAction);
         assert(returnedValue != null) : "doAction is returning null, it should return a new blue card";
         assert(returnedValue.getColour() == Colors.BLUE ) : "doAction mock test is not returning colour blue card selected"; // Check for BLUE option
 
-        returnedValue = testedCardsNumbers.get(1).doAction(testedDeck, testedGame);
+        returnedValue = testedCardsNumbers.get(1).doAction(testedDeck, testedGameDoAction);
         assert(returnedValue != null) : "doAction is returning null, it should return a new blue card";
         assert(returnedValue.getColour() == Colors.GREEN ) : "doAction mock test is not returning colour blue card selected"; // Check for GREEN option
 
-        returnedValue = testedCardsNumbers.get(2).doAction(testedDeck, testedGame);
+        returnedValue = testedCardsNumbers.get(2).doAction(testedDeck, testedGameDoAction);
         assert(returnedValue != null) : "doAction is returning null, it should return a new blue card";
         assert(returnedValue.getColour() == Colors.YELLOW ) : "doAction mock test is not returning colour blue card selected"; // Check for YELLOW option
 
@@ -151,8 +150,8 @@ public class TestCardClass {
         assert(returnedValue.getColour() == Colors.RED ) : "doAction mock test is not returning colour blue card selected"; // Check for RED option
 
 
-        assert(0 == testedGame.getListPlayers().get(0).numberHandCards()) : "Plus four cards has not added cards properly";
-        assert(24 == testedGame.getListPlayers().get(1).numberHandCards()) : "Plus four cards has not added cards properly";
+        assert(0 == testedGameDoAction.getListPlayers().get(0).numberHandCards()) : "Plus four cards has not added cards properly";
+        assert(24 == testedGameDoAction.getListPlayers().get(1).numberHandCards()) : "Plus four cards has not added cards properly";
 
         // Testing swap colour with all the colors//
         testedCard1 = new CardClass(Actions.COLOR_SWAP, Colors.GREEN);
@@ -164,19 +163,19 @@ public class TestCardClass {
         testedCardsNumbers.add(testedCard1);testedCardsNumbers.add(testedCard2);
         testedCardsNumbers.add(testedCard3);testedCardsNumbers.add(testedCard4);
 
-        returnedValue = testedCardsNumbers.get(0).doAction(testedDeck, testedGame);
+        returnedValue = testedCardsNumbers.get(0).doAction(testedDeck, testedGameDoAction);
         assert(returnedValue != null) : "doAction is returning null, it should return a new green card";
         assert(returnedValue.getColour() == Colors.GREEN ) : "doAction mock test is not returning colour green card selected"; // Check for GREEN option
 
-        returnedValue = testedCardsNumbers.get(1).doAction(testedDeck, testedGame);
+        returnedValue = testedCardsNumbers.get(1).doAction(testedDeck, testedGameDoAction);
         assert(returnedValue != null) : "doAction is returning null, it should return a new blue card";
         assert(returnedValue.getColour() == Colors.BLUE ) : "doAction mock test is not returning colour blue card selected"; // Check for blue option
 
-        returnedValue = testedCardsNumbers.get(2).doAction(testedDeck, testedGame);
+        returnedValue = testedCardsNumbers.get(2).doAction(testedDeck, testedGameDoAction);
         assert(returnedValue != null) : "doAction is returning null, it should return a new yellow card";
         assert(returnedValue.getColour() == Colors.YELLOW ) : "doAction mock test is not returning colour yellow card selected"; // Check for YELLOW option
 
-        returnedValue = testedCardsNumbers.get(3).doAction(testedDeck, testedGame);
+        returnedValue = testedCardsNumbers.get(3).doAction(testedDeck, testedGameDoAction);
         assert(returnedValue != null) : "doAction is returning null, it should return a new red card";
         assert(returnedValue.getColour() == Colors.RED ) : "doAction mock test is not returning colour red card selected"; // Check for RED option
 
@@ -190,13 +189,13 @@ public class TestCardClass {
         testedCardsNumbers.add(testedCard1);testedCardsNumbers.add(testedCard2);
         testedCardsNumbers.add(testedCard3);testedCardsNumbers.add(testedCard4);
 
-        Integer iterTest = testedGame.getIterator();
+        Integer iterTest = testedGameDoAction.getIterator();
         for(CardClass testCard : testedCardsNumbers)
         {
             iterTest*=-1; // Change the iterTest to match the iterator of the game
-            returnedValue = testCard.doAction(testedDeck, testedGame);
+            returnedValue = testCard.doAction(testedDeck, testedGameDoAction);
             assert(returnedValue == null) : "All reverse cards should return himself, not a empty card";
-            assert (testedGame.getIterator().equals(iterTest)) : "doAction Reverse is not changing the iterator order";
+            assert (testedGameDoAction.getIterator().equals(iterTest)) : "doAction Reverse is not changing the iterator order";
         }
 
         // Testing block colour with all the colors//

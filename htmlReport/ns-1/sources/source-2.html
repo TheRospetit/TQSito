@@ -52,18 +52,18 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    50%
+    100%
   </span>
   <span class="absValue">
-    (1/2)
+    (2/2)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    33,3%
+    100%
   </span>
   <span class="absValue">
-    (1/3)
+    (3/3)
   </span>
 </td>
 </tr>
@@ -77,6 +77,8 @@ Current scope:     <a href="../../index.html">all classes</a>
 <pre>
 <code class="sourceCode" id="sourceCode">&nbsp;package models;
 &nbsp;
+&nbsp;// CardBlock extends CardClassState, so it&#39;s a special state of the card. In this case it implements the Block Action.
+&nbsp;// This card will have a color and an action and will skip the next player&#39;s turn.
 &nbsp;public class CardBlock extends CardClassState{
 &nbsp;
 &nbsp;    public CardBlock(CardClass card) {
@@ -86,8 +88,8 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 &nbsp;    @Override
 &nbsp;    protected CardClass doAction(Deck deck, Game game) {
-<b class="nc">&nbsp;        game.nextPlayer();</b>
-<b class="nc">&nbsp;        return null;</b>
+<b class="fc">&nbsp;        game.nextPlayer();</b>
+<b class="fc">&nbsp;        return null;</b>
 &nbsp;    }
 &nbsp;}
 </code>
@@ -113,7 +115,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-11-23 23:30</div>
+    <div style="float:right;">generated on 2023-11-27 10:39</div>
 </div>
 </body>
 </html>

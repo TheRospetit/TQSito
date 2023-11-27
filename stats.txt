@@ -8,3 +8,4 @@ Rage quit,1,0,0
 pol,2,2,0
 jan,1,0,0
 cachopo,2,0,16
+Player1,5,3,10

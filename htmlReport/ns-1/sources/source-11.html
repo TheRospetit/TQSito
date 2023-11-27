@@ -19,10 +19,10 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">com.example.demo</a>
+    <a href="../index.html">models</a>
 </div>
 
-<h1>Coverage Summary for Class: Statistics (com.example.demo)</h1>
+<h1>Coverage Summary for Class: Statistics (models)</h1>
 
 <table class="coverageStats">
 <tr>
@@ -44,26 +44,26 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name">Statistics</td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/1)
+    (1/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    45,5%
   </span>
   <span class="absValue">
-    (0/11)
+    (5/11)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    33,3%
   </span>
   <span class="absValue">
-    (0/21)
+    (9/27)
   </span>
 </td>
 </tr>
@@ -75,9 +75,9 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package com.example.demo;
+<code class="sourceCode" id="sourceCode">&nbsp;package models;
 &nbsp;
-&nbsp;
+&nbsp;import javax.xml.crypto.Data;
 &nbsp;import java.util.ArrayList;
 &nbsp;
 &nbsp;public class Statistics {
@@ -105,56 +105,26 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * @param nGames  &lt;code&gt;int&lt;/code&gt; with the number of games played by the current player.
 &nbsp;     * @param nWins   &lt;code&gt;int&lt;/code&gt; with the number of wins by the current player.
 &nbsp;     */
-<b class="nc">&nbsp;    public Statistics(String pl_name, int nGames, int nWins, int nCards) {</b>
-<b class="nc">&nbsp;        this.player_name = pl_name;</b>
-<b class="nc">&nbsp;        this.numCards = nCards;</b>
-<b class="nc">&nbsp;        this.numWins = nWins;</b>
+<b class="fc">&nbsp;    public Statistics(String pl_name, int nGames, int nWins, int nCards) {</b>
+<b class="fc">&nbsp;        this.player_name = pl_name;</b>
+<b class="fc">&nbsp;        this.numCards = nCards;</b>
+<b class="fc">&nbsp;        this.numWins = nWins;</b>
 &nbsp;        // Check if the number of wins is lower than the number of games (as it should be)
 &nbsp;        // If there was some mistake and the number of wins is higher than the number of games, we set the number of games = number of wins.
-<b class="nc">&nbsp;        this.numGames = (this.numWins &lt;= nGames) ? nGames:this.numWins;</b>
+<b class="fc">&nbsp;        this.numGames = (this.numWins &lt;= nGames) ? nGames:this.numWins;</b>
 &nbsp;
 &nbsp;    }
 &nbsp;
 &nbsp;    // ===============================================
-&nbsp;    // ||           SETTERS and GETTERS             ||
+&nbsp;    // ||                   GETTERS                 ||
 &nbsp;    // ===============================================
-&nbsp;
-&nbsp;    /** Sets the numCards attribute of the Statistics instance. numCards: The total number of cards drawn because of a +4 or +2 of the player.
-&nbsp;     * @param numCards See also.
-&nbsp;     * @see Statistics#numCards
-&nbsp;     */
-&nbsp;    public void setNumCards(int numCards) {
-<b class="nc">&nbsp;        this.numCards = numCards;</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    /** Sets the player name attribute of the Statistics instance.
-&nbsp;     * @param player_name See also
-&nbsp;     * @see Statistics#player_name
-&nbsp;     */
-&nbsp;    public void setPlayer_name(String player_name) {
-<b class="nc">&nbsp;        this.player_name = player_name;</b>
-&nbsp;    }
-&nbsp;    /** Sets the numGames attribute of the Statistics instance.
-&nbsp;     * @param numGames See also
-&nbsp;     * @see Statistics#numGames
-&nbsp;     */
-&nbsp;    public void setNumGames(int numGames) {
-<b class="nc">&nbsp;        this.numGames = numGames;</b>
-&nbsp;    }
-&nbsp;    /** Sets the numWins attribute of the Statistics instance.
-&nbsp;     * @param numWins See also
-&nbsp;     * @see Statistics#numWins
-&nbsp;     */
-&nbsp;    public void setNumWins(int numWins) {
-<b class="nc">&nbsp;        this.numWins = numWins;</b>
-&nbsp;    }
 &nbsp;
 &nbsp;    /**
 &nbsp;     * @return &lt;code&gt;int&lt;/code&gt; with the value of the numCards attribute of the Statistics instance.
 &nbsp;     * @see Statistics#numCards
 &nbsp;     */
 &nbsp;    public int getNumCards() {
-<b class="nc">&nbsp;        return numCards;</b>
+<b class="fc">&nbsp;        return numCards;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
@@ -162,7 +132,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * @see Statistics#numGames
 &nbsp;     */
 &nbsp;    public int getNumGames() {
-<b class="nc">&nbsp;        return numGames;</b>
+<b class="fc">&nbsp;        return numGames;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
@@ -170,7 +140,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * @see Statistics#numWins
 &nbsp;     */
 &nbsp;    public int getNumWins() {
-<b class="nc">&nbsp;        return numWins;</b>
+<b class="fc">&nbsp;        return numWins;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
@@ -178,16 +148,31 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * @see Statistics#player_name
 &nbsp;     */
 &nbsp;    public String getPlayer_name() {
-<b class="nc">&nbsp;        return player_name;</b>
+<b class="fc">&nbsp;        return player_name;</b>
 &nbsp;    }
 &nbsp;
+<b class="nc">&nbsp;    public void addDrawn2Stat(){this.numCards += 2;}</b>
+<b class="nc">&nbsp;    public void addDrawn4Stat(){this.numCards += 4;}</b>
+<b class="nc">&nbsp;    public void addWin(){this.numWins += 1;}</b>
+<b class="nc">&nbsp;    public void addGame(){this.numGames += 1;}</b>
 &nbsp;
 &nbsp;
-&nbsp;    public void updateStatistics(Statistics stats) {
-<b class="nc">&nbsp;        numGames += stats.getNumGames();</b>
-<b class="nc">&nbsp;        numWins += stats.getNumWins();</b>
-<b class="nc">&nbsp;        numCards += stats.getNumCards();</b>
+&nbsp;    public static ArrayList&lt;Statistics&gt; getPlayerStatsListFromDDBB(DataBase myDatabase, ArrayList&lt;Player&gt; myPlayerList) {
+<b class="nc">&nbsp;        ArrayList&lt;Statistics&gt; myStatList = new ArrayList&lt;&gt;();</b>
+&nbsp;        Statistics stat;
+<b class="nc">&nbsp;        for (Player player : myPlayerList) {</b>
+<b class="nc">&nbsp;            String linePlayer = myDatabase.searchString(player.getName());</b>
+<b class="nc">&nbsp;            if (linePlayer != null) {</b>
+<b class="nc">&nbsp;                stat = myDatabase.stringLineToStatistics(linePlayer);</b>
+&nbsp;            } else {
+<b class="nc">&nbsp;                stat = new Statistics(player.getName(), 0, 0, 0);</b>
+&nbsp;            }
+<b class="nc">&nbsp;            myStatList.add(stat);</b>
+<b class="nc">&nbsp;        }</b>
+&nbsp;
+<b class="nc">&nbsp;        return myStatList;</b>
 &nbsp;    }
+&nbsp;
 &nbsp;
 &nbsp;}
 </code>
@@ -213,7 +198,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-11-23 21:53</div>
+    <div style="float:right;">generated on 2023-11-27 10:39</div>
 </div>
 </body>
 </html>

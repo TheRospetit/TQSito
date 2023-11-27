@@ -1,10 +1,7 @@
 package models;
 
 import org.junit.jupiter.api.Test;
-//import static org.mockito.Mockito.*;
 
-
-import java.awt.geom.RectangularShape;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.lang.reflect.Field;
@@ -35,38 +32,38 @@ public class TestGame {
 
         //TEST TO VERIFY IF ATTRIBUTE numPlayers DOES EXIST
         Field numPlayers = allFields.stream().filter(field -> field.getName().equals("numPlayers")).findFirst().orElseThrow(()
-                -> new RuntimeException("Field not found"));
+            -> new RuntimeException("Field not found"));
         assertEquals(int.class, numPlayers.getType());
 
         //TEST TO VERIFY IF ATRIBUTE currentPlayer DOES EXIST
         Field currentPlayer = allFields.stream().filter(field -> field.getName().equals("currentPlayer")).findFirst().orElseThrow(()
-                -> new RuntimeException("Field not found"));
+            -> new RuntimeException("Field not found"));
         assertEquals(int.class, currentPlayer.getType());
 
         //TEST TO VERIFY IF ATRIBUTE iterator DOES EXIST
         Field iterator = allFields.stream().filter(field -> field.getName().equals("iterator")).findFirst().orElseThrow(()
-                -> new RuntimeException("Field not found"));
+            -> new RuntimeException("Field not found"));
         assertEquals(Integer.class, iterator.getType());
 
         //TEST TO VERIFY IF ATTRIBUTE listPlayers DOES EXIST
         Field listPlayer = allFields.stream().filter(field -> field.getName().equals("listPlayers")).findFirst().orElseThrow(()
-                -> new RuntimeException("Field not found"));
+            -> new RuntimeException("Field not found"));
         assertEquals(ArrayList.class, listPlayer.getType());
 
         Field deck = allFields.stream().filter(field -> field.getName().equals("deck")).findFirst().orElseThrow(()
-                -> new RuntimeException("Field not found"));
+            -> new RuntimeException("Field not found"));
         assertEquals(Deck.class, deck.getType());
 
         Field nextPlayerIndex = allFields.stream().filter(field -> field.getName().equals("nextPlayerIndex")).findFirst().orElseThrow(()
-                -> new RuntimeException("Field not found"));
+            -> new RuntimeException("Field not found"));
         assertEquals(Integer.class, nextPlayerIndex.getType());
 
         Field winner = allFields.stream().filter(field -> field.getName().equals("winner")).findFirst().orElseThrow(()
-                -> new RuntimeException("Field not found"));
+            -> new RuntimeException("Field not found"));
         assertEquals(boolean.class, winner.getType());
 
         Field stats = allFields.stream().filter(field -> field.getName().equals("stats")).findFirst().orElseThrow(()
-                -> new RuntimeException("Field not found"));
+            -> new RuntimeException("Field not found"));
         assertEquals(ArrayList.class, stats.getType());
 
     }
@@ -292,7 +289,7 @@ public class TestGame {
 
         assert(expectedCard.getColour() == resultTest.getColour() && expectedCard.getNumber() == resultTest.getNumber()) : "The card class returned should be a 2 red";
     }
-    
+
     @Test
     public void TestPlayerRound(){
         // Setting up variables for test //
