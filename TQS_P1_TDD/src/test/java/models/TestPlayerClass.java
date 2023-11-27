@@ -251,8 +251,21 @@ public class TestPlayerClass {
         assert(testedPlayer1.getWinner() == false) : "The player should not be a winner because his/her hand is not void";
 
 
-        // Hand size: 9 cards. Possible values [1-9]
+        // Testing throwing a +2 action card and then different incorrect inputs values
         testedGame.getMyScanner().setInputsList("a", "1", "$", "4", "8", "-9", "100");
+        subList.clear();
+        subList.add(new CardClass(Actions.PLUS_TWO, Colors.RED));  subList.add(new CardClass(5, Colors.BLUE));
+        onlyNumbersHand = new ArrayList<>(subList);
+        testedPlayer1.setHand(onlyNumbersHand);
+        testedPlayer1.setWinner(false);
+        selectedCardByPlayer = onlyNumbersHand.get(0);
+        resultTested1 = testedPlayer1.playCard(lastCardNumber,testedDeck2, testedGame);
+        assert(resultTested1 == selectedCardByPlayer ) : "The last card played does not correspond the chosen one";
+        assert(testedPlayer1.getHand().size() == 1) : "The last card played has not been removed from the player hand";
+        assert(testedPlayer1.getWinner() == false) : "The player should not be a winner because his/her hand is not void";
+
+        // Border limit values. Hand with 9 cards. Correct value range: [1-9]
+        testedGame.getMyScanner().setInputsList("0", "1", "2", "4", "8", "9", "10");
         subList.clear();
         subList.add(new CardClass(Actions.PLUS_TWO, Colors.RED));  subList.add(new CardClass(5, Colors.BLUE));
         onlyNumbersHand = new ArrayList<>(subList);
