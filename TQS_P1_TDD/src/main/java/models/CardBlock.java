@@ -6,7 +6,6 @@ public class CardBlock extends CardClassState{
 
     public CardBlock(CardClass card) {
         super(card);
-
     }
 
     @Override

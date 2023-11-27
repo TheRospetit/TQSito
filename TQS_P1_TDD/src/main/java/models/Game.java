@@ -1,6 +1,10 @@
 package models;
 import java.util.ArrayList;
 
+
+// The Game class is one of the core classes of the project. Contains all the information to play the game. Such as
+// its players, the deck to play the game and checks if a player won the game. Has the necessary functions to control
+// which player is currently playing and controls the round of each player and the next player for the next round
 public class Game {
 
     private ScannerClass myScanner;
@@ -11,8 +15,6 @@ public class Game {
     public Deck deck;
     private Integer nextPlayerIndex = 0;
     public boolean winner = false;
-    private ArrayList<Statistics> stats = new ArrayList<>();     // TODO. Remains to test when Pol's part finished.
-
 
     // CONSTRUCTORS //
     public Game(){}
@@ -73,7 +75,6 @@ public class Game {
         }
         this.nextPlayer();
         this.setCurrentPlayer(this.getNextPlayer());
-        System.out.println("");
 
         // Control te iterator and the next player that will play
         return draw;

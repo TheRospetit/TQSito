@@ -6,7 +6,7 @@ public final class ViewMenu {
 
 
   public static void displayMenu() {
-    int terminalWidth = getIntelliJTerminalWidth();
+    int terminalWidth = ViewUtils.getIntelliJTerminalWidth();
 
     // Display the game title
     String[] gameTitle1 = {
@@ -31,10 +31,10 @@ public final class ViewMenu {
     int leftPadding1 = (terminalWidth - gameTitle1[0].length()) / 2;
 
     // Display the first game title
-    System.out.println("╔" + fillWithCharacter('=', terminalWidth - 2) + "╗");
+    System.out.println("╔" + ViewUtils.fillWithCharacter('=', terminalWidth - 2) + "╗");
     for (String line : gameTitle1) {
       int rightPadding = terminalWidth - line.length() - leftPadding1 - 2;
-      System.out.println("║" + fillWithCharacter(' ', leftPadding1) + line + fillWithCharacter(' ', rightPadding) + "║");
+      System.out.println("║" + ViewUtils.fillWithCharacter(' ', leftPadding1) + line + ViewUtils.fillWithCharacter(' ', rightPadding) + "║");
     }
 
     // Calculate left padding for the second game title
@@ -43,11 +43,11 @@ public final class ViewMenu {
     // Display the second game title
     for (String line : gameTitle2) {
       int rightPadding = terminalWidth - line.length() - leftPadding2 - 2;
-      System.out.println("║" + fillWithCharacter(' ', leftPadding2) + line + fillWithCharacter(' ', rightPadding) + "║");
+      System.out.println("║" + ViewUtils.fillWithCharacter(' ', leftPadding2) + line + ViewUtils.fillWithCharacter(' ', rightPadding) + "║");
     }
 
     // Display the closing line of the box
-    System.out.println("╚" + fillWithCharacter('=', terminalWidth - 2) + "╝");
+    System.out.println("╚" + ViewUtils.fillWithCharacter('=', terminalWidth - 2) + "╝");
 
     // Display menu options
     System.out.println("\nSelect an option:");
@@ -57,13 +57,4 @@ public final class ViewMenu {
     System.out.println("4. Exit");
   }
 
-
-  private static String fillWithCharacter(char character, int length) {
-    return String.valueOf(character).repeat(Math.max(0, length));
-  }
-
-  private static int getIntelliJTerminalWidth() {
-    // You can adjust this according to your needs
-    return 80;
-  }
 }

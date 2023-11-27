@@ -78,18 +78,17 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+// The most complex view class. Shows the Player Status, so shows the actual turn player name, the
+// last card played and the player's hand. We decided to show the cards with emojis to make it more
+// visual due the fact that the use of emojis moves all the display a little bit (because an emoji uses a
+// little bit more than one terminal char slot (but less than 2)) and it's really difficult to fix that (if possible).
+// We tried a lot of different options but this one is the best one so far.
+// We also decided to show only 5 cards per row, so it will fit in smaller terminals.
 public final class ViewPlayerStatus {
 
-  public static void main(String[] args) {
-    ArrayList<Player> playerNames = new ArrayList<>();
-    playerNames.add(new Player("Hello", false));
-    CardClass card = new CardClass(1,Colors.RED);
-    ArrayList<CardClass> hand = new ArrayList<>();
-    hand.add(card);
-    playerNames.getFirst().setHand(hand);
-    displayPlayerStatus(playerNames.getFirst().getName(), hand,card);
-  }
-
+  // Creates the CardClass name that will be shown on the terminal based on the actions, color or number of the card.
+  // Parsing the name of each action/color to an emoji with `Actions.getActionsStringName()`
+  // and `Colors.getColorsStringName()`
   public static String createCardClassStringName(CardClass card) {
     String strAction = Actions.getActionsStringName(card.getAction());
     String strNumb = String.valueOf(card.getNumber());
@@ -109,15 +108,15 @@ public final class ViewPlayerStatus {
     return cardStringName;
   }
   public static void displayPlayerStatus(String playerName, ArrayList<CardClass> playerHand, CardClass lastPlayedCard) {
-    int terminalWidth = getIntelliJTerminalWidth();
+    int terminalWidth = ViewUtils.getIntelliJTerminalWidth();
     String playerNameString = "Turn: " + playerName;
     // Display current player's name
     //int centerPlayerName = (terminalWidth - (playerNameString.length() + 2)) / 2;
     int leftPaddingPlayerName = (terminalWidth - playerNameString.length()) / 2;
     int rightPaddingPlayerName = terminalWidth - playerNameString.length() - leftPaddingPlayerName - 2;
-    System.out.println("╔" + fillWithCharacter('=', terminalWidth - 2) + "╗");
-    System.out.println("║" + fillWithCharacter(' ', leftPaddingPlayerName) + playerNameString + fillWithCharacter(' ', rightPaddingPlayerName) + "║");
-    System.out.println("╚" + fillWithCharacter('=', terminalWidth - 2) + "╝");
+    System.out.println("╔" + ViewUtils.fillWithCharacter('=', terminalWidth - 2) + "╗");
+    System.out.println("║" + ViewUtils.fillWithCharacter(' ', leftPaddingPlayerName) + playerNameString + ViewUtils.fillWithCharacter(' ', rightPaddingPlayerName) + "║");
+    System.out.println("╚" + ViewUtils.fillWithCharacter('=', terminalWidth - 2) + "╝");
 
     // Display last played card
     String lastCardPlayedString = "Last card played: " + ViewPlayerStatus.createCardClassStringName(lastPlayedCard);
@@ -125,9 +124,9 @@ public final class ViewPlayerStatus {
     //int leftPaddingLastCardPlayed = (terminalWidth - lastCardPlayedString.length()) / 2;
     //int rightPaddingLastCardPlayed = terminalWidth - lastCardPlayedString.length() - leftPaddingLastCardPlayed - 2;
     System.out.println(" ");
-    System.out.println("┌" + fillWithCharacter('─', terminalWidth - 2) + "┐");
-    System.out.println("│" + fillWithCharacter(' ', centerLastCard) + lastCardPlayedString + fillWithCharacter(' ', centerLastCard) + "│");
-    System.out.println("└" + fillWithCharacter('─', terminalWidth - 2) + "┘");
+    System.out.println("┌" + ViewUtils.fillWithCharacter('─', terminalWidth - 2) + "┐");
+    System.out.println("│" + ViewUtils.fillWithCharacter(' ', centerLastCard) + lastCardPlayedString + ViewUtils.fillWithCharacter(' ', centerLastCard) + "│");
+    System.out.println("└" + ViewUtils.fillWithCharacter('─', terminalWidth - 2) + "┘");
 
     // Display player's hand in a table-like format
     System.out.println(" ");
@@ -139,56 +138,40 @@ public final class ViewPlayerStatus {
   private static void displayCardTable(ArrayList<CardClass> playerHand) {
     int cardWidth = 15;
     int cardsPerRow = 5;
-    char invisibleEmoticon = '\u200B'; // Carácter de espacio sin ancho
+    char invisibleEmoticon = '\u200B'; // Wide space char
 
     int numRows = (int) Math.ceil((double) playerHand.size() / cardsPerRow);
 
+    // Create a row with 5 cards (cardsPerRow as MAX)
     for (int row = 0; row < numRows; row++) {
+      // Creating the top part of a card.
       for (CardClass card : playerHand.subList(row * cardsPerRow, Math.min((row + 1) * cardsPerRow, playerHand.size()))) {
-        System.out.print("┌" + fillWithCharacter('─', cardWidth - 2) + "┐ ");
+        System.out.print("┌" + ViewUtils.fillWithCharacter('─', cardWidth - 2) + "┐ ");
       }
-      System.out.println(); // Mueve a la siguiente línea
-
+      System.out.println();
+      // Creating the middle part of a card. Trying to center properly the name of the card.
       for (CardClass card : playerHand.subList(row * cardsPerRow, Math.min((row + 1) * cardsPerRow, playerHand.size()))) {
         String cardName = ViewPlayerStatus.createCardClassStringName(card);
         int totalPadding = cardWidth - cardName.length();
         int leftPaddingCard = totalPadding / 2;
         int rightPaddingCard = totalPadding - leftPaddingCard;
 
-        // Ajustar el espacio de relleno para alinear el nombre de la carta en el centro
+        // Adjust the padding space to align the card name in the center
         if (totalPadding % 2 != 0) {
           leftPaddingCard += 1;
         }
 
-        String invisiblePadding = fillWithCharacter(invisibleEmoticon, 2); // Ajusta según sea necesario
-        System.out.print("│" + fillWithCharacter(invisibleEmoticon, leftPaddingCard-2) + cardName + invisiblePadding + fillWithCharacter(invisibleEmoticon, rightPaddingCard-2) + "│ ");
+        String invisiblePadding = ViewUtils.fillWithCharacter(invisibleEmoticon, 2);
+        System.out.print("│" + ViewUtils.fillWithCharacter(invisibleEmoticon, leftPaddingCard-2) + cardName + invisiblePadding + ViewUtils.fillWithCharacter(invisibleEmoticon, rightPaddingCard-2) + "│ ");
       }
-      System.out.println(); // Mueve a la siguiente línea
-
+      System.out.println();
+      // Bottom part of the card.
       for (CardClass card : playerHand.subList(row * cardsPerRow, Math.min((row + 1) * cardsPerRow, playerHand.size()))) {
-        System.out.print("└" + fillWithCharacter('─', cardWidth - 2) + "┘ ");
+        System.out.print("└" + ViewUtils.fillWithCharacter('─', cardWidth - 2) + "┘ ");
       }
-      System.out.println(); // Mueve a la siguiente línea
+      System.out.println();
     }
   }
 
-
-
-  // Método de utilidad para llenar una cadena con un carácter dado
-  private static String fillWithCharacter(char character, int length) {
-    StringBuilder result = new StringBuilder();
-    for (int i = 0; i < length; i++) {
-      result.append(character);
-    }
-    return result.toString();
-  }
-
-
-
-
-
-  private static int getIntelliJTerminalWidth() {
-    // You can adjust this according to your needs
-    return 160;
-  }
+  
 }

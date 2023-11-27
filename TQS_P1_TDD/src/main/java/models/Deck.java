@@ -3,7 +3,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
-
+// The Deck class has the playable cards which are the ones that can be drawn and has also the played cards,
+// which are the ones that the players already played. Also creates (initializes) the deck with all the 108 cards and
+// shuffles them. Moreover, it manages giving cards to a player and refilling the PlayableCards when gets empty.
 public class Deck {
   /*Attributes*/
   private int numCards;

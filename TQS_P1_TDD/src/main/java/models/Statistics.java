@@ -3,6 +3,8 @@ package models;
 import javax.xml.crypto.Data;
 import java.util.ArrayList;
 
+// We were using these functions in almost all the classes of the view, so we extracted them in an external
+// class to not repeat so much code.
 public class Statistics {
     /** The player name shown on the Statistics DB file. */
     private String player_name;

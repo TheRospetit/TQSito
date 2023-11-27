@@ -32,35 +32,17 @@ class TestDataBase {
 
   @Before
   public void setUpStreams() {
-    // Redirigir la salida estándar y la salida de errores a ByteOutputStreams
+    // Redirect stdout and error output to ByteOutputStreams
     System.setOut(new PrintStream(outContent));
     System.setErr(new PrintStream(errContent));
   }
 
   @After
   public void restoreStreams() {
-    // Restaurar la salida estándar y la salida de errores originales después de las pruebas
+    // Restore original stdout and error output after testing
     System.setOut(originalOut);
     System.setErr(originalErr);
   }
-/*
-  @Test
-  public void testHandleIOException_PrintStackTrace() {
-    // Arrange
-    DataBase dataBase = new DataBase();
-
-    // Act
-    dataBase.handleIOException(new IOException("Test Exception"));
-
-    // Assert
-    String consoleOutput = outContent.toString();
-    String errorOutput = errContent.toString();
-
-    assertTrue(consoleOutput.isEmpty());  // No debería haber salida en System.out
-    assertTrue(errorOutput.contains("Test Exception"));  // Debería haber salida en System.err
-  }
-*/
-
 
   @BeforeEach
   void setUp() {
@@ -92,20 +74,15 @@ class TestDataBase {
     PrintStream originalOut = System.out;
     System.setOut(new PrintStream(outputStream));
 
-    // Crear instancia de la clase
     DataBase testDB = new DataBase(testFileName);
 
-    // Llamar al método createFile()
     testDB.createFile();
-
-    // Restaurar la salida estándar
     System.setOut(originalOut);
 
-    // Verificar que se haya creado el archivo
     File file = new File(testFileName);
     assertTrue(file.exists());
 
-    // Verificar la salida en la consola
+    // Check the output in the console
     String consoleOutput = outputStream.toString().trim();
     assertTrue(consoleOutput.contains("File created:") || consoleOutput.contains("File already exists"));
   }
@@ -167,35 +144,15 @@ class TestDataBase {
     assertEquals("TestPlayer,1,1,1", formattedLine);
   }
 
-  @Test
-  void testStatToTableFormatPrintf() {
-    Statistics stat = new Statistics(PLAYER_NAME, 1, 1, 1);
-    testDB.statToTableFormatPrintf(stat);
-    // Verificar que no se produzcan excepciones durante la impresión
-  }
-
-  @Test
-  public void testViewAllStatistics() throws IOException {
-    // Arrange
-    DataBase dataBase = new DataBase(TEST_FILE_NAME);
-    Statistics testStat = new Statistics("Player1", 10, 5, 20);
-    dataBase.writeToFile(dataBase.formatStatLine(testStat), dataBase);
-
-    // Act
-    dataBase.viewAllStatistics(dataBase);
-
-  }
-
 
   @Test
   public void testWriteAndSearchString() {
     DataBase dataBase = new DataBase(TEST_FILE_NAME);
 
-    // Escribir una línea en el archivo
     String lineToAdd = "Player1,10,5,20";
     dataBase.writeToFile(lineToAdd, dataBase);
 
-    // Buscar la línea recién agregada
+    //Find the newly added line.
     String result = dataBase.searchString("Player1");
 
     assertEquals(lineToAdd, result);

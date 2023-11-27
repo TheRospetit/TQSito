@@ -6,13 +6,15 @@ import java.util.Scanner;
 import models.*;
 
 import view.*;
-
+// The game controller, part of the MVC pattern. It is the main loop (and main) of the game, and by running it you
+// can play the game. Because the controller calls the views and models.
 public class Main {
     // Global constants to change the game configs.
+    public static final int TERMINAL_WIDTH = 160;
     public static final int MIN_PLAYERS = 2;
     public static final int MAX_PLAYERS = 6;
     public static final int EXIT_OPTION = 4; // Setting the exitOption value. In case we add more options, all
-    // prints will change the range of correct values (and the While too).
+    // prints will change the range of correct values (and the While too). Same with MAX and MIN_PLAYERS
 
 
     public Main() { main(null);}
@@ -24,15 +26,12 @@ public class Main {
         DataBase myDatabase = new DataBase("stats.txt");
         myDatabase.createFile();
 
-
         Scanner scanner = new Scanner(System.in);
         ScannerClass myScanner = new ScannerClass(scanner);
-
 
         int choice; // Switch case menu option(choice) by the user.
         do {
             ViewMenu.displayMenu();
-
             // Get user choice
             System.out.print("Enter your choice (1-" + EXIT_OPTION + "): ");;
             while (!myScanner.hasNextInt()) {
@@ -49,7 +48,6 @@ public class Main {
                     while (numPlayers < MIN_PLAYERS || numPlayers > MAX_PLAYERS){
                         numPlayers = getNumberOfPlayers();
                     }
-
 
                     ArrayList<Player> myPlayerList = getPlayerNames(numPlayers);
 
@@ -68,6 +66,7 @@ public class Main {
                     game.giveHand(); // Initializes the deck and gives the hands of each player
                     game.deck.setCardPlayed(game.deck.getPlayableCards().get(0)); // We set the first card
 
+                    // Main loop. Play turns until there is a winner.
                     while (!game.gameEndedWinner()) {
                         Player actualPlayer = game.getListPlayers().get(game.getNextPlayerIndex());
                         ViewChangeTurn.showTurnChange(actualPlayer.getName());
@@ -88,6 +87,7 @@ public class Main {
                         if (game.playerRound(actualPlayer, cardPlayed)){
                             System.out.println("Card drawn: Showing hand again:");
                             ViewPlayerStatus.displayPlayerStatus(actualPlayer.getName(), actualPlayer.getHand(), game.getLastCardPlayed());
+                            ViewChangeTurn.waitForKeypress();
                         }
 
                     }
@@ -99,12 +99,13 @@ public class Main {
                     }
                     ViewGameOver.displayEndGame(winnerName);
 
+                    // Add the proper statistics to each Player and write them to the database in case the
+                    // player wasn't there, or replace and rewrite the stats in case the player played before.
                     for (Statistics statAct : myStatList){
                         if (statAct.getPlayer_name().equals(winnerName)){
                             statAct.addWin();
                         }
                         statAct.addGame();
-
                         String actualString = myDatabase.formatStatLine(statAct);
                         String linePlayer = myDatabase.searchString(statAct.getPlayer_name());
                         if (linePlayer != null) {
@@ -114,6 +115,8 @@ public class Main {
                             myDatabase.writeToFile(actualString, myDatabase);
                         }
                     }
+
+                    ViewStatistics.viewPlayerStatistics(myStatList);
                     break;
                 case 2:
                     // Add code for option 2 (View Statistics)
@@ -126,7 +129,7 @@ public class Main {
                     ViewChangeTurn.waitForKeypress();
                     break;
                 case 4:
-                    // Option 3 (Exit)
+                    // Option 4 (Exit)
                     System.out.println("Exiting the game. Goodbye!");
                     break;
                 default:
@@ -138,7 +141,7 @@ public class Main {
 
     }
 
-
+    // Method to get the number of players being sure that the value is correct
     private static int getNumberOfPlayers() {
         Scanner scanner = new Scanner(System.in);
         int numPlayers = 0;
@@ -146,7 +149,7 @@ public class Main {
         // Input validation
         while (numPlayers <= 0) {
             try {
-                System.out.print("Enter the number of players ("+MIN_PLAYERS + "-" + MAX_PLAYERS + "): ");
+                ViewAskPlayers.displayAskNumPlayers(MIN_PLAYERS, MAX_PLAYERS);
                 numPlayers = scanner.nextInt();
 
                 if (numPlayers <= 1) {
@@ -162,6 +165,7 @@ public class Main {
 
         return numPlayers;
     }
+    // Gets all the player names, asking the user to insert each player name (as much as players set before).
     private static ArrayList<Player> getPlayerNames(int numPlayers) {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Player> playerNames = new ArrayList<>();

@@ -4,6 +4,9 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+// The DataBase manages the file that contains the statistics of players previous games and its access.
+// With this class we can create a file, write to the file, read it and search a string, and even replace it.
+// Very useful to manage the Statistics DDBB.
 public class DataBase {
 
     private String fileName;
@@ -113,43 +116,6 @@ public class DataBase {
         return stat.getPlayer_name() + "," + stat.getNumGames() + "," + stat.getNumWins() + "," + stat.getNumCards();
     }
 
-    public void statToTableFormatPrintf(Statistics stat) {
-        System.out.printf("\t| %-16s | %8d | %8d | %8d |%n", stat.getPlayer_name(),
-                stat.getNumGames(), stat.getNumWins(), stat.getNumCards());
-    }
 
-    public void viewAllStatistics(DataBase myDB) {
-        ArrayList<String> statMenuTitle = new ArrayList<>();
-        statMenuTitle.add("=============================================================");
-        statMenuTitle.add("\t\t\t\t\t VIEW ALL STATISTICS");
-        statMenuTitle.add("=============================================================");
-
-        for (String line : statMenuTitle) {
-            System.out.println(line);
-        }
-
-        String separator = "\t-----------------------------------------------------%n";
-        System.out.printf(separator);
-        System.out.printf("\t| %-16s | %-8s | %-8s | %-8s |%n", "PLAYER", "# Games", "# WINS", "#CARDS+2");
-        System.out.printf("\t| %-16s | %-8s | %-8s | %-8s |%n", "NAME", "Played", "", " DRAWN+4");
-        System.out.printf(separator);
-
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))) {
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                Statistics stat = myDB.stringLineToStatistics(line);
-                statToTableFormatPrintf(stat);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        System.out.printf(separator);
-    }
-    /*
-    protected void handleIOException(IOException e) {
-        e.printStackTrace(); // Log or handle the exception as needed
-    }
-    */
 
 }

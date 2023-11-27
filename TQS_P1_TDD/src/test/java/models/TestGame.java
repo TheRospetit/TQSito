@@ -35,12 +35,12 @@ public class TestGame {
             -> new RuntimeException("Field not found"));
         assertEquals(int.class, numPlayers.getType());
 
-        //TEST TO VERIFY IF ATRIBUTE currentPlayer DOES EXIST
+        //TEST TO VERIFY IF 88 currentPlayer DOES EXIST
         Field currentPlayer = allFields.stream().filter(field -> field.getName().equals("currentPlayer")).findFirst().orElseThrow(()
             -> new RuntimeException("Field not found"));
         assertEquals(int.class, currentPlayer.getType());
 
-        //TEST TO VERIFY IF ATRIBUTE iterator DOES EXIST
+        //TEST TO VERIFY IF ATTRIBUTE iterator DOES EXIST
         Field iterator = allFields.stream().filter(field -> field.getName().equals("iterator")).findFirst().orElseThrow(()
             -> new RuntimeException("Field not found"));
         assertEquals(Integer.class, iterator.getType());

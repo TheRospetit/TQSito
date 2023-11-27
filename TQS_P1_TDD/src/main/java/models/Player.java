@@ -3,7 +3,9 @@ package models;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
+// The player class manages all the features that a player can do on the game. Each player has a name, a boolean
+// value to determine if they won the game or not, a hand of cards to play the game and a card to play to manage if
+// the card that is trying to play can be played.
 public class Player {
 
     private String name;
@@ -12,13 +14,11 @@ public class Player {
     private CardClass cardToPlay;
     private ArrayList<CardClass> hand = new ArrayList<>();
 
-    // Constructor
+    // Constructors
     public Player(){
         name = "";
         winner = false;
     }
-
-    // Params constructor
     public Player(String name, boolean winner){
         this.name = name;
         this.winner = winner;

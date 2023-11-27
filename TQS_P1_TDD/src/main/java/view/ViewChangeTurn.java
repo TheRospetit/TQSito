@@ -2,6 +2,8 @@ package view;
 
 import java.util.Scanner;
 
+// View of the change turn part of the main loop. Shows the next turn's player name. Also asks to press ENTER key
+// each time to make sure that only the current player is looking at the screen.
 public final class ViewChangeTurn {
 
   /*
@@ -18,17 +20,20 @@ public final class ViewChangeTurn {
     for (int i = 0; i < 50; i++) {
       System.out.println();
     }
+    // Just in case it works on the terminal used for the execution.
+    System.out.print("\033[H\033[2J");
+    System.out.flush();
   }
 
   public static void waitForKeypress() {
     try {
-      int terminalWidth = getIntelliJTerminalWidth();
+      int terminalWidth = ViewUtils.getIntelliJTerminalWidth();
       String pressEnterString = "Press ENTER to continue . . .";
       int centerPressEnter = (terminalWidth - (pressEnterString.length() + 2)) / 2;
       System.out.println(" "); // New line (could be \n but is more visual now).
-      System.out.println("┌" + fillWithCharacter('─', terminalWidth - 2) + "┐");
-      System.out.println("│" + fillWithCharacter(' ', centerPressEnter) + pressEnterString + fillWithCharacter(' ', centerPressEnter) + " │");
-      System.out.println("└" + fillWithCharacter('─', terminalWidth - 2) + "┘");
+      System.out.println("┌" + ViewUtils.fillWithCharacter('─', terminalWidth - 2) + "┐");
+      System.out.println("│" + ViewUtils.fillWithCharacter(' ', centerPressEnter) + pressEnterString + ViewUtils.fillWithCharacter(' ', centerPressEnter) + " │");
+      System.out.println("└" + ViewUtils.fillWithCharacter('─', terminalWidth - 2) + "┘");
 
       // Use Scanner to wait for the user to press a key
       Scanner scanner = new Scanner(System.in);
@@ -39,8 +44,9 @@ public final class ViewChangeTurn {
   }
 
   public static void showTurnChange(String playerName) {
+    ViewChangeTurn.clearScreen();
     // Get the width of the terminal in IntelliJ
-    int terminalWidth = getIntelliJTerminalWidth();
+    int terminalWidth = ViewUtils.getIntelliJTerminalWidth();
 
     String nextPlayerString = "Next turn. Player name:";
 
@@ -50,24 +56,12 @@ public final class ViewChangeTurn {
 
 
     // Print the turn change with the player name centered
-    System.out.println("╔" + fillWithCharacter('=', terminalWidth - 2) + "╗");
-    System.out.println("║" + fillWithCharacter(' ', centerTitle) + nextPlayerString + fillWithCharacter(' ', centerTitle) + " ║");
-    System.out.println("║" + fillWithCharacter(' ', centerAt) + playerName + fillWithCharacter(' ', centerAt) + " ║");
-    System.out.println("╚" + fillWithCharacter('=', terminalWidth - 2) + "╝");
+    System.out.println("╔" + ViewUtils.fillWithCharacter('=', terminalWidth - 2) + "╗");
+    System.out.println("║" + ViewUtils.fillWithCharacter(' ', centerTitle) + nextPlayerString + ViewUtils.fillWithCharacter(' ', centerTitle) + " ║");
+    System.out.println("║" + ViewUtils.fillWithCharacter(' ', centerAt) + playerName + ViewUtils.fillWithCharacter(' ', centerAt) + " ║");
+    System.out.println("╚" + ViewUtils.fillWithCharacter('=', terminalWidth - 2) + "╝");
 
     waitForKeypress();
   }
 
-  public static String fillWithCharacter(char character, int length) {
-    StringBuilder result = new StringBuilder();
-    for (int i = 0; i < length; i++) {
-      result.append(character);
-    }
-    return result.toString();
-  }
-
-  public static int getIntelliJTerminalWidth() {
-    // You can adjust this according to your needs
-    return 160;
-  }
 }
