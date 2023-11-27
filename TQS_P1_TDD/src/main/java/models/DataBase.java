@@ -24,9 +24,9 @@ public class DataBase {
         try {
             File file = new File(fileName);
             if (file.createNewFile()) {
-                System.out.println("File created: " + file.getName());
+                System.out.println("File created: " + file.getName() + ". Statistics for the next games will be saved here.");
             } else {
-                System.out.println("File already exists.");
+                System.out.println("File already exists. Using an existing DataBase, previous game statistics will be saved.");
             }
         } catch (IOException e) {
             e.printStackTrace();

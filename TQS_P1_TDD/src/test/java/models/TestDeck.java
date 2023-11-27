@@ -1,12 +1,13 @@
 package models;
 
 import org.junit.jupiter.api.Test;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 public class TestDeck {
@@ -91,4 +92,53 @@ public class TestDeck {
     assert(played.isEmpty()) : "refillPlayableCards incorrect played cards";
   }
 
+  @Test
+  public void testLoopFunctionality() {
+    List<String> colours = Arrays.asList(Colors.BLUE, Colors.RED, Colors.GREEN, Colors.YELLOW);
+    List<CardClass> playableCards = new ArrayList<>();
+
+    for (String color : colours) {
+      playableCards.add(new CardClass(0, color));
+      playableCards.add(new CardClass(Actions.PLUS_FOUR, null));
+      playableCards.add(new CardClass(Actions.COLOR_SWAP, null));
+    }
+
+    // Functionality test
+    assert (playableCards.size() == 3 * colours.size()) : "The number of letters generated is not what was expected.";
+
+    // Making sure special cards have the correct values
+    for (CardClass card : playableCards) {
+      if (card.getAction() != null && card.getAction().equals(Actions.PLUS_FOUR)) {
+        assert (card.getColour() == null) : "The PLUS_FOUR card should have a null color.";
+      }
+      if (card.getAction() != null && card.getAction().equals(Actions.COLOR_SWAP)) {
+        assert (card.getColour() == null) : "The COLOR_SWAP card should have a null color.";
+      }
+    }
+  }
+
+  @Test
+  public void testLoopBoundaryConditions() {
+    List<String> colors = Arrays.asList(Colors.BLUE, Colors.RED, Colors.GREEN, Colors.YELLOW);
+    List<CardClass> playableCards = new ArrayList<>();
+
+    // Limits test
+    for (String color : colors) {
+      playableCards.add(new CardClass(0, color));
+      playableCards.add(new CardClass(Actions.PLUS_FOUR, null));
+      playableCards.add(new CardClass(Actions.COLOR_SWAP, null));
+    }
+
+    assert (playableCards.size() == 3 * colors.size()) : "The number of letters generated is not what was expected.";
+
+    // Making sure special cards have the correct values
+    for (CardClass card : playableCards) {
+      if (card.getAction() != null && card.getAction().equals(Actions.PLUS_FOUR)) {
+        assert (card.getColour() == null) : "The PLUS_FOUR card should have a null color.";
+      }
+      if (card.getAction() != null && card.getAction().equals(Actions.COLOR_SWAP)) {
+        assert (card.getColour() == null) : "The COLOR_SWAP card should have a null color.";
+      }
+    }
+  }
 }

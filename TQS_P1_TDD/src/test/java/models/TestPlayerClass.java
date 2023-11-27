@@ -251,8 +251,8 @@ public class TestPlayerClass {
         assert(testedPlayer1.getWinner() == false) : "The player should not be a winner because his/her hand is not void";
 
 
-        // Testing throwing a +2 action card and then different incorrect inputs values
-        testedGame.getMyScanner().setInputsList("a", "90", "$", "2", "1");
+        // Hand size: 9 cards. Possible values [1-9]
+        testedGame.getMyScanner().setInputsList("0", "1", "2", "4", "8", "9", "10");
         subList.clear();
         subList.add(new CardClass(Actions.PLUS_TWO, Colors.RED));  subList.add(new CardClass(5, Colors.BLUE));
         onlyNumbersHand = new ArrayList<>(subList);
