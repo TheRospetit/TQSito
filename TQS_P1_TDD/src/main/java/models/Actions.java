@@ -15,7 +15,7 @@ public final class Actions {
             if (action.equals(Actions.BLOCK)){
                 actionString = String.valueOf('\u26D4');
             } else if (action.equals(Actions.REVERSE)){
-                actionString = String.valueOf('⭾') ; //String.valueOf(''); // ⇄ U+1D996 ⭾ 𝦕
+                actionString = String.valueOf('⭾') ; //String.valueOf(''); // ⇄ U+1D996 ⭾
             } else if (action.equals(Actions.PLUS_TWO)){
                 actionString = "+2";
             } else if (action.equals(Actions.PLUS_FOUR)){
