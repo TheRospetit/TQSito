@@ -5,6 +5,6 @@ Player4,8,6,40
 Player5,400,300,2000
 Player500,505,505,775
 Rage quit,1,0,0
-pol,1,1,0
+pol,2,2,0
 jan,1,0,0
-cachopo,1,0,2
+cachopo,2,0,16

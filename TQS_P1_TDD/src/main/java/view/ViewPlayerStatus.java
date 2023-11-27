@@ -161,7 +161,7 @@ public final class ViewPlayerStatus {
         }
 
         String invisiblePadding = fillWithCharacter(invisibleEmoticon, 2); // Ajusta según sea necesario
-        System.out.print("│" + fillWithCharacter(invisibleEmoticon, leftPaddingCard-1) + cardName + invisiblePadding + fillWithCharacter(invisibleEmoticon, rightPaddingCard-1) + "│ ");
+        System.out.print("│" + fillWithCharacter(invisibleEmoticon, leftPaddingCard-2) + cardName + invisiblePadding + fillWithCharacter(invisibleEmoticon, rightPaddingCard-2) + "│ ");
       }
       System.out.println(); // Mueve a la siguiente línea
 
