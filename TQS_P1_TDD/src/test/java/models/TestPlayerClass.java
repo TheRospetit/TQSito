@@ -313,6 +313,7 @@ public class TestPlayerClass {
 
         // Testing throwing a +2 action card and then different incorrect inputs values
         testedGame.getMyScanner().setInputsList("a", "1", "$", "4", "8", "-9", "100");
+        subList = testedDeck2.getPlayableCards().subList(14,15);
         subList.clear();
         subList.add(new CardClass(Actions.PLUS_TWO, Colors.RED));  subList.add(new CardClass(5, Colors.BLUE));
         onlyNumbersHand = new ArrayList<>(subList);
@@ -326,6 +327,7 @@ public class TestPlayerClass {
 
         // Border limit values. Hand with 9 cards. Correct value range: [1-9]
         testedGame.getMyScanner().setInputsList("0", "1", "2", "4", "8", "9", "10");
+        subList = testedDeck2.getPlayableCards().subList(14,15);
         subList.clear();
         subList.add(new CardClass(Actions.PLUS_TWO, Colors.RED));  subList.add(new CardClass(5, Colors.BLUE));
         onlyNumbersHand = new ArrayList<>(subList);
